@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
@@ -6,8 +8,27 @@ import { UserModule } from '../user/user.module';
 import { ProposalModule } from '../proposal/proposal.module';
 import { CommentModule } from '../comment/comment.module';
 
+const typeOrmModule = TypeOrmModule.forRoot({
+  type: 'postgres',
+  host: 'localhost',
+  port: 5432,
+  username: 'admin',
+  password: '666666',
+  database: 'proposaler',
+  entities: [],
+  synchronize: true,
+  logging: 'all',
+  autoLoadEntities: true,
+});
+
 @Module({
-  imports: [AuthModule, UserModule, ProposalModule, CommentModule],
+  imports: [
+    typeOrmModule,
+    AuthModule,
+    UserModule,
+    ProposalModule,
+    CommentModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

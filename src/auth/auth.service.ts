@@ -7,6 +7,6 @@ export class AuthService {
   }
 
   signUp() {
-    return 'signUp'
+    return 'signUp';
   }
 }
