@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { createQueryBuilder, Repository } from 'typeorm';
 
 import { Proposal } from './proposal.enity';
 
@@ -12,10 +12,15 @@ export class ProposalService {
   ) {}
 
   getAll() {
-    return this.proposalRepository.find();
+    return createQueryBuilder('Proposal')
+      .leftJoinAndSelect('Proposal.author', 'author')
+      .getMany();
   }
 
   getById(id: number) {
-    return this.proposalRepository.find({ id });
+    return createQueryBuilder('Proposal')
+      .leftJoinAndSelect('Proposal.author', 'author')
+      .where('Proposal.id = :id', { id })
+      .getOne();
   }
 }
