@@ -2,30 +2,38 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Get,
   Post,
+  Req,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 
 import { AuthService } from './auth.service';
-import { SignInDto } from './dto/signIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
+import { LocalAuthGuard } from './local-auth.guard';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('sign-in')
-  signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto);
+  signIn(@Req() req) {
+    return this.authService.login(req.user);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('sign-up')
   signUp(@Body() signUpDto: SignUpDto) {
     return this.authService.signUp(signUpDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Req() req) {
+    return req.user;
   }
 }
