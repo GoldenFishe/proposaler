@@ -26,7 +26,7 @@ export class CommentController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('/create')
+  @Post('create')
   create(@Body() createDto: CreateDto) {
     return this.commentService.create(createDto);
   }

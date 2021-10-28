@@ -20,11 +20,9 @@ export class CommentLike {
   @Column()
   authorId: number;
 
-  @ManyToOne(() => Comment, { nullable: false, eager: true })
-  @JoinColumn({ name: 'commentId' })
+  @ManyToOne(() => Comment, (comment) => comment.likes, { nullable: false })
   comment: Comment;
 
-  @ManyToOne(() => User, { nullable: false, eager: true })
-  @JoinColumn({ name: 'authorId' })
+  @ManyToOne(() => User, { nullable: false })
   author: User;
 }
