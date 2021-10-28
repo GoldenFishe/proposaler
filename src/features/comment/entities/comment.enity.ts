@@ -6,9 +6,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Proposal } from '../proposal/proposal.enity';
-import { User } from '../user/user.entity';
 import { Exclude } from 'class-transformer';
+
+import { Proposal } from '../../proposal/proposal.enity';
+import { User } from '../../user/user.entity';
 
 @Entity()
 export class Comment {

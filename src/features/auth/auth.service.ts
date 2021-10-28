@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UserService } from '../user/user.service';
-import { SignInDto } from './dto/signIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
 import { User } from '../user/user.entity';
 
@@ -13,15 +12,9 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  login(user: User) {
+  signIn(user: User) {
     const payload = { username: user.username, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
-
-  signIn(signInDto: SignInDto) {
-    return this.userService.getByLoginAndPassword(signInDto);
+    return { access_token: this.jwtService.sign(payload) };
   }
 
   signUp(signUpDto: SignUpDto) {

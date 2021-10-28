@@ -2,7 +2,6 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
-  Get,
   Post,
   Req,
   UseGuards,
@@ -11,8 +10,7 @@ import {
 
 import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/signUp.dto';
-import { LocalAuthGuard } from './local-auth.guard';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -22,18 +20,12 @@ export class AuthController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('sign-in')
   signIn(@Req() req) {
-    return this.authService.login(req.user);
+    return this.authService.signIn(req.user);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('sign-up')
   signUp(@Body() signUpDto: SignUpDto) {
     return this.authService.signUp(signUpDto);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Req() req) {
-    return req.user;
   }
 }

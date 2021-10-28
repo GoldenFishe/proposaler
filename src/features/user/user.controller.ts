@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Req } from '@nestjs/common';
 
 import { UserService } from './user.service';
 import { GetByIdParams } from './dto/getByIdParams';
@@ -6,6 +6,11 @@ import { GetByIdParams } from './dto/getByIdParams';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
+
+  @Get('profile')
+  getProfile(@Req() req) {
+    return req.user;
+  }
 
   @Get(':id')
   getById(@Param() params: GetByIdParams) {

@@ -2,8 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Comment } from './comment.enity';
+import { Comment } from './entities/comment.enity';
 import { CreateDto } from './dto/create.dto';
+import { LikeDto } from './dto/like.dto';
+import { DislikeDto } from './dto/dislike.dto';
 
 @Injectable()
 export class CommentService {
@@ -20,4 +22,8 @@ export class CommentService {
     const { proposalId } = await this.commentRepository.save(comment);
     return this.getByProposalId(proposalId);
   }
+
+  toggleLike(likeDto: LikeDto) {}
+
+  toggleDislike(dislikeDto: DislikeDto) {}
 }
