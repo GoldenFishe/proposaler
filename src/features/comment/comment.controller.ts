@@ -31,12 +31,12 @@ export class CommentController {
     return this.commentService.create(createDto);
   }
 
-  @Patch('like')
+  @Post('like')
   like(@Body() likeDto: LikeDto) {
     return this.commentService.toggleLike(likeDto);
   }
 
-  @Patch('dislike')
+  @Post('dislike')
   dislike(@Body() dislikeDto: DislikeDto) {
     return this.commentService.toggleDislike(dislikeDto);
   }
