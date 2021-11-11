@@ -3,16 +3,17 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { Proposal } from '../../proposal/proposal.enity';
+import { Proposal } from '../../proposal/entities/proposal.enity';
 import { User } from '../../user/user.entity';
 import { CommentLike } from './commentLike.entity';
+import { CommentDislike } from './commentDislike.entity';
 
 @Entity()
 export class Comment {
@@ -24,9 +25,6 @@ export class Comment {
 
   @CreateDateColumn()
   createDatetime: Date;
-
-  @Column({ default: 0 })
-  dislikes: number;
 
   @Exclude()
   @Column()
@@ -42,8 +40,11 @@ export class Comment {
   @ManyToOne(() => User, { nullable: false })
   author: User;
 
-  @ManyToMany(() => CommentLike, (commentLike) => commentLike.comment, {
-    nullable: false,
-  })
+  @ManyToMany(() => CommentLike, { nullable: false, eager: true })
+  @JoinTable()
   likes: CommentLike[];
+
+  @ManyToMany(() => CommentDislike, { nullable: false, eager: true })
+  @JoinTable()
+  dislikes: CommentDislike[];
 }

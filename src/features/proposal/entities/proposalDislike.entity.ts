@@ -9,12 +9,12 @@ import {
 import { User } from '../../user/user.entity';
 
 @Entity()
-export class CommentDislike {
+export class ProposalDislike {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  commentId: number;
+  proposalId: number;
 
   @Column()
   authorId: number;

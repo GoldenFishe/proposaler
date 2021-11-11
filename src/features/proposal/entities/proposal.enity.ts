@@ -5,10 +5,14 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   CreateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { User } from '../user/user.entity';
+import { User } from '../../user/user.entity';
+import { ProposalLike } from './proposalLike.entity';
+import { ProposalDislike } from './proposalDislike.entity';
 
 @Entity()
 export class Proposal {
@@ -24,12 +28,6 @@ export class Proposal {
   @CreateDateColumn()
   createDatetime: Date;
 
-  @Column({ default: 0 })
-  likes: number;
-
-  @Column({ default: 0 })
-  dislikes: number;
-
   @Exclude()
   @Column()
   authorId: number;
@@ -37,4 +35,12 @@ export class Proposal {
   @ManyToOne(() => User, { nullable: false, eager: true })
   @JoinColumn({ name: 'authorId' })
   author: User;
+
+  @ManyToMany(() => ProposalLike, { nullable: false, eager: true })
+  @JoinTable()
+  likes: ProposalLike[];
+
+  @ManyToMany(() => ProposalDislike, { nullable: false, eager: true })
+  @JoinTable()
+  dislikes: ProposalDislike[];
 }

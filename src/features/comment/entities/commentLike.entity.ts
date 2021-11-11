@@ -6,7 +6,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Comment } from './comment.enity';
 import { User } from '../../user/user.entity';
 
 @Entity()
@@ -20,9 +19,7 @@ export class CommentLike {
   @Column()
   authorId: number;
 
-  @ManyToOne(() => Comment, (comment) => comment.likes, { nullable: false })
-  comment: Comment;
-
   @ManyToOne(() => User, { nullable: false })
+  @JoinColumn({ name: 'authorId' })
   author: User;
 }
