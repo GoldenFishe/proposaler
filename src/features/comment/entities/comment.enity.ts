@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
@@ -14,6 +15,7 @@ import { Proposal } from '../../proposal/entities/proposal.enity';
 import { User } from '../../user/user.entity';
 import { CommentLike } from './commentLike.entity';
 import { CommentDislike } from './commentDislike.entity';
+import { CommentFile } from './commentFile.entity';
 
 @Entity()
 export class Comment {
@@ -47,4 +49,10 @@ export class Comment {
   @ManyToMany(() => CommentDislike, { nullable: false, eager: true })
   @JoinTable()
   dislikes: CommentDislike[];
+
+  @OneToMany(() => CommentFile, (commentFile) => commentFile.comment, {
+    nullable: false,
+    eager: true,
+  })
+  files: CommentFile[];
 }

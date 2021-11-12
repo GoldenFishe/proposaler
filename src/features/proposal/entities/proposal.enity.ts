@@ -7,12 +7,14 @@ import {
   CreateDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { User } from '../../user/user.entity';
 import { ProposalLike } from './proposalLike.entity';
 import { ProposalDislike } from './proposalDislike.entity';
+import { ProposalFile } from './proposalFile.entity';
 
 @Entity()
 export class Proposal {
@@ -43,4 +45,10 @@ export class Proposal {
   @ManyToMany(() => ProposalDislike, { nullable: false, eager: true })
   @JoinTable()
   dislikes: ProposalDislike[];
+
+  @OneToMany(() => ProposalFile, (proposalFiles) => proposalFiles.proposal, {
+    nullable: false,
+    eager: true,
+  })
+  files: ProposalFile[];
 }
