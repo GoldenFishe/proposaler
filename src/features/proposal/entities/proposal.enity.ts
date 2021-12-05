@@ -8,6 +8,7 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
@@ -38,11 +39,19 @@ export class Proposal {
   @JoinColumn({ name: 'authorId' })
   author: User;
 
-  @ManyToMany(() => ProposalLike, { nullable: false, eager: true })
+  @OneToOne(() => ProposalLike, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+  })
   @JoinTable()
   likes: ProposalLike[];
 
-  @ManyToMany(() => ProposalDislike, { nullable: false, eager: true })
+  @ManyToMany(() => ProposalDislike, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+  })
   @JoinTable()
   dislikes: ProposalDislike[];
 

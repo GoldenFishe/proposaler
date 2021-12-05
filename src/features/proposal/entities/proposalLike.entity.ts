@@ -2,11 +2,13 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { User } from '../../user/user.entity';
+import { Proposal } from './proposal.enity';
 
 @Entity()
 export class ProposalLike {
@@ -22,4 +24,8 @@ export class ProposalLike {
   @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'authorId' })
   author: User;
+
+  @ManyToOne(() => Proposal, { nullable: false })
+  @JoinColumn({ name: 'proposalId' })
+  proposal: Proposal;
 }

@@ -1,9 +1,9 @@
-import { IsNumberString } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
 export class LikeDto {
-  @IsNumberString()
+  @IsNumber()
   proposalId: number;
 
-  @IsNumberString()
+  @IsNumber()
   authorId: number;
 }

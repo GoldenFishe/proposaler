@@ -1,0 +1,16 @@
+.proposalCard {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid var(--secondary-color);
+   border-radius: 5px;
+   transition: var(--transition);
+}
+
+.proposalCard:not(:last-child) {
+   margin-bottom: 10px;
+}
+
+.proposalCard:hover {
+   border: 1px solid var(--primary-color);
+   cursor: pointer;
+}

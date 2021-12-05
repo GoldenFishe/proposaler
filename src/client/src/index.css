@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --content-width: 640px;
+    --primary-color: #2DA8EB;
+    --secondary-color: #0B6799;
+    --tertiary-color: #6F9BB3;
+    --primary-text-color: #FFFFFF;
+    --secondary-text-color: #A5B1B8;
+    --transition: all 0.25s ease;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    height: 100%;
+    width: auto;
+}
