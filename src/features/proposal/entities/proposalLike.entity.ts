@@ -1,17 +1,12 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { User } from '../../user/user.entity';
 import { Proposal } from './proposal.enity';
 
 @Entity()
 export class ProposalLike {
+  @Exclude()
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,10 +17,8 @@ export class ProposalLike {
   authorId: number;
 
   @ManyToOne(() => User, { nullable: false })
-  @JoinColumn({ name: 'authorId' })
   author: User;
 
   @ManyToOne(() => Proposal, { nullable: false })
-  @JoinColumn({ name: 'proposalId' })
   proposal: Proposal;
 }

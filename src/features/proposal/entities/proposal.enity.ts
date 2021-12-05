@@ -39,20 +39,18 @@ export class Proposal {
   @JoinColumn({ name: 'authorId' })
   author: User;
 
-  @OneToOne(() => ProposalLike, {
+  @OneToMany(() => ProposalLike, (proposalLike) => proposalLike.proposal, {
     nullable: false,
     eager: true,
     cascade: true,
   })
-  @JoinTable()
   likes: ProposalLike[];
 
-  @ManyToMany(() => ProposalDislike, {
-    nullable: false,
-    eager: true,
-    cascade: true,
-  })
-  @JoinTable()
+  @OneToMany(
+    () => ProposalDislike,
+    (proposalDislike) => proposalDislike.proposal,
+    { nullable: false, eager: true, cascade: true },
+  )
   dislikes: ProposalDislike[];
 
   @OneToMany(() => ProposalFile, (proposalFiles) => proposalFiles.proposal, {

@@ -24,7 +24,18 @@ export class ProposalService {
   ) {}
 
   getAll() {
-    return this.proposalRepository.find();
+    //return this.proposalRepository.find();
+    return this.proposalRepository
+      .createQueryBuilder('proposal')
+      .loadRelationCountAndMap('proposal.likesAmount', 'proposal.likes')
+      .loadRelationCountAndMap('proposal.dislikesAmount', 'proposal.dislikes')
+      .leftJoinAndMapOne(
+        'proposal.liked',
+        'proposal.likes',
+        'likes',
+        'likes.authorId = 1',
+      )
+      .getRawMany();
   }
 
   getById(id: number) {
