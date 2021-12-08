@@ -1,35 +1,54 @@
-import React, { FC } from "react";
+import React, { FC, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 
+import { Proposal } from "../../../../types/Proposal";
+import ActionButtons from "../../../../components/ActionButtons/ActionButtons";
 import styles from "./style.module.css";
-import Like from "../../../../components/Like/Like";
-import Dislike from "../../../../components/Dislike/Dislike";
+import MetaInfo from "../../../../components/MetaInfo/MetaInfo";
 
-interface Props {
-  id: number;
-  title: string;
-  description: string;
+interface Props extends Proposal {
   onLike: (proposalId: number) => void;
   onDislike: (proposalId: number) => void;
 }
 
-const ProposalCard: FC<Props> = ({ id, title, description, onLike, onDislike }) => {
+const ProposalCard: FC<Props> = ({
+                                   id,
+                                   title,
+                                   description,
+                                   author,
+                                   createDatetime,
+                                   likesAmount,
+                                   dislikesAmount,
+                                   isLiked,
+                                   isDisliked,
+                                   onLike,
+                                   onDislike
+                                 }) => {
+  const like = (e: MouseEvent) => {
+    e.preventDefault();
+    onLike(id);
+  };
+  const dislike = (e: MouseEvent) => {
+    e.preventDefault();
+    onDislike(id);
+  };
   return (
     <li className={styles.proposalCard}>
-      <div>
-        <h3>{title}</h3>
-        <p>{description}</p>
+      <Link to={`${id}`} className={styles.proposalCardLink}>
+        <MetaInfo username={author.username} createDatetime={createDatetime} />
         <div>
-          <Like amount={0} liked={true} onClick={(e) => {
-            console.log("like");
-            onLike(id);
-          }} />
-          <Dislike amount={0} disliked={true} onClick={() => {
-            console.log("dislike");
-            onDislike(id);
-          }} />
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <div>
+            <ActionButtons likesAmount={likesAmount}
+                           dislikesAmount={dislikesAmount}
+                           isLiked={isLiked}
+                           isDisliked={isDisliked}
+                           onLike={like}
+                           onDislike={dislike} />
+          </div>
         </div>
-      </div>
+      </Link>
     </li>
   );
 };

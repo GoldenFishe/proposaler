@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import styles from "./style.module.css";
-import { Http } from "../../utils/http";
-import { Proposal } from "../../types/Proposal";
-import ProposalCard from "./components/ProposalCard/Proposal";
+import styles from './style.module.css';
+import { Http } from '../../utils/http';
+import { Proposal } from '../../types/Proposal';
+import ProposalCard from './components/ProposalCard/Proposal';
 
 const Proposals = () => {
   const [proposals, setProposals] = useState<Proposal[]>([]);
@@ -11,7 +11,7 @@ const Proposals = () => {
     getProposals();
 
     async function getProposals() {
-      const proposals = await Http.get<Proposal[]>("/proposal");
+      const proposals = await Http.get<Proposal[]>('/proposal');
       if (proposals) {
         setProposals(proposals);
       }
@@ -20,20 +20,18 @@ const Proposals = () => {
 
   function like(proposalId: number) {
     const authorId = 1;
-    Http.post("/proposal/like", { proposalId, authorId });
+    Http.post('/proposal/like', { proposalId, authorId });
   }
 
   function dislike(proposalId: number) {
     const authorId = 1;
-    Http.post("/proposal/dislike", { proposalId, authorId });
+    Http.post('/proposal/dislike', { proposalId, authorId });
   }
 
   return (
     <ul className={styles.proposals}>
       {proposals.map(proposal => <ProposalCard key={proposal.id}
-                                               id={proposal.id}
-                                               title={proposal.title}
-                                               description={proposal.description}
+                                               {...proposal}
                                                onLike={like}
                                                onDislike={dislike} />)}
     </ul>

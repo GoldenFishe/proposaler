@@ -1,0 +1,14 @@
+.metaInfo {
+    display: flex;
+    flex-flow: row;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.username {
+
+}
+
+.datetime {
+
+}

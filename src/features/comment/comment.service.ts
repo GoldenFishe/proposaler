@@ -23,8 +23,9 @@ export class CommentService {
     private fileRepository: Repository<CommentFile>,
   ) {}
 
-  getByProposalId(id: number) {
-    return this.commentRepository.find({ proposalId: id });
+  async getByProposalId(id: number) {
+    const comments = await this.commentRepository.find({ proposalId: id });
+    return comments.map(this.formatComment);
   }
 
   async create(createDto: CreateDto, files: Express.Multer.File[]) {
@@ -62,5 +63,21 @@ export class CommentService {
   private saveFile(filename: string, commentId: number) {
     const file = this.fileRepository.create({ filename, commentId });
     return this.fileRepository.save(file);
+  }
+
+  private formatComment(comment: Comment) {
+    const isLiked = Boolean(comment.likes.find((like) => like.authorId === 1));
+    const isDisliked = Boolean(comment.dislikes.find((dislike) => dislike.authorId === 1));
+    return {
+      id: comment.id,
+      author: comment.author,
+      createDatetime: comment.createDatetime,
+      files: comment.files,
+      comment: comment.comment,
+      likesAmount: comment.likes.length,
+      dislikesAmount: comment.dislikes.length,
+      isLiked,
+      isDisliked,
+    };
   }
 }

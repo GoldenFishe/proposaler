@@ -1,5 +1,8 @@
 import React, { FC, MouseEvent } from "react";
 
+import like from "../../assets/icons/like.png";
+import styles from "./style.module.css";
+
 interface Props {
   amount: number;
   liked: boolean;
@@ -7,9 +10,11 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ amount, liked, onClick }) => {
+  const style = { color: liked ? "red" : "unset" };
   return (
-    <div onClick={onClick}>
-      {amount} likes. isLiked: {liked}
+    <div onClick={onClick} className={styles.like}>
+      <img src={like} alt="Like" className={styles.icon} />
+      <span style={style}>{amount}</span>
     </div>
   );
 };

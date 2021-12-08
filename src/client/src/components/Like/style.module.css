@@ -1,0 +1,11 @@
+.like {
+    cursor: pointer;
+    display: flex;
+    flex-flow: row;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.icon {
+    width: 24px;
+}

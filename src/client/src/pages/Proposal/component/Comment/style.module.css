@@ -1,0 +1,8 @@
+.comment {
+    border: 1px solid var(--secondary-color);
+    padding: 10px;
+}
+
+.comment:not(:last-child) {
+    margin-bottom: 10px;
+}

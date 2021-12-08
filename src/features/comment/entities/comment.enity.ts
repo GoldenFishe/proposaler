@@ -39,7 +39,7 @@ export class Comment {
   @JoinColumn({ name: 'proposalId' })
   proposal: Proposal;
 
-  @ManyToOne(() => User, { nullable: false })
+  @ManyToOne(() => User, { nullable: false, eager: true })
   author: User;
 
   @ManyToMany(() => CommentLike, { nullable: false, eager: true })

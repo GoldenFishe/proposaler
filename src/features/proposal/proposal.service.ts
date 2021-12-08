@@ -23,16 +23,14 @@ export class ProposalService {
     private fileRepository: Repository<ProposalFile>,
   ) {}
 
-  getAll() {
-    return this.proposalRepository
-      .createQueryBuilder('proposal')
-      .loadRelationCountAndMap('proposal.likesAmount', 'proposal.likes')
-      .loadRelationCountAndMap('proposal.dislikesAmount', 'proposal.dislikes')
-      .getMany();
+  async getAll() {
+    const proposals = await this.proposalRepository.find();
+    return proposals.map(this.formatProposal);
   }
 
-  getById(id: number) {
-    return this.proposalRepository.findOne({ id });
+  async getById(id: number) {
+    const proposal = await this.proposalRepository.findOne({ id });
+    return this.formatProposal(proposal);
   }
 
   async create(createDto: CreateDto, files: Express.Multer.File[]) {
@@ -68,5 +66,22 @@ export class ProposalService {
   private saveFile(filename: string, proposalId: number) {
     const file = this.fileRepository.create({ filename, proposalId });
     return this.fileRepository.save(file);
+  }
+
+  private formatProposal(proposal: Proposal) {
+    const isLiked = Boolean(proposal.likes.find((like) => like.authorId === 1));
+    const isDisliked = Boolean(proposal.dislikes.find((dislike) => dislike.authorId === 1));
+    return {
+      id: proposal.id,
+      author: proposal.author,
+      createDatetime: proposal.createDatetime,
+      description: proposal.description,
+      files: proposal.files,
+      title: proposal.title,
+      likesAmount: proposal.likes.length,
+      dislikesAmount: proposal.dislikes.length,
+      isLiked,
+      isDisliked,
+    };
   }
 }

@@ -14,3 +14,8 @@
    border: 1px solid var(--primary-color);
    cursor: pointer;
 }
+
+.proposalCardLink {
+   text-decoration: unset;
+   color: unset;
+}
