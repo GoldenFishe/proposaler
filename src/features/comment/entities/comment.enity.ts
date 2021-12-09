@@ -3,8 +3,6 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -42,12 +40,18 @@ export class Comment {
   @ManyToOne(() => User, { nullable: false, eager: true })
   author: User;
 
-  @ManyToMany(() => CommentLike, { nullable: false, eager: true })
-  @JoinTable()
+  @OneToMany(() => CommentLike, (commentLike) => commentLike.comment, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+  })
   likes: CommentLike[];
 
-  @ManyToMany(() => CommentDislike, { nullable: false, eager: true })
-  @JoinTable()
+  @OneToMany(() => CommentDislike, (commentDislike) => commentDislike.comment, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+  })
   dislikes: CommentDislike[];
 
   @OneToMany(() => CommentFile, (commentFile) => commentFile.comment, {

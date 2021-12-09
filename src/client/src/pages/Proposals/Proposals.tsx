@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import styles from './style.module.css';
-import { Http } from '../../utils/http';
-import { Proposal } from '../../types/Proposal';
-import ProposalCard from './components/ProposalCard/Proposal';
+import { Proposal } from "../../types/Proposal";
+import ProposalCard from "./components/ProposalCard/Proposal";
+import { ProposalRequests } from "../../api/proposals";
+import styles from "./style.module.css";
 
 const Proposals = () => {
   const [proposals, setProposals] = useState<Proposal[]>([]);
@@ -11,21 +11,33 @@ const Proposals = () => {
     getProposals();
 
     async function getProposals() {
-      const proposals = await Http.get<Proposal[]>('/proposal');
+      const proposals = await ProposalRequests.getProposals();
       if (proposals) {
         setProposals(proposals);
       }
     }
   }, []);
 
-  function like(proposalId: number) {
+  async function like(proposalId: number) {
     const authorId = 1;
-    Http.post('/proposal/like', { proposalId, authorId });
+    const likedProposal = await ProposalRequests.like(proposalId, authorId);
+    if (likedProposal) {
+      const proposalToModify = proposals.map(proposal => {
+        return proposal.id === likedProposal.id ? likedProposal : proposal;
+      });
+      setProposals(proposalToModify);
+    }
   }
 
-  function dislike(proposalId: number) {
+  async function dislike(proposalId: number) {
     const authorId = 1;
-    Http.post('/proposal/dislike', { proposalId, authorId });
+    const dislikedProposal = await ProposalRequests.dislike(proposalId, authorId);
+    if (dislikedProposal) {
+      const proposalToModify = proposals.map(proposal => {
+        return proposal.id === dislikedProposal.id ? dislikedProposal : proposal;
+      });
+      setProposals(proposalToModify);
+    }
   }
 
   return (

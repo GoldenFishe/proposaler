@@ -1,4 +1,4 @@
-import { Proposal } from "./Proposal";
+import { Proposal } from './Proposal';
 
 export type File = {
   filename: string;

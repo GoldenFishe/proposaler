@@ -1,5 +1,5 @@
 import { Author } from './Author';
-import {File} from "./File";
+import { File } from './File';
 
 export type Proposal = {
   id: number;

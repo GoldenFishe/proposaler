@@ -25,7 +25,16 @@ export class CommentService {
 
   async getByProposalId(id: number) {
     const comments = await this.commentRepository.find({ proposalId: id });
-    return comments.map(this.formatComment);
+    return comments.map(this.formatComment).sort((a, b) => {
+      const aTime = new Date(a.createDatetime).getTime();
+      const bTime = new Date(b.createDatetime).getTime();
+      return bTime - aTime;
+    });
+  }
+
+  async getById(id: number) {
+    const comment = await this.commentRepository.findOne({ id });
+    return this.formatComment(comment);
   }
 
   async create(createDto: CreateDto, files: Express.Multer.File[]) {
@@ -46,7 +55,8 @@ export class CommentService {
     } else {
       await this.likesRepository.save(like);
     }
-    return 200;
+    await this.dislikesRepository.delete({ commentId: likeDto.commentId });
+    return this.getById(likeDto.commentId);
   }
 
   async toggleDislike(dislikeDto: DislikeDto) {
@@ -57,17 +67,21 @@ export class CommentService {
     } else {
       await this.dislikesRepository.save(dislike);
     }
-    return 200;
+    await this.likesRepository.delete({ commentId: dislikeDto.commentId });
+    return this.getById(dislikeDto.commentId);
   }
 
-  private saveFile(filename: string, commentId: number) {
+  private async saveFile(filename: string, commentId: number) {
     const file = this.fileRepository.create({ filename, commentId });
-    return this.fileRepository.save(file);
+    await this.fileRepository.save(file);
+    return this.getById(commentId);
   }
 
   private formatComment(comment: Comment) {
     const isLiked = Boolean(comment.likes.find((like) => like.authorId === 1));
-    const isDisliked = Boolean(comment.dislikes.find((dislike) => dislike.authorId === 1));
+    const isDisliked = Boolean(
+      comment.dislikes.find((dislike) => dislike.authorId === 1),
+    );
     return {
       id: comment.id,
       author: comment.author,

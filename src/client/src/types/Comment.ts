@@ -1,5 +1,5 @@
-import { File } from "./File";
-import { Author } from "./Author";
+import { File } from './File';
+import { Author } from './Author';
 
 export type Comment = {
   author: Author;
@@ -9,6 +9,6 @@ export type Comment = {
   likesAmount: number;
   isDisliked: boolean;
   isLiked: boolean;
-  files: File[]
+  files: File[];
   id: number;
-}
+};

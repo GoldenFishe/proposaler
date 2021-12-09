@@ -6,7 +6,8 @@ import MetaInfo from "../../../../components/MetaInfo/MetaInfo";
 import styles from "./styles.module.css";
 
 interface Props extends Proposal {
-
+  onLike: () => void;
+  onDislike: () => void;
 }
 
 const Card: FC<Props> = ({
@@ -17,7 +18,9 @@ const Card: FC<Props> = ({
                            likesAmount,
                            dislikesAmount,
                            isLiked,
-                           isDisliked
+                           isDisliked,
+                           onLike,
+                           onDislike
                          }) => {
   return (
     <div className={styles.card}>
@@ -28,10 +31,8 @@ const Card: FC<Props> = ({
                      dislikesAmount={dislikesAmount}
                      isLiked={isLiked}
                      isDisliked={isDisliked}
-                     onLike={() => {
-                     }}
-                     onDislike={() => {
-                     }} />
+                     onLike={onLike}
+                     onDislike={onDislike} />
     </div>
   );
 };

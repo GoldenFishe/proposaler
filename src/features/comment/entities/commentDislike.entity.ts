@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 
 import { User } from '../../user/user.entity';
+import { Comment } from './comment.enity';
 
 @Entity()
 export class CommentDislike {
@@ -22,4 +23,7 @@ export class CommentDislike {
   @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'authorId' })
   author: User;
+
+  @ManyToOne(() => Comment, { nullable: false })
+  comment: Comment;
 }

@@ -24,7 +24,9 @@ export class ProposalService {
   ) {}
 
   async getAll() {
-    const proposals = await this.proposalRepository.find();
+    const proposals = await this.proposalRepository.find({
+      order: { createDatetime: 'DESC' },
+    });
     return proposals.map(this.formatProposal);
   }
 
@@ -49,7 +51,8 @@ export class ProposalService {
     } else {
       await this.likeRepository.save(like);
     }
-    return 200;
+    await this.dislikeRepository.delete({ proposalId: likeDto.proposalId });
+    return this.getById(likeDto.proposalId);
   }
 
   async toggleDislike(dislikeDto: DislikeDto) {
@@ -60,17 +63,21 @@ export class ProposalService {
     } else {
       await this.dislikeRepository.save(dislike);
     }
-    return 200;
+    await this.likeRepository.delete({ proposalId: dislike.proposalId });
+    return this.getById(dislikeDto.proposalId);
   }
 
-  private saveFile(filename: string, proposalId: number) {
+  private async saveFile(filename: string, proposalId: number) {
     const file = this.fileRepository.create({ filename, proposalId });
-    return this.fileRepository.save(file);
+    await this.fileRepository.save(file);
+    return this.getById(proposalId);
   }
 
   private formatProposal(proposal: Proposal) {
     const isLiked = Boolean(proposal.likes.find((like) => like.authorId === 1));
-    const isDisliked = Boolean(proposal.dislikes.find((dislike) => dislike.authorId === 1));
+    const isDisliked = Boolean(
+      proposal.dislikes.find((dislike) => dislike.authorId === 1),
+    );
     return {
       id: proposal.id,
       author: proposal.author,
