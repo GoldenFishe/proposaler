@@ -13,11 +13,20 @@ export class AuthService {
   ) {}
 
   signIn(user: User) {
-    const payload = { username: user.username, sub: user.id };
-    return { access_token: this.jwtService.sign(payload) };
+    return this.format(user);
   }
 
-  signUp(signUpDto: SignUpDto) {
-    return this.userService.create(signUpDto);
+  async signUp(signUpDto: SignUpDto) {
+    const user = await this.userService.create(signUpDto);
+    return this.format(user);
+  }
+
+  private format(user: User) {
+    const payload = { username: user.username, sub: user.id };
+    return {
+      id: user.id,
+      username: user.username,
+      accessToken: this.jwtService.sign(payload),
+    };
   }
 }

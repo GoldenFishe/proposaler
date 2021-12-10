@@ -12,12 +12,14 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  getAll() {
-    return this.userRepository.find();
+  async getAll() {
+    const users = await this.userRepository.find();
+    return users.map(this.format);
   }
 
-  getById(id: number) {
-    return this.userRepository.find({ id });
+  async getById(id: number) {
+    const user = await this.userRepository.findOne({ id });
+    return this.format(user);
   }
 
   create(signUpDto: SignUpDto) {
@@ -27,5 +29,12 @@ export class UserService {
 
   async getByLoginAndPassword(signInDto: SignInDto) {
     return this.userRepository.findOne(signInDto);
+  }
+
+  private format(user: User) {
+    return {
+      id: user.id,
+      username: user.username,
+    };
   }
 }
