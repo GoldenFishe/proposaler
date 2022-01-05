@@ -19,8 +19,7 @@ const Proposals = () => {
   }, []);
 
   async function like(proposalId: number) {
-    const authorId = 1;
-    const likedProposal = await ProposalRequests.like(proposalId, authorId);
+    const likedProposal = await ProposalRequests.like(proposalId);
     if (likedProposal) {
       const proposalToModify = proposals.map(proposal => {
         return proposal.id === likedProposal.id ? likedProposal : proposal;

@@ -8,6 +8,8 @@ import {
   Post,
   UseInterceptors,
   UploadedFiles,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 
 import { CommentService } from './comment.service';
@@ -17,6 +19,7 @@ import { LikeDto } from './dto/like.dto';
 import { DislikeDto } from './dto/dislike.dto';
 
 import { getDiskStorage } from '../../utils/file';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 const storage = getDiskStorage('comments');
 
@@ -27,28 +30,33 @@ export class CommentController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   getById(@Param() params: GetByIdParams) {
-    return this.commentService.getByProposalId(params.id);
+    // TODO: userId
+    return this.commentService.getByProposalId(params.id, 1);
   }
 
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FilesInterceptor('files', 5, { storage }))
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('create')
   create(
     @Body() createDto: CreateDto,
     @UploadedFiles() files: Express.Multer.File[],
+    @Request() req,
   ) {
-    return this.commentService.create(createDto, files);
+    return this.commentService.create(createDto, files, req.user.userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('like')
-  like(@Body() likeDto: LikeDto) {
-    return this.commentService.toggleLike(likeDto);
+  like(@Body() likeDto: LikeDto, @Request() req) {
+    return this.commentService.toggleLike(likeDto, req.user.userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('dislike')
-  dislike(@Body() dislikeDto: DislikeDto) {
-    return this.commentService.toggleDislike(dislikeDto);
+  dislike(@Body() dislikeDto: DislikeDto, @Request() req) {
+    return this.commentService.toggleDislike(dislikeDto, req.user.userId);
   }
 }

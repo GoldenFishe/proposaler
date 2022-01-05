@@ -36,8 +36,7 @@ const Proposal = () => {
 
   function likeProposal(proposalId: number) {
     return async function() {
-      const authorId = 1;
-      const likedProposal = await ProposalRequests.like(proposalId, authorId);
+      const likedProposal = await ProposalRequests.like(proposalId);
       if (likedProposal) {
         setProposal(likedProposal);
       }
@@ -56,8 +55,7 @@ const Proposal = () => {
 
   function likeComment(commentId: number) {
     return async function() {
-      const authorId = 1;
-      const likedComment = await CommentsRequests.like(commentId, authorId);
+      const likedComment = await CommentsRequests.like(commentId);
       if (likedComment) {
         const commentsToModify = comments!.map(comment => {
           return comment.id === likedComment.id ? likedComment : comment;
@@ -69,8 +67,7 @@ const Proposal = () => {
 
   function dislikeComment(commentId: number) {
     return async function() {
-      const authorId = 1;
-      const dislikedComment = await CommentsRequests.dislike(commentId, authorId);
+      const dislikedComment = await CommentsRequests.dislike(commentId);
       if (dislikedComment) {
         const commentsToModify = comments!.map(comment => {
           return comment.id === dislikedComment.id ? dislikedComment : comment;

@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 
 import { UserService } from '../user/user.service';
 import { SignUpDto } from './dto/signUp.dto';
-import { User } from '../user/user.entity';
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -17,8 +17,12 @@ export class AuthService {
   }
 
   async signUp(signUpDto: SignUpDto) {
-    const user = await this.userService.create(signUpDto);
-    return this.format(user);
+    try {
+      const user = await this.userService.create(signUpDto);
+      return this.format(user);
+    } catch (err) {
+      return err;
+    }
   }
 
   private format(user: User) {

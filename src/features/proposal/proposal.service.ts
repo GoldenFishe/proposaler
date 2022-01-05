@@ -23,60 +23,73 @@ export class ProposalService {
     private fileRepository: Repository<ProposalFile>,
   ) {}
 
-  async getAll() {
+  async getAll(userId: number | null) {
     const proposals = await this.proposalRepository.find({
       order: { createDatetime: 'DESC' },
     });
-    return proposals.map(this.formatProposal);
+    return proposals.map((proposal) => this.formatProposal(proposal, userId));
   }
 
-  async getById(id: number) {
+  async getById(id: number, userId: number) {
     const proposal = await this.proposalRepository.findOne({ id });
-    return this.formatProposal(proposal);
+    return this.formatProposal(proposal, userId);
   }
 
-  async create(createDto: CreateDto, files: Express.Multer.File[]) {
+  async create(
+    createDto: CreateDto,
+    files: Express.Multer.File[],
+    authorId: number,
+  ) {
     const proposal = this.proposalRepository.create(createDto);
     const { id } = await this.proposalRepository.save(proposal);
-    const saveFilePromises = files.map((file) => this.saveFile(file.path, id));
+    const saveFilePromises = files.map((file) => {
+      return this.saveFile(file.path, id);
+    });
     await Promise.all(saveFilePromises);
-    return this.getById(id);
+    return this.getById(id, authorId);
   }
 
-  async toggleLike(likeDto: LikeDto) {
-    const like = this.likeRepository.create(likeDto);
+  async toggleLike(likeDto: LikeDto, authorId: number) {
+    const like = this.likeRepository.create({ ...likeDto, authorId });
     const isLiked = await this.likeRepository.findOne(like);
     if (isLiked) {
       await this.likeRepository.delete(isLiked);
     } else {
       await this.likeRepository.save(like);
     }
-    await this.dislikeRepository.delete({ proposalId: likeDto.proposalId });
-    return this.getById(likeDto.proposalId);
+    await this.dislikeRepository.delete({
+      proposalId: likeDto.proposalId,
+      authorId,
+    });
+    return this.getById(likeDto.proposalId, authorId);
   }
 
-  async toggleDislike(dislikeDto: DislikeDto) {
-    const dislike = this.dislikeRepository.create(dislikeDto);
+  async toggleDislike(dislikeDto: DislikeDto, authorId: number) {
+    const dislike = this.dislikeRepository.create({ ...dislikeDto, authorId });
     const isDisliked = await this.dislikeRepository.findOne(dislike);
     if (isDisliked) {
       await this.dislikeRepository.delete(isDisliked);
     } else {
       await this.dislikeRepository.save(dislike);
     }
-    await this.likeRepository.delete({ proposalId: dislike.proposalId });
-    return this.getById(dislikeDto.proposalId);
+    await this.likeRepository.delete({
+      proposalId: dislike.proposalId,
+      authorId,
+    });
+    return this.getById(dislikeDto.proposalId, authorId);
   }
 
   private async saveFile(filename: string, proposalId: number) {
     const file = this.fileRepository.create({ filename, proposalId });
-    await this.fileRepository.save(file);
-    return this.getById(proposalId);
+    return this.fileRepository.save(file);
   }
 
-  private formatProposal(proposal: Proposal) {
-    const isLiked = Boolean(proposal.likes.find((like) => like.authorId === 1));
+  private formatProposal(proposal: Proposal, userId: number) {
+    const isLiked = Boolean(
+      proposal.likes.find((like) => like.authorId === userId),
+    );
     const isDisliked = Boolean(
-      proposal.dislikes.find((dislike) => dislike.authorId === 1),
+      proposal.dislikes.find((dislike) => dislike.authorId === userId),
     );
     return {
       id: proposal.id,

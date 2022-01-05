@@ -1,5 +1,6 @@
 import { Http } from './http';
 import { Author } from '../types/Author';
+import { authTokenManager } from '../utils/authTokenManager';
 
 type SignIn = {
   login: string;
@@ -13,18 +14,25 @@ type SignUp = {
 };
 
 export namespace AuthRequests {
-  export function signIn(login: string, password: string) {
-    return Http.post<SignIn, Author & { accessToken: string }>(
+  export async function signIn(login: string, password: string) {
+    const user = await Http.post<SignIn, Author & { accessToken: string }>(
       '/auth/sign-in',
       { login, password },
     );
+    if (user) authTokenManager.setToken(user.accessToken);
+    return user;
   }
 
-  export function signUp(login: string, username: string, password: string) {
-    return Http.post<SignUp, Author>('auth/sign-up', {
-      login,
-      username,
-      password,
-    });
+  export async function signUp(
+    login: string,
+    username: string,
+    password: string,
+  ) {
+    const user = await Http.post<SignUp, Author & { accessToken: string }>(
+      'auth/sign-up',
+      { login, username, password },
+    );
+    if (user) authTokenManager.setToken(user.accessToken);
+    return user;
   }
 }

@@ -7,6 +7,7 @@ import { Proposal } from './entities/proposal.enity';
 import { ProposalLike } from './entities/proposalLike.entity';
 import { ProposalDislike } from './entities/proposalDislike.entity';
 import { ProposalFile } from './entities/proposalFile.entity';
+import { JwtStrategy } from '../auth/strategy/jwt.strategy';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { ProposalFile } from './entities/proposalFile.entity';
     ]),
   ],
   controllers: [ProposalController],
-  providers: [ProposalService],
+  providers: [ProposalService, JwtStrategy],
 })
 export class ProposalModule {}

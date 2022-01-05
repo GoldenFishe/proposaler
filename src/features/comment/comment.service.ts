@@ -23,64 +23,77 @@ export class CommentService {
     private fileRepository: Repository<CommentFile>,
   ) {}
 
-  async getByProposalId(id: number) {
+  async getByProposalId(id: number, userId: number) {
     const comments = await this.commentRepository.find({ proposalId: id });
-    return comments.map(this.formatComment).sort((a, b) => {
-      const aTime = new Date(a.createDatetime).getTime();
-      const bTime = new Date(b.createDatetime).getTime();
-      return bTime - aTime;
-    });
+    return comments
+      .map((comment) => this.formatComment(comment, userId))
+      .sort((a, b) => {
+        const aTime = new Date(a.createDatetime).getTime();
+        const bTime = new Date(b.createDatetime).getTime();
+        return bTime - aTime;
+      });
   }
 
-  async getById(id: number) {
+  async getById(id: number, userId: number) {
     const comment = await this.commentRepository.findOne({ id });
-    return this.formatComment(comment);
+    return this.formatComment(comment, userId);
   }
 
-  async create(createDto: CreateDto, files: Express.Multer.File[]) {
+  async create(
+    createDto: CreateDto,
+    files: Express.Multer.File[],
+    authorId: number,
+  ) {
     const comment = this.commentRepository.create(createDto);
     const { proposalId } = await this.commentRepository.save(comment);
     const saveFilePromises = files.map((file) => {
       return this.saveFile(file.path, proposalId);
     });
     await Promise.all(saveFilePromises);
-    return this.getByProposalId(proposalId);
+    return this.getByProposalId(proposalId, authorId);
   }
 
-  async toggleLike(likeDto: LikeDto) {
-    const like = this.likesRepository.create(likeDto);
+  async toggleLike(likeDto: LikeDto, authorId: number) {
+    const like = this.likesRepository.create({ ...likeDto, authorId });
     const isLiked = await this.likesRepository.findOne(like);
     if (isLiked) {
       await this.likesRepository.delete(isLiked);
     } else {
       await this.likesRepository.save(like);
     }
-    await this.dislikesRepository.delete({ commentId: likeDto.commentId });
-    return this.getById(likeDto.commentId);
+    await this.dislikesRepository.delete({
+      commentId: likeDto.commentId,
+      authorId,
+    });
+    return this.getById(likeDto.commentId, authorId);
   }
 
-  async toggleDislike(dislikeDto: DislikeDto) {
-    const dislike = this.dislikesRepository.create(dislikeDto);
+  async toggleDislike(dislikeDto: DislikeDto, authorId: number) {
+    const dislike = this.dislikesRepository.create({ ...dislikeDto, authorId });
     const isDisliked = await this.dislikesRepository.findOne(dislike);
     if (isDisliked) {
       await this.dislikesRepository.delete(isDisliked);
     } else {
       await this.dislikesRepository.save(dislike);
     }
-    await this.likesRepository.delete({ commentId: dislikeDto.commentId });
-    return this.getById(dislikeDto.commentId);
+    await this.likesRepository.delete({
+      commentId: dislikeDto.commentId,
+      authorId,
+    });
+    return this.getById(dislikeDto.commentId, authorId);
   }
 
   private async saveFile(filename: string, commentId: number) {
     const file = this.fileRepository.create({ filename, commentId });
-    await this.fileRepository.save(file);
-    return this.getById(commentId);
+    return this.fileRepository.save(file);
   }
 
-  private formatComment(comment: Comment) {
-    const isLiked = Boolean(comment.likes.find((like) => like.authorId === 1));
+  private formatComment(comment: Comment, userId: number) {
+    const isLiked = Boolean(
+      comment.likes.find((like) => like.authorId === userId),
+    );
     const isDisliked = Boolean(
-      comment.dislikes.find((dislike) => dislike.authorId === 1),
+      comment.dislikes.find((dislike) => dislike.authorId === userId),
     );
     return {
       id: comment.id,

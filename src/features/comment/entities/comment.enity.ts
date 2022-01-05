@@ -10,7 +10,7 @@ import {
 import { Exclude } from 'class-transformer';
 
 import { Proposal } from '../../proposal/entities/proposal.enity';
-import { User } from '../../user/user.entity';
+import { User } from '../../user/entities/user.entity';
 import { CommentLike } from './commentLike.entity';
 import { CommentDislike } from './commentDislike.entity';
 import { CommentFile } from './commentFile.entity';

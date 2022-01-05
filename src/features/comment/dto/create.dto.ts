@@ -5,8 +5,5 @@ export class CreateDto {
   comment: string;
 
   @IsNumberString()
-  authorId: number;
-
-  @IsNumberString()
   proposalId: number;
 }

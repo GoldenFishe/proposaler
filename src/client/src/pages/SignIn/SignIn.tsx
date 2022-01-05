@@ -1,4 +1,5 @@
 import React, { FC, useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
@@ -10,25 +11,26 @@ interface Props {
 }
 
 const SignIn: FC<Props> = () => {
+  const navigate = useNavigate();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
   async function signIn(e: FormEvent) {
     e.preventDefault();
-    const user = await AuthRequests.signIn(login, password);
-    console.log(user);
+    await AuthRequests.signIn(login, password);
+    navigate("/proposals");
   }
 
   return (
-    <div>
-      <form onSubmit={signIn}>
-        <label>Login <Input value={login}
-                            onChange={setLogin} />
-        </label>
-        <label>Password <Input type="password"
-                               value={password}
-                               onChange={setPassword} />
-        </label>
+    <div className={styles.container}>
+      <form onSubmit={signIn} className={styles.form}>
+        <Input label="Login"
+               value={login}
+               onChange={setLogin} />
+        <Input type="password"
+               label="Password"
+               value={password}
+               onChange={setPassword} />
         <Button type="submit">Sign In</Button>
       </form>
     </div>

@@ -21,18 +21,18 @@ const SignUp: FC<Props> = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={signUp}>
-        <label>Login <Input value={login}
-                            onChange={setLogin} />
-        </label>
-        <label>Username <Input value={username}
-                               onChange={setUsername} />
-        </label>
-        <label>Password <Input type="password"
-                               value={password}
-                               onChange={setPassword} />
-        </label>
+    <div className={styles.container}>
+      <form onSubmit={signUp} className={styles.form}>
+        <Input label="Login"
+               value={login}
+               onChange={setLogin} />
+        <Input
+          label="Username" value={username}
+          onChange={setUsername} />
+        <Input type="password"
+               label="Password"
+               value={password}
+               onChange={setPassword} />
         <Button type="submit">Sign Up</Button>
       </form>
     </div>

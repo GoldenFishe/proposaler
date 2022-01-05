@@ -7,6 +7,7 @@ import { Comment } from './entities/comment.enity';
 import { CommentLike } from './entities/commentLike.entity';
 import { CommentDislike } from './entities/commentDislike.entity';
 import { CommentFile } from './entities/commentFile.entity';
+import { JwtStrategy } from '../auth/strategy/jwt.strategy';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { CommentFile } from './entities/commentFile.entity';
       CommentFile,
     ]),
   ],
-  providers: [CommentService],
+  providers: [CommentService, JwtStrategy],
   controllers: [CommentController],
 })
 export class CommentModule {}

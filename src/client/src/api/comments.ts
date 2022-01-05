@@ -4,7 +4,6 @@ import { Proposal as ProposalType } from '../types/Proposal';
 
 type CommentAction = {
   commentId: number;
-  authorId: number;
 };
 
 export namespace CommentsRequests {
@@ -16,17 +15,15 @@ export namespace CommentsRequests {
     return Http.get<ProposalType>(`/proposal/${id}`);
   }
 
-  export function like(commentId: number, authorId: number) {
+  export function like(commentId: number) {
     return Http.post<CommentAction, CommentType>('/comment/like', {
       commentId,
-      authorId,
     });
   }
 
-  export function dislike(commentId: number, authorId: number) {
+  export function dislike(commentId: number) {
     return Http.post<CommentAction, CommentType>('/comment/dislike', {
       commentId,
-      authorId,
     });
   }
 }
