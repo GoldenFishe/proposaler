@@ -1,11 +1,11 @@
-import { Author } from './Author';
+import { User } from './User';
 import { File } from './File';
 
 export type Proposal = {
   id: number;
   title: string;
   description: string;
-  author: Author;
+  author: User;
   createDatetime: string;
   files: File[];
   dislikesAmount: number;

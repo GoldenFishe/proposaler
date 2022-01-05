@@ -1,8 +1,8 @@
 import { File } from './File';
-import { Author } from './Author';
+import { User } from './User';
 
 export type Comment = {
-  author: Author;
+  author: User;
   comment: string;
   createDatetime: string;
   dislikesAmount: number;

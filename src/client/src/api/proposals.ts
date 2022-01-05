@@ -20,7 +20,7 @@ export namespace ProposalRequests {
     });
   }
 
-  export function dislike(proposalId: number, authorId: number) {
+  export function dislike(proposalId: number) {
     return Http.post<ProposalAction, ProposalType>('/proposal/dislike', {
       proposalId,
     });
