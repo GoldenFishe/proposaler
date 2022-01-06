@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+
 import { Proposal } from '../types/Proposal';
 import { ProposalRequests } from '../api/proposals';
 
@@ -8,6 +9,18 @@ export class ProposalsModel {
   constructor() {
     makeAutoObservable(this);
     this.proposals = [];
+  }
+
+  async create(newProposal: FormData) {
+    await ProposalRequests.createProposal(newProposal);
+    this.getProposals();
+  }
+
+  async getProposals() {
+    const proposals = await ProposalRequests.getProposals();
+    if (proposals) {
+      this.proposals = proposals;
+    }
   }
 
   async like(id: number) {

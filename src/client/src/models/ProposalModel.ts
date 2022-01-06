@@ -40,6 +40,13 @@ export class ProposalModel implements Proposal {
     }
   }
 
+  async createComment(newComment: FormData) {
+    const comments = await CommentsRequests.createComment(newComment);
+    if (comments) {
+      this.comments = comments;
+    }
+  }
+
   async like(id: number) {
     const likedProposal = await ProposalRequests.like(id);
     if (likedProposal) {

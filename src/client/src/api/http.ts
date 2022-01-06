@@ -1,13 +1,13 @@
-import Axios from "axios";
+import Axios from 'axios';
 
-import { authTokenManager } from "../utils/authTokenManager";
-import { notificationsModel } from "../models/NotificationsModel";
+import { authTokenManager } from '../utils/authTokenManager';
+import { notificationsModel } from '../models/NotificationsModel';
 
 export class Http {
   private static getHeaders(withAuth: boolean) {
     const headers: Record<string, string> = {};
     if (withAuth) {
-      headers["Authorization"] = `Bearer ${authTokenManager.getToken()}`;
+      headers['Authorization'] = `Bearer ${authTokenManager.getToken()}`;
     }
     return headers;
   }
@@ -16,7 +16,10 @@ export class Http {
     return Axios.get<Response>(url)
       .then((res) => res.data)
       .catch((err) => {
-        notificationsModel.add({ type: "error", message: err.response.data.message });
+        notificationsModel.add({
+          type: 'error',
+          message: err.response.data.message,
+        });
         return console.error(err);
       });
   }
@@ -26,7 +29,10 @@ export class Http {
     return Axios.post<Response>(url, data, { headers })
       .then((res) => res.data)
       .catch((err) => {
-        notificationsModel.add({ type: "error", message: err.response.data.message });
+        notificationsModel.add({
+          type: 'error',
+          message: err.response.data.message,
+        });
         return console.error(err);
       });
   }

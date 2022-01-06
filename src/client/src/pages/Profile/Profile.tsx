@@ -15,7 +15,7 @@ const Profile: FC<Props> = ({ userModel }) => {
   }, [id, userModel]);
   return (
     <div>
-      {userModel.username}
+      {userModel.user?.username}
     </div>
   );
 };

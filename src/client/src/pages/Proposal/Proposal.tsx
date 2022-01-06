@@ -6,6 +6,7 @@ import Card from "./components/Card/Card";
 import Comment from "./components/Comment/Comment";
 import { ProposalModel } from "../../models/ProposalModel";
 import styles from "./style.module.css";
+import CreateComment from "./components/CreateComment/CreateComment";
 
 interface Props {
   proposalModel: ProposalModel;
@@ -44,6 +45,11 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
     };
   }
 
+  function onCreateComment(newComment: FormData) {
+    newComment.set("proposalId", String(id));
+    proposalModel.createComment(newComment);
+  }
+
   return (
     <div className={styles.wrapper}>
       {proposalModel.id && <Card {...proposalModel}
@@ -55,6 +61,7 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
                         onLike={likeComment(comment.id)}
                         onDislike={dislikeComment(comment.id)} />;
       })}
+      <CreateComment onCreate={onCreateComment} />
     </div>
   );
 };

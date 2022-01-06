@@ -43,7 +43,7 @@ export class ProposalService {
     files: Express.Multer.File[],
     authorId: number,
   ) {
-    const proposal = this.proposalRepository.create(createDto);
+    const proposal = this.proposalRepository.create({ ...createDto, authorId });
     const { id } = await this.proposalRepository.save(proposal);
     const saveFilePromises = files.map((file) => {
       return this.saveFile(file.path, id);

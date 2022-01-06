@@ -6,6 +6,10 @@ type ProposalAction = {
 };
 
 export namespace ProposalRequests {
+  export function createProposal(newProposal: FormData) {
+    return Http.post<FormData, ProposalType>('/proposal/create', newProposal);
+  }
+
   export function getProposals() {
     return Http.get<Proposal[]>('/proposal');
   }

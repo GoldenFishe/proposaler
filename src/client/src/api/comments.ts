@@ -7,6 +7,10 @@ type CommentAction = {
 };
 
 export namespace CommentsRequests {
+  export function createComment(newComment: FormData) {
+    return Http.post<FormData, CommentType[]>(`/comment/create`, newComment);
+  }
+
   export function getComments(id: number) {
     return Http.get<CommentType[]>(`/comment/${id}`);
   }

@@ -3,9 +3,9 @@ import { makeAutoObservable } from 'mobx';
 import { User } from '../types/User';
 import { UserRequests } from '../api/user';
 
-export class UserModel implements User {
-  id: number;
-  username: string;
+export class UserModel {
+  self: User | undefined;
+  user: User | undefined;
 
   constructor() {
     makeAutoObservable(this);
@@ -14,8 +14,7 @@ export class UserModel implements User {
   async getUserById(id: number) {
     const user = await UserRequests.getUserById(id);
     if (user) {
-      this.id = user.id;
-      this.username = user.username;
+      this.user = user;
     }
   }
 }

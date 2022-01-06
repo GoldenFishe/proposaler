@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { observer } from "mobx-react";
 
 import Notification from "./components/Notification/Notification";
-import { NotificationsModel } from "../../models/NotificationsModel";
+import { NotificationsModel } from "../../../../models/NotificationsModel";
 import styles from "./style.module.css";
 
 interface Props {

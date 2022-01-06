@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 
-import { Notification as NotificationType, notificationsModel } from "../../../../models/NotificationsModel";
+import { Notification as NotificationType, notificationsModel } from "../../../../../../models/NotificationsModel";
 import styles from "./style.module.css";
 
 const Notification: FC<NotificationType> = ({ id, type, message }) => {

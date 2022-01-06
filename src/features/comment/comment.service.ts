@@ -47,13 +47,16 @@ export class CommentService {
     files: Express.Multer.File[],
     authorId: number,
   ) {
-    const comment = this.commentRepository.create(createDto);
-    const { proposalId } = await this.commentRepository.save(comment);
+    const comment = this.commentRepository.create({
+      ...createDto,
+      authorId: authorId,
+    });
+    const { id } = await this.commentRepository.save(comment);
     const saveFilePromises = files.map((file) => {
-      return this.saveFile(file.path, proposalId);
+      return this.saveFile(file.path, id);
     });
     await Promise.all(saveFilePromises);
-    return this.getByProposalId(proposalId, authorId);
+    return this.getByProposalId(createDto.proposalId, authorId);
   }
 
   async toggleLike(likeDto: LikeDto, authorId: number) {

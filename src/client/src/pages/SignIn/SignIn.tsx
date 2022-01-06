@@ -3,22 +3,26 @@ import { useNavigate } from "react-router-dom";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import styles from "./style.module.css";
 import { AuthRequests } from "../../api/auth";
+import { UserModel } from "../../models/UserModel";
+import styles from "./style.module.css";
 
 interface Props {
-
+  userModel: UserModel;
 }
 
-const SignIn: FC<Props> = () => {
+const SignIn: FC<Props> = ({ userModel }) => {
   const navigate = useNavigate();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
   async function signIn(e: FormEvent) {
     e.preventDefault();
-    await AuthRequests.signIn(login, password);
-    navigate("/proposals");
+    const user = await AuthRequests.signIn(login, password);
+    if (user) {
+      userModel.self = { username: user.username, id: user.id };
+      navigate("/proposals");
+    }
   }
 
   return (

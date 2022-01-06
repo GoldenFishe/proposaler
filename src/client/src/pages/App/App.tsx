@@ -1,8 +1,7 @@
-import React, { FC } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { observer } from "mobx-react";
 
-import Notifications from "../../components/Notifications/Notifications";
+import Notifications from "./components/Notifications/Notifications";
 import Topbar from "./components/Topbar/Topbar";
 import Proposals from "../Proposals/Proposals";
 import Proposal from "../Proposal/Proposal";
@@ -12,32 +11,28 @@ import SignUp from "../SignUp/SignUp";
 import Profile from "../Profile/Profile";
 import { proposalsModel } from "../../models/ProposalsModel";
 import { proposalModel } from "../../models/ProposalModel";
-import { UserModel } from "../../models/UserModel";
+import { userModel } from "../../models/UserModel";
 import { notificationsModel } from "../../models/NotificationsModel";
 
-interface Props {
-  userModel: UserModel;
-}
-
-const App: FC<Props> = ({ userModel }) => {
+const App = () => {
   return (
     <div>
       <Notifications notificationsModel={notificationsModel} />
       <BrowserRouter>
-        <Topbar userId={1} isAuthorized={false} />
+        <Topbar userModel={userModel} />
         <Routes>
-          <Route path="/proposals">
+          <Route path="/proposals" >
             <Route element={<Proposals proposalsModel={proposalsModel} />} index />
             <Route path=":id" element={<Proposal proposalModel={proposalModel} />} />
-            <Route path="create" element={<CreateProposal />} />
+            <Route path="create" element={<CreateProposal proposalsModel={proposalsModel}/>} />
           </Route>
           <Route path="/profile/:id" element={<Profile userModel={userModel} />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn userModel={userModel} />} />
+          <Route path="/sign-up" element={<SignUp userModel={userModel} />} />
         </Routes>
       </BrowserRouter>
     </div>
   );
 };
 
-export default observer(App);
+export default App;

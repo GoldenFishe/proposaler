@@ -2,7 +2,6 @@ import React, { useEffect, FC } from "react";
 import { observer } from "mobx-react";
 
 import ProposalCard from "./components/ProposalCard/Proposal";
-import { ProposalRequests } from "../../api/proposals";
 import { ProposalsModel } from "../../models/ProposalsModel";
 import styles from "./style.module.css";
 
@@ -12,14 +11,7 @@ interface Props {
 
 const Proposals: FC<Props> = ({ proposalsModel }) => {
   useEffect(() => {
-    getProposals();
-
-    async function getProposals() {
-      const data = await ProposalRequests.getProposals();
-      if (data) {
-        proposalsModel.proposals = data;
-      }
-    }
+    proposalsModel.getProposals();
   }, [proposalsModel]);
 
   function like(proposalId: number) {
