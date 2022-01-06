@@ -1,6 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { observer } from "mobx-react";
 
+import Notifications from "../../components/Notifications/Notifications";
 import Topbar from "./components/Topbar/Topbar";
 import Proposals from "../Proposals/Proposals";
 import Proposal from "../Proposal/Proposal";
@@ -10,11 +12,17 @@ import SignUp from "../SignUp/SignUp";
 import Profile from "../Profile/Profile";
 import { proposalsModel } from "../../models/ProposalsModel";
 import { proposalModel } from "../../models/ProposalModel";
-import { userModel } from "../../models/UserModel";
+import { UserModel } from "../../models/UserModel";
+import { notificationsModel } from "../../models/NotificationsModel";
 
-const App = () => {
+interface Props {
+  userModel: UserModel;
+}
+
+const App: FC<Props> = ({ userModel }) => {
   return (
     <div>
+      <Notifications notificationsModel={notificationsModel} />
       <BrowserRouter>
         <Topbar userId={1} isAuthorized={false} />
         <Routes>
@@ -32,4 +40,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default observer(App);

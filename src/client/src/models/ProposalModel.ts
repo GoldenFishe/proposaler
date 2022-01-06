@@ -1,11 +1,11 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable } from 'mobx';
 
-import { ProposalRequests } from "../api/proposals";
-import { User } from "../types/User";
-import { File } from "../types/File";
-import { CommentsRequests } from "../api/comments";
-import { Comment } from "../types/Comment";
-import { Proposal } from "../types/Proposal";
+import { ProposalRequests } from '../api/proposals';
+import { User } from '../types/User';
+import { File } from '../types/File';
+import { CommentsRequests } from '../api/comments';
+import { Comment } from '../types/Comment';
+import { Proposal } from '../types/Proposal';
 
 export class ProposalModel implements Proposal {
   author: User;
@@ -57,7 +57,7 @@ export class ProposalModel implements Proposal {
   async likeComment(id: number) {
     const likedComment = await CommentsRequests.like(id);
     if (likedComment) {
-      this.comments = this.comments!.map(comment => {
+      this.comments = this.comments!.map((comment) => {
         return comment.id === likedComment.id ? likedComment : comment;
       });
     }
@@ -66,7 +66,7 @@ export class ProposalModel implements Proposal {
   async dislikeComment(id: number) {
     const dislikedComment = await CommentsRequests.dislike(id);
     if (dislikedComment) {
-      this.comments = this.comments!.map(comment => {
+      this.comments = this.comments!.map((comment) => {
         return comment.id === dislikedComment.id ? dislikedComment : comment;
       });
     }

@@ -1,5 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
+
 import { UserModel } from "../../models/UserModel";
 
 interface Props {
@@ -7,6 +9,10 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ userModel }) => {
+  const { id } = useParams();
+  useEffect(() => {
+    userModel.getUserById(Number(id));
+  }, [id, userModel]);
   return (
     <div>
       {userModel.username}

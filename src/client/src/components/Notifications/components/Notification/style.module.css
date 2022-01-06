@@ -1,0 +1,16 @@
+.notification {
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.notification:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.message {
+    background: #13b413;
+}
+
+.error {
+    background: #da3737;
+}

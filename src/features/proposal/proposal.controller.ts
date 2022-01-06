@@ -10,7 +10,6 @@ import {
   UploadedFiles,
   UseGuards,
   UseInterceptors,
-  Headers,
 } from '@nestjs/common';
 
 import { ProposalService } from './proposal.service';

@@ -1,6 +1,6 @@
-import { makeAutoObservable } from "mobx";
-import { Proposal } from "../types/Proposal";
-import { ProposalRequests } from "../api/proposals";
+import { makeAutoObservable } from 'mobx';
+import { Proposal } from '../types/Proposal';
+import { ProposalRequests } from '../api/proposals';
 
 export class ProposalsModel {
   proposals: Proposal[];
@@ -13,7 +13,7 @@ export class ProposalsModel {
   async like(id: number) {
     const likedProposal = await ProposalRequests.like(id);
     if (likedProposal) {
-      this.proposals = this.proposals.map(proposal => {
+      this.proposals = this.proposals.map((proposal) => {
         return proposal.id === likedProposal.id ? likedProposal : proposal;
       });
     }
@@ -22,8 +22,10 @@ export class ProposalsModel {
   async dislike(id: number) {
     const dislikedProposal = await ProposalRequests.dislike(id);
     if (dislikedProposal) {
-      this.proposals = this.proposals.map(proposal => {
-        return proposal.id === dislikedProposal.id ? dislikedProposal : proposal;
+      this.proposals = this.proposals.map((proposal) => {
+        return proposal.id === dislikedProposal.id
+          ? dislikedProposal
+          : proposal;
       });
     }
   }

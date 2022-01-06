@@ -4,10 +4,11 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./pages/App/App";
 import reportWebVitals from "./reportWebVitals";
+import { userModel } from "./models/UserModel";
 
 ReactDOM.render(
   <React.StrictMode>
-      <App />
+      <App userModel={userModel}/>
   </React.StrictMode>,
   document.getElementById("root")
 );

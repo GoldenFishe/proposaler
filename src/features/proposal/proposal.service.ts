@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -32,6 +32,9 @@ export class ProposalService {
 
   async getById(id: number, userId: number) {
     const proposal = await this.proposalRepository.findOne({ id });
+    if (!proposal) {
+      throw new HttpException('Proposal not found', HttpStatus.NOT_FOUND);
+    }
     return this.formatProposal(proposal, userId);
   }
 
