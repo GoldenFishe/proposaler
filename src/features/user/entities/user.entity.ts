@@ -1,12 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Exclude()
+  @Expose({ groups: ['self'] })
   @Column({ unique: true })
   login: string;
 
@@ -14,6 +14,9 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ unique: true })
   username: string;
+
+  @Column({ nullable: true })
+  avatar: string;
 }

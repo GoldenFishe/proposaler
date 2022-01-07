@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { SignUpDto } from '../auth/dto/signUp.dto';
 import { SignInDto } from '../auth/dto/signIn.dto';
+import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
@@ -12,17 +13,22 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async getAll() {
-    const users = await this.userRepository.find();
-    return users.map(this.format);
-  }
-
   async getById(id: number) {
     const user = await this.userRepository.findOne({ id });
     if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('UserType not found', HttpStatus.NOT_FOUND);
     }
-    return this.format(user);
+    return user;
+  }
+
+  async update(
+    id: User['id'],
+    changes: UpdateUserDto,
+    files: Express.Multer.File,
+  ) {
+    if (files) changes['avatar'] = files.path;
+    await this.userRepository.update({ id }, changes);
+    return this.getById(id);
   }
 
   create(signUpDto: SignUpDto) {
@@ -32,12 +38,5 @@ export class UserService {
 
   async getByLoginAndPassword(signInDto: SignInDto) {
     return this.userRepository.findOne(signInDto);
-  }
-
-  private format(user: User) {
-    return {
-      id: user.id,
-      username: user.username,
-    };
   }
 }

@@ -3,12 +3,11 @@
     flex-flow: column;
 }
 
-.input {
+.textarea {
     margin-top: 10px;
     padding: 10px 20px;
     border-radius: 10px;
     border: 1px solid var(--secondary-text-color);
     outline: none;
+    resize: unset;
 }
-
-.input[type="file"] {}

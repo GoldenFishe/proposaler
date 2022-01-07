@@ -33,7 +33,7 @@ export class ProposalService {
   async getById(id: number, userId: number) {
     const proposal = await this.proposalRepository.findOne({ id });
     if (!proposal) {
-      throw new HttpException('Proposal not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('ProposalType not found', HttpStatus.NOT_FOUND);
     }
     return this.formatProposal(proposal, userId);
   }

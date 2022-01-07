@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Inter', sans-serif;
+}
+
 :root {
     --content-width: 640px;
     --primary-color: #2DA8EB;
@@ -16,4 +20,14 @@
 
 li {
     list-style: none;
+}
+
+input, textarea, button {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+a {
+    color: inherit;
 }

@@ -1,11 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 
-import styles from './style.module.css';
+import styles from "./style.module.css";
+import { UserType } from "../../types/UserType";
 
-const Avatar = () => {
+interface Props {
+  src: UserType["avatar"];
+}
+
+const Avatar: FC<Props> = ({ src }) => {
   return (
     <div className={styles.avatar}>
-      avatar
+      <img src={src || ""} alt="avatar" />
     </div>
   );
 };

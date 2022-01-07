@@ -1,24 +1,24 @@
 import { makeAutoObservable } from 'mobx';
 
 import { ProposalRequests } from '../api/proposals';
-import { User } from '../types/User';
-import { File } from '../types/File';
+import { UserType } from '../types/UserType';
+import { FileType } from '../types/FileType';
 import { CommentsRequests } from '../api/comments';
-import { Comment } from '../types/Comment';
-import { Proposal } from '../types/Proposal';
+import { CommentType } from '../types/CommentType';
+import { ProposalType } from '../types/ProposalType';
 
-export class ProposalModel implements Proposal {
-  author: User;
+export class ProposalModel implements ProposalType {
+  author: UserType;
   createDatetime: string;
   description: string;
   dislikesAmount: number;
-  files: File[];
+  files: FileType[];
   id: number;
   isDisliked: boolean;
   isLiked: boolean;
   likesAmount: number;
   title: string;
-  comments: Comment[];
+  comments: CommentType[];
 
   constructor() {
     makeAutoObservable(this);
@@ -26,14 +26,14 @@ export class ProposalModel implements Proposal {
     this.comments = [];
   }
 
-  async getProposal(id: number) {
+  async getProposal(id: ProposalType['id']) {
     const proposal = await ProposalRequests.getProposal(id);
     if (proposal) {
       this.setProposal(proposal);
     }
   }
 
-  async getComments(id: number) {
+  async getComments(id: ProposalType['id']) {
     const comments = await CommentsRequests.getComments(id);
     if (comments) {
       this.comments = comments;
@@ -47,21 +47,21 @@ export class ProposalModel implements Proposal {
     }
   }
 
-  async like(id: number) {
+  async like(id: ProposalType['id']) {
     const likedProposal = await ProposalRequests.like(id);
     if (likedProposal) {
       this.setProposal(likedProposal);
     }
   }
 
-  async dislike(id: number) {
+  async dislike(id: ProposalType['id']) {
     const dislikedProposal = await ProposalRequests.dislike(id);
     if (dislikedProposal) {
       this.setProposal(dislikedProposal);
     }
   }
 
-  async likeComment(id: number) {
+  async likeComment(id: CommentType['id']) {
     const likedComment = await CommentsRequests.like(id);
     if (likedComment) {
       this.comments = this.comments!.map((comment) => {
@@ -70,7 +70,7 @@ export class ProposalModel implements Proposal {
     }
   }
 
-  async dislikeComment(id: number) {
+  async dislikeComment(id: CommentType['id']) {
     const dislikedComment = await CommentsRequests.dislike(id);
     if (dislikedComment) {
       this.comments = this.comments!.map((comment) => {
@@ -79,7 +79,7 @@ export class ProposalModel implements Proposal {
     }
   }
 
-  private setProposal(proposal: Proposal) {
+  private setProposal(proposal: ProposalType) {
     this.author = proposal.author;
     this.createDatetime = proposal.createDatetime;
     this.description = proposal.description;

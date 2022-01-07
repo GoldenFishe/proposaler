@@ -1,21 +1,23 @@
 import { Http } from './http';
-import { User } from '../types/User';
+import { UserType } from '../types/UserType';
 import { authTokenManager } from '../utils/authTokenManager';
 
-type SignIn = {
+type SignInBody = {
   login: string;
   password: string;
 };
 
-type SignUp = {
+type SignUpBody = {
   login: string;
   username: string;
   password: string;
 };
 
+type SignResponse = UserType & { accessToken: string };
+
 export namespace AuthRequests {
   export async function signIn(login: string, password: string) {
-    const user = await Http.post<SignIn, User & { accessToken: string }>(
+    const user = await Http.Instance.post<SignInBody, SignResponse>(
       '/auth/sign-in',
       { login, password },
     );
@@ -28,7 +30,7 @@ export namespace AuthRequests {
     username: string,
     password: string,
   ) {
-    const user = await Http.post<SignUp, User & { accessToken: string }>(
+    const user = await Http.Instance.post<SignUpBody, SignResponse>(
       'auth/sign-up',
       { login, username, password },
     );

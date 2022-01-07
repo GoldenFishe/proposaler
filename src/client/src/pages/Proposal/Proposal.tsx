@@ -5,8 +5,10 @@ import { observer } from "mobx-react";
 import Card from "./components/Card/Card";
 import Comment from "./components/Comment/Comment";
 import { ProposalModel } from "../../models/ProposalModel";
-import styles from "./style.module.css";
 import CreateComment from "./components/CreateComment/CreateComment";
+import { ProposalType } from "../../types/ProposalType";
+import styles from "./style.module.css";
+import { CommentType } from "../../types/CommentType";
 
 interface Props {
   proposalModel: ProposalModel;
@@ -21,27 +23,27 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
     }
   }, [id, proposalModel]);
 
-  function likeProposal(proposalId: number) {
+  function likeProposal(id: ProposalType["id"]) {
     return function() {
-      proposalModel.like(proposalId);
+      proposalModel.like(id);
     };
   }
 
-  function dislikeProposal(proposalId: number) {
+  function dislikeProposal(id: ProposalType["id"]) {
     return function() {
-      proposalModel.dislike(proposalId);
+      proposalModel.dislike(id);
     };
   }
 
-  function likeComment(commentId: number) {
+  function likeComment(id: CommentType["id"]) {
     return function() {
-      proposalModel.likeComment(commentId);
+      proposalModel.likeComment(id);
     };
   }
 
-  function dislikeComment(commentId: number) {
+  function dislikeComment(id: CommentType["id"]) {
     return async function() {
-      proposalModel.dislikeComment(commentId);
+      proposalModel.dislikeComment(id);
     };
   }
 

@@ -1,6 +1,21 @@
-.proposals {
-    width: var(--content-width);
-    margin: 20px auto;
-    color: unset;
-    text-decoration: unset;
+.button {
+    padding: 10px 20px;
+    border: unset;
+    outline: unset;
+    color: var(--primary-text-color);
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.primary {
+    background: var(--primary-color);
+}
+
+.secondary {
+    background: var(--secondary-color);
+}
+
+.button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
 }

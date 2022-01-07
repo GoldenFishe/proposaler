@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import { UserModel } from "../../models/UserModel";
+import EditProfile from "./components/EditProfile/EditProfile";
+import ViewProfile from "./components/ViewProfile/ViewProfile";
+import styles from "./style.module.css";
 
 interface Props {
   userModel: UserModel;
@@ -11,11 +14,16 @@ interface Props {
 const Profile: FC<Props> = ({ userModel }) => {
   const { id } = useParams();
   useEffect(() => {
-    userModel.getUserById(Number(id));
+    if (userModel.profile?.id !== Number(id)) {
+      userModel.getUserById(Number(id));
+    }
   }, [id, userModel]);
+  const saveChanges = (changes: FormData) => userModel.updateProfile(changes);
   return (
-    <div>
-      {userModel.user?.username}
+    <div className={styles.container}>
+      {userModel.profile?.id === Number(id) ?
+        <EditProfile {...userModel.profile} onSaveChanges={saveChanges}/> :
+        <ViewProfile />}
     </div>
   );
 };

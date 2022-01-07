@@ -1,5 +1,7 @@
 import React, { FC, FormEvent } from "react";
 
+import Form from "../../../../components/Form/Form";
+import Textarea from "../../../../components/Textarea/Textarea";
 import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
 
@@ -9,17 +11,16 @@ interface Props {
 
 const CreateComment: FC<Props> = ({ onCreate }) => {
   const create = (e: FormEvent) => {
-    e.preventDefault();
     const newComment = new FormData((e.target) as HTMLFormElement);
     onCreate(newComment);
   };
   return (
     <div>
-      <form onSubmit={create}>
-        <Input label="Comment" name="comment" />
+      <Form onSubmit={create}>
+        <Textarea label="Comment" name="comment" />
         <Input label="Files" type="file" name="files" />
-        <Button type="submit">Create Comment</Button>
-      </form>
+        <Button type="submit" primary>Create Comment</Button>
+      </Form>
     </div>
   );
 };

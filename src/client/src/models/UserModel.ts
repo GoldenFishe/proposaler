@@ -1,20 +1,34 @@
 import { makeAutoObservable } from 'mobx';
 
-import { User } from '../types/User';
+import { UserType } from '../types/UserType';
 import { UserRequests } from '../api/user';
 
 export class UserModel {
-  self: User | undefined;
-  user: User | undefined;
+  profile: UserType | undefined;
+  user: UserType | undefined;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  async getUserById(id: number) {
+  async getUserById(id: UserType['id']) {
     const user = await UserRequests.getUserById(id);
     if (user) {
       this.user = user;
+    }
+  }
+
+  async getProfile() {
+    const user = await UserRequests.getProfile();
+    if (user) {
+      this.profile = user;
+    }
+  }
+
+  async updateProfile(changes: FormData) {
+    const user = await UserRequests.updateProfile(changes);
+    if (user) {
+      this.profile = user;
     }
   }
 }

@@ -1,5 +1,20 @@
-.card {
-    border: 1px solid var(--secondary-color);
-    padding: 10px;
-    margin-bottom: 10px;
+.topbar {
+    background: var(--primary-color);
+    padding: 20px 40px;
+}
+
+.navigation {
+    display: flex;
+    flex-flow: row;
+    gap: 20px;
+    color: var(--primary-text-color);
+    text-decoration: unset;
+}
+
+.navlink {
+    text-decoration: unset;
+}
+
+.activeLink {
+    text-decoration: underline;
 }

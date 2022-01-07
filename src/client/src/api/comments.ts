@@ -1,6 +1,6 @@
 import { Http } from './http';
-import { Comment as CommentType } from '../types/Comment';
-import { Proposal as ProposalType } from '../types/Proposal';
+import { CommentType } from '../types/CommentType';
+import { ProposalType } from '../types/ProposalType';
 
 type CommentAction = {
   commentId: number;
@@ -8,25 +8,28 @@ type CommentAction = {
 
 export namespace CommentsRequests {
   export function createComment(newComment: FormData) {
-    return Http.post<FormData, CommentType[]>(`/comment/create`, newComment);
+    return Http.Instance.post<FormData, CommentType[]>(
+      `/comment/create`,
+      newComment,
+    );
   }
 
-  export function getComments(id: number) {
-    return Http.get<CommentType[]>(`/comment/${id}`);
+  export function getComments(id: ProposalType['id']) {
+    return Http.Instance.get<CommentType[]>(`/comment/${id}`);
   }
 
-  export function getProposal(id: string) {
-    return Http.get<ProposalType>(`/proposal/${id}`);
+  export function getProposal(id: ProposalType['id']) {
+    return Http.Instance.get<ProposalType>(`/proposal/${id}`);
   }
 
-  export function like(commentId: number) {
-    return Http.post<CommentAction, CommentType>('/comment/like', {
+  export function like(commentId: CommentType['id']) {
+    return Http.Instance.post<CommentAction, CommentType>('/comment/like', {
       commentId,
     });
   }
 
-  export function dislike(commentId: number) {
-    return Http.post<CommentAction, CommentType>('/comment/dislike', {
+  export function dislike(commentId: CommentType['id']) {
+    return Http.Instance.post<CommentAction, CommentType>('/comment/dislike', {
       commentId,
     });
   }

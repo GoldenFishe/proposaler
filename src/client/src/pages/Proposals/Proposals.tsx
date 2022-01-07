@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 
 import ProposalCard from "./components/ProposalCard/Proposal";
 import { ProposalsModel } from "../../models/ProposalsModel";
+import { ProposalType } from "../../types/ProposalType";
 import styles from "./style.module.css";
 
 interface Props {
@@ -14,12 +15,12 @@ const Proposals: FC<Props> = ({ proposalsModel }) => {
     proposalsModel.getProposals();
   }, [proposalsModel]);
 
-  function like(proposalId: number) {
-    proposalsModel.like(proposalId);
+  function like(id: ProposalType["id"]) {
+    proposalsModel.like(id);
   }
 
-  function dislike(proposalId: number) {
-    proposalsModel.dislike(proposalId);
+  function dislike(id: ProposalType["id"]) {
+    proposalsModel.dislike(id);
   }
 
   return (

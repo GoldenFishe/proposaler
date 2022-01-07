@@ -1,11 +1,4 @@
 .container {
-
-}
-
-.form {
-    display: flex;
-    flex-flow: column;
-    width: var(--content-width);
-    margin: 20px auto;
-    gap: 20px;
+    padding-top: 150px;
+    text-align: center;
 }

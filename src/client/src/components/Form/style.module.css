@@ -1,0 +1,12 @@
+.form {
+    display: flex;
+    flex-flow: column;
+    width: 380px;
+    margin: 20px auto;
+    gap: 20px;
+    text-align: left;
+}
+
+.form button[type="submit"] {
+    margin-top: 10px;
+}

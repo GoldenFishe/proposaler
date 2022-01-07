@@ -1,8 +1,13 @@
 export const authTokenManager = (function () {
-  let token: string = '';
-
   return {
-    getToken: () => token,
-    setToken: (newToken: string) => (token = newToken),
+    getToken: () => {
+      return window.localStorage.getItem('accessToken');
+    },
+    setToken: (newToken: string) => {
+      window.localStorage.setItem('accessToken', newToken);
+    },
+    deleteToken: () => {
+      window.localStorage.removeItem('accessToken');
+    },
   };
 })();

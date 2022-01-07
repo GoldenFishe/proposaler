@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Comment as CommentType } from "../../../../types/Comment";
+import { CommentType } from "../../../../types/CommentType";
 import ActionButtons from "../../../../components/ActionButtons/ActionButtons";
 import MetaInfo from "../../../../components/MetaInfo/MetaInfo";
 import styles from "./style.module.css";
@@ -23,7 +23,7 @@ const Comment: FC<Props> = ({
                             }) => {
   return (
     <div className={styles.comment}>
-      <MetaInfo username={author.username} createDatetime={createDatetime} />
+      <MetaInfo username={author.username} avatar={author.avatar} createDatetime={createDatetime} />
       {comment}
       <ActionButtons likesAmount={likesAmount}
                      dislikesAmount={dislikesAmount}

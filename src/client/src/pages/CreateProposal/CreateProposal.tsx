@@ -2,7 +2,9 @@ import React, { FC, FormEvent } from "react";
 
 import { ProposalsModel } from "../../models/ProposalsModel";
 import Input from "../../components/Input/Input";
+import Textarea from "../../components/Textarea/Textarea";
 import Button from "../../components/Button/Button";
+import Form from "../../components/Form/Form";
 
 interface Props {
   proposalsModel: ProposalsModel;
@@ -10,27 +12,18 @@ interface Props {
 
 const CreateProposal: FC<Props> = ({ proposalsModel }) => {
   const create = (e: FormEvent) => {
-    e.preventDefault();
     const newProposal = new FormData((e.target) as HTMLFormElement);
     proposalsModel.create(newProposal);
   };
 
   return (
     <div>
-      <form onSubmit={create}>
+      <Form onSubmit={create}>
         <Input label="Title" name="title" />
-        <Input label="Description" name="description" />
-        <Input label="Files"
-               type="file"
-               name="files"
-               onChange={e => {
-                 //@ts-ignore
-                 console.log(e.target.files);
-                 //@ts-ignore
-                 console.log(e.target.files[0]);
-               }} />
-        <Button type="submit">Create Proposal</Button>
-      </form>
+        <Textarea label="Description" name="description" />
+        <Input label="Files" type="file" name="files" />
+        <Button type="submit" primary>Create Proposal</Button>
+      </Form>
     </div>
   );
 };

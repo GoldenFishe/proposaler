@@ -1,14 +1,14 @@
 import React, { FC, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 
-import { Proposal } from "../../../../types/Proposal";
+import { ProposalType } from "../../../../types/ProposalType";
 import ActionButtons from "../../../../components/ActionButtons/ActionButtons";
-import styles from "./style.module.css";
 import MetaInfo from "../../../../components/MetaInfo/MetaInfo";
+import styles from "./style.module.css";
 
-interface Props extends Proposal {
-  onLike: (proposalId: number) => void;
-  onDislike: (proposalId: number) => void;
+interface Props extends ProposalType {
+  onLike: (id: ProposalType["id"]) => void;
+  onDislike: (id: ProposalType["id"]) => void;
 }
 
 const ProposalCard: FC<Props> = ({
@@ -35,7 +35,7 @@ const ProposalCard: FC<Props> = ({
   return (
     <li className={styles.proposalCard}>
       <Link to={`${id}`} className={styles.proposalCardLink}>
-        <MetaInfo username={author.username} createDatetime={createDatetime} />
+        <MetaInfo username={author.username} avatar={author.avatar} createDatetime={createDatetime} />
         <div>
           <h3>{title}</h3>
           <p>{description}</p>

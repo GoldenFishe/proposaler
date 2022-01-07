@@ -7,6 +7,7 @@ interface Props {
   value?: string;
   label: string;
   name?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
 }
 
@@ -15,6 +16,7 @@ const Input: FC<Props> = ({
                             value,
                             label,
                             name,
+                            defaultValue,
                             onChange
                           }) => {
   const change = (e: ChangeEvent) => {
@@ -25,7 +27,12 @@ const Input: FC<Props> = ({
   return (
     <label className={styles.wrapper}>
       {label}
-      <input type={type} value={value} name={name} onChange={change} />
+      <input type={type}
+             value={value}
+             name={name}
+             onChange={change}
+             defaultValue={defaultValue}
+             className={styles.input} />
     </label>
   );
 };

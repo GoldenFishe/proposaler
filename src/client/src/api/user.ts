@@ -1,8 +1,16 @@
 import { Http } from './http';
-import { User } from '../types/User';
+import { UserType } from '../types/UserType';
 
 export namespace UserRequests {
-  export function getUserById(id: number) {
-    return Http.get<User>(`/user/${id}`);
+  export function getUserById(id: UserType['id']) {
+    return Http.Instance.get<UserType>(`/user/${id}`);
+  }
+
+  export function getProfile() {
+    return Http.Instance.get<UserType>(`/user/profile`);
+  }
+
+  export function updateProfile(changes: FormData) {
+    return Http.Instance.patch<FormData, UserType>('/user/profile', changes);
   }
 }

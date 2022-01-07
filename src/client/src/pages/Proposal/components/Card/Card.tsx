@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 
-import { Proposal } from "../../../../types/Proposal";
+import { ProposalType } from "../../../../types/ProposalType";
 import ActionButtons from "../../../../components/ActionButtons/ActionButtons";
 import MetaInfo from "../../../../components/MetaInfo/MetaInfo";
 import styles from "./styles.module.css";
 
-interface Props extends Proposal {
+interface Props extends ProposalType {
   onLike: () => void;
   onDislike: () => void;
 }
@@ -24,7 +24,7 @@ const Card: FC<Props> = ({
                          }) => {
   return (
     <div className={styles.card}>
-      <MetaInfo username={author.username} createDatetime={createDatetime} />
+      <MetaInfo username={author.username} avatar={author.avatar} createDatetime={createDatetime} />
       <h6>{title}</h6>
       <p>{description}</p>
       <ActionButtons likesAmount={likesAmount}

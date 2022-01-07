@@ -1,11 +1,13 @@
 import React, { FC, MouseEvent } from "react";
 
 import like from "../../assets/icons/like.png";
+import { ProposalType } from "../../types/ProposalType";
+import { CommentType } from "../../types/CommentType";
 import styles from "./style.module.css";
 
 interface Props {
-  amount: number;
-  liked: boolean;
+  amount: ProposalType["likesAmount"] | CommentType["likesAmount"];
+  liked: ProposalType["isLiked"] | CommentType["isLiked"];
   onClick: (e: MouseEvent) => void;
 }
 

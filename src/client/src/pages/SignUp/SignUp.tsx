@@ -1,10 +1,12 @@
-import React, { FC, FormEvent, useState } from "react";
+import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
 import { AuthRequests } from "../../api/auth";
 import { UserModel } from "../../models/UserModel";
+import Title from "../../components/Title/Title";
+import Form from "../../components/Form/Form";
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
 import styles from "./style.module.css";
 
 interface Props {
@@ -17,18 +19,18 @@ const SignUp: FC<Props> = ({ userModel }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  async function signUp(e: FormEvent) {
-    e.preventDefault();
+  async function signUp() {
     const user = await AuthRequests.signUp(login, username, password);
     if (user) {
-      userModel.self = { username: user.username, id: user.id };
+      userModel.profile = { username: user.username, id: user.id, avatar: user.avatar };
       navigate("/proposals");
     }
   }
 
   return (
     <div className={styles.container}>
-      <form onSubmit={signUp} className={styles.form}>
+      <Title size={5}>Sign Up</Title>
+      <Form onSubmit={signUp}>
         <Input label="Login"
                value={login}
                onChange={setLogin} />
@@ -39,8 +41,11 @@ const SignUp: FC<Props> = ({ userModel }) => {
                label="Password"
                value={password}
                onChange={setPassword} />
-        <Button type="submit">Sign Up</Button>
-      </form>
+        <Button type="submit"
+                primary>
+          Sign Up
+        </Button>
+      </Form>
     </div>
   );
 };

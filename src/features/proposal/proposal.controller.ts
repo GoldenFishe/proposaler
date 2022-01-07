@@ -6,6 +6,7 @@ import {
   Get,
   Param,
   Post,
+  Req,
   Request,
   UploadedFiles,
   UseGuards,
@@ -28,7 +29,8 @@ export class ProposalController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  getAll() {
+  getAll(@Req() req) {
+    console.log(req.user);
     // TODO: userId
     return this.proposalService.getAll(1);
   }
@@ -49,20 +51,20 @@ export class ProposalController {
     @UploadedFiles() files: Express.Multer.File[],
     @Request() req,
   ) {
-    return this.proposalService.create(createDto, files, req.user.userId);
+    return this.proposalService.create(createDto, files, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('like')
   like(@Body() likeDto: LikeDto, @Request() req) {
-    return this.proposalService.toggleLike(likeDto, req.user.userId);
+    return this.proposalService.toggleLike(likeDto, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('dislike')
   dislike(@Body() dislikeDto: DislikeDto, @Request() req) {
-    return this.proposalService.toggleDislike(dislikeDto, req.user.userId);
+    return this.proposalService.toggleDislike(dislikeDto, req.user.id);
   }
 }

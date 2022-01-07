@@ -1,13 +1,13 @@
-import { User } from './User';
-import { File } from './File';
+import { UserType } from './UserType';
+import { FileType } from './FileType';
 
-export type Proposal = {
+export type ProposalType = {
   id: number;
   title: string;
   description: string;
-  author: User;
+  author: UserType;
   createDatetime: string;
-  files: File[];
+  files: FileType[];
   dislikesAmount: number;
   likesAmount: number;
   isLiked: boolean;

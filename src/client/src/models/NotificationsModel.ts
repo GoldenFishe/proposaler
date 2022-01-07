@@ -19,7 +19,7 @@ export class NotificationsModel {
     this.notifications.push({ ...notification, id: nanoid() });
   }
 
-  remove(id: string) {
+  remove(id: Notification['id']) {
     const itemIndex = this.notifications.findIndex(
       (notification) => notification.id === id,
     );

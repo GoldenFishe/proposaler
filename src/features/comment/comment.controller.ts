@@ -43,20 +43,20 @@ export class CommentController {
     @UploadedFiles() files: Express.Multer.File[],
     @Request() req,
   ) {
-    return this.commentService.create(createDto, files, req.user.userId);
+    return this.commentService.create(createDto, files, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('like')
   like(@Body() likeDto: LikeDto, @Request() req) {
-    return this.commentService.toggleLike(likeDto, req.user.userId);
+    return this.commentService.toggleLike(likeDto, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('dislike')
   dislike(@Body() dislikeDto: DislikeDto, @Request() req) {
-    return this.commentService.toggleDislike(dislikeDto, req.user.userId);
+    return this.commentService.toggleDislike(dislikeDto, req.user.id);
   }
 }

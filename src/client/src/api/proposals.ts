@@ -1,5 +1,5 @@
 import { Http } from './http';
-import { Proposal as ProposalType, Proposal } from '../types/Proposal';
+import { ProposalType } from '../types/ProposalType';
 
 type ProposalAction = {
   proposalId: number;
@@ -7,26 +7,32 @@ type ProposalAction = {
 
 export namespace ProposalRequests {
   export function createProposal(newProposal: FormData) {
-    return Http.post<FormData, ProposalType>('/proposal/create', newProposal);
+    return Http.Instance.post<FormData, ProposalType>(
+      '/proposal/create',
+      newProposal,
+    );
   }
 
   export function getProposals() {
-    return Http.get<Proposal[]>('/proposal');
+    return Http.Instance.get<ProposalType[]>('/proposal');
   }
 
-  export function getProposal(id: number) {
-    return Http.get<ProposalType>(`/proposal/${id}`);
+  export function getProposal(id: ProposalType['id']) {
+    return Http.Instance.get<ProposalType>(`/proposal/${id}`);
   }
 
-  export function like(proposalId: number) {
-    return Http.post<ProposalAction, ProposalType>('/proposal/like', {
+  export function like(proposalId: ProposalType['id']) {
+    return Http.Instance.post<ProposalAction, ProposalType>('/proposal/like', {
       proposalId,
     });
   }
 
-  export function dislike(proposalId: number) {
-    return Http.post<ProposalAction, ProposalType>('/proposal/dislike', {
-      proposalId,
-    });
+  export function dislike(proposalId: ProposalType['id']) {
+    return Http.Instance.post<ProposalAction, ProposalType>(
+      '/proposal/dislike',
+      {
+        proposalId,
+      },
+    );
   }
 }
