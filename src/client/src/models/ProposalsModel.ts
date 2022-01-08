@@ -19,28 +19,34 @@ export class ProposalsModel {
   async getProposals() {
     const proposals = await ProposalRequests.getProposals();
     if (proposals) {
-      this.proposals = proposals;
+      this.setProposals(proposals);
     }
   }
 
   async like(id: ProposalType['id']) {
     const likedProposal = await ProposalRequests.like(id);
     if (likedProposal) {
-      this.proposals = this.proposals.map((proposal) => {
+      const proposals = this.proposals.map((proposal) => {
         return proposal.id === likedProposal.id ? likedProposal : proposal;
       });
+      this.setProposals(proposals);
     }
   }
 
   async dislike(id: ProposalType['id']) {
     const dislikedProposal = await ProposalRequests.dislike(id);
     if (dislikedProposal) {
-      this.proposals = this.proposals.map((proposal) => {
+      const proposals = this.proposals.map((proposal) => {
         return proposal.id === dislikedProposal.id
           ? dislikedProposal
           : proposal;
       });
+      this.setProposals(proposals);
     }
+  }
+
+  private setProposals(proposals: ProposalType[]) {
+    this.proposals = proposals;
   }
 }
 

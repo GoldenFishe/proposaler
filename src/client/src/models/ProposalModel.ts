@@ -36,14 +36,14 @@ export class ProposalModel implements ProposalType {
   async getComments(id: ProposalType['id']) {
     const comments = await CommentsRequests.getComments(id);
     if (comments) {
-      this.comments = comments;
+      this.setComments(comments);
     }
   }
 
   async createComment(newComment: FormData) {
     const comments = await CommentsRequests.createComment(newComment);
     if (comments) {
-      this.comments = comments;
+      this.setComments(comments);
     }
   }
 
@@ -64,18 +64,20 @@ export class ProposalModel implements ProposalType {
   async likeComment(id: CommentType['id']) {
     const likedComment = await CommentsRequests.like(id);
     if (likedComment) {
-      this.comments = this.comments!.map((comment) => {
+      const comments = this.comments!.map((comment) => {
         return comment.id === likedComment.id ? likedComment : comment;
       });
+      this.setComments(comments);
     }
   }
 
   async dislikeComment(id: CommentType['id']) {
     const dislikedComment = await CommentsRequests.dislike(id);
     if (dislikedComment) {
-      this.comments = this.comments!.map((comment) => {
+      const comments = this.comments!.map((comment) => {
         return comment.id === dislikedComment.id ? dislikedComment : comment;
       });
+      this.setComments(comments);
     }
   }
 
@@ -90,6 +92,10 @@ export class ProposalModel implements ProposalType {
     this.isLiked = proposal.isLiked;
     this.likesAmount = proposal.likesAmount;
     this.title = proposal.title;
+  }
+
+  private setComments(comments: CommentType[]) {
+    this.comments = comments;
   }
 }
 

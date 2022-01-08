@@ -31,3 +31,7 @@ input, textarea, button {
 a {
     color: inherit;
 }
+img {
+    max-height: 100%;
+    object-fit: cover;
+}

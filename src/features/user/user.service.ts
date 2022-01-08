@@ -24,9 +24,9 @@ export class UserService {
   async update(
     id: User['id'],
     changes: UpdateUserDto,
-    files: Express.Multer.File,
+    file: Express.Multer.File,
   ) {
-    if (files) changes['avatar'] = files.path;
+    if (file) changes['avatar'] = file.filename;
     await this.userRepository.update({ id }, changes);
     return this.getById(id);
   }

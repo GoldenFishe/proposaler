@@ -53,7 +53,7 @@ export class CommentService {
     });
     const { id } = await this.commentRepository.save(comment);
     const saveFilePromises = files.map((file) => {
-      return this.saveFile(file.path, id);
+      return this.saveFile(file.filename, id);
     });
     await Promise.all(saveFilePromises);
     return this.getByProposalId(createDto.proposalId, authorId);

@@ -12,25 +12,24 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  signIn(user: User) {
-    return this.format(user);
+  async signIn(id: User['id']) {
+    const user = await this.userService.getById(id);
+    user['accessToken'] = this.getAccessToken(user.username, user.id);
+    return user;
   }
 
   async signUp(signUpDto: SignUpDto) {
     try {
       const user = await this.userService.create(signUpDto);
-      return this.format(user);
+      user['accessToken'] = this.getAccessToken(user.username, user.id);
+      return user;
     } catch (err) {
       return err;
     }
   }
 
-  private format(user: User) {
-    const payload = { username: user.username, sub: user.id };
-    return {
-      id: user.id,
-      username: user.username,
-      accessToken: this.jwtService.sign(payload),
-    };
+  private getAccessToken(username: User['username'], id: User['id']) {
+    const payload = { username, sub: id };
+    return this.jwtService.sign(payload);
   }
 }

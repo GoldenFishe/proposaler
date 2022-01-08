@@ -8,6 +8,7 @@ interface Props {
   label: string;
   name?: string;
   defaultValue?: string;
+  multiple?: boolean;
   onChange?: (value: string) => void;
 }
 
@@ -17,6 +18,7 @@ const Input: FC<Props> = ({
                             label,
                             name,
                             defaultValue,
+                            multiple,
                             onChange
                           }) => {
   const change = (e: ChangeEvent) => {
@@ -32,6 +34,7 @@ const Input: FC<Props> = ({
              name={name}
              onChange={change}
              defaultValue={defaultValue}
+             multiple={multiple}
              className={styles.input} />
     </label>
   );

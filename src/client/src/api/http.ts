@@ -10,8 +10,11 @@ type HttpError = {
 
 export class Http {
   private static instance: Http | undefined;
+  private prefix: '/api';
 
-  private constructor() {}
+  private constructor() {
+    this.prefix = '/api';
+  }
 
   static get Instance() {
     this.instance = this.instance ? this.instance : new Http();
@@ -29,7 +32,7 @@ export class Http {
   async get<Response>(url: string, withAuth = true) {
     const token = withAuth ? authTokenManager.getToken() : null;
     const headers = this.getHeaders(token);
-    return Axios.get<Response>(url, { headers })
+    return Axios.get<Response>(`${this.prefix}${url}`, { headers })
       .then((res) => res.data)
       .catch(this.handleError);
   }
@@ -37,7 +40,7 @@ export class Http {
   post<Body, Response>(url: string, data: Body, withAuth = true) {
     const token = withAuth ? authTokenManager.getToken() : null;
     const headers = this.getHeaders(token);
-    return Axios.post<Response>(url, data, { headers })
+    return Axios.post<Response>(`${this.prefix}${url}`, data, { headers })
       .then((res) => res.data)
       .catch(this.handleError);
   }
@@ -45,7 +48,7 @@ export class Http {
   patch<Body, Response>(url: string, data: Body, withAuth = true) {
     const token = withAuth ? authTokenManager.getToken() : null;
     const headers = this.getHeaders(token);
-    return Axios.patch<Response>(url, data, { headers })
+    return Axios.patch<Response>(`${this.prefix}${url}`, data, { headers })
       .then((res) => res.data)
       .catch(this.handleError);
   }

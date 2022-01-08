@@ -29,7 +29,7 @@ const EditProfile: FC<Props> = ({ username, login, avatar, onSaveChanges }) => {
   return (
     <div className={styles.container}>
       <Title size={5}>Edit Profile</Title>
-      <Avatar src={avatar} />
+      <Avatar src={avatar} size="big"/>
       <Form onSubmit={saveChanges}>
         <Input label="Avatar" type="file" name="avatar" />
         <Input label="Login" name="login" defaultValue={login} />

@@ -18,7 +18,7 @@ const CreateComment: FC<Props> = ({ onCreate }) => {
     <div>
       <Form onSubmit={create}>
         <Textarea label="Comment" name="comment" />
-        <Input label="Files" type="file" name="files" />
+        <Input label="Files" type="file" name="files" multiple/>
         <Button type="submit" primary>Create Comment</Button>
       </Form>
     </div>

@@ -18,6 +18,7 @@ const Comment: FC<Props> = ({
                               dislikesAmount,
                               isLiked,
                               isDisliked,
+                              files,
                               onLike,
                               onDislike
                             }) => {
@@ -25,6 +26,12 @@ const Comment: FC<Props> = ({
     <div className={styles.comment}>
       <MetaInfo username={author.username} avatar={author.avatar} createDatetime={createDatetime} />
       {comment}
+      <div className={styles.files}>
+        {files.map(file => <img src={`/static/comments/${file.filename}`}
+                                width={150}
+                                height={150} />)}
+      </div>
+
       <ActionButtons likesAmount={likesAmount}
                      dislikesAmount={dislikesAmount}
                      isLiked={isLiked}

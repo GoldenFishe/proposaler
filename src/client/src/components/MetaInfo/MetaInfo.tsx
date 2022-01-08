@@ -31,7 +31,7 @@ const MetaInfo: FC<Props> = ({ username, createDatetime, avatar }) => {
   const datetime = Intl.DateTimeFormat(undefined, options).format(new Date(createDatetime));
   return (
     <div className={styles.metaInfo}>
-      <Avatar src={avatar} />
+      <Avatar src={avatar} size="medium"/>
       <span className={styles.username}>{username}</span>
       <span className={styles.datetime}>{datetime}</span>
     </div>

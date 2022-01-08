@@ -33,6 +33,9 @@ export class Comment {
   @Column()
   proposalId: number;
 
+  @Column({ nullable: true })
+  replyTo: number;
+
   @ManyToOne(() => Proposal, { nullable: false })
   @JoinColumn({ name: 'proposalId' })
   proposal: Proposal;

@@ -31,7 +31,7 @@ const typeOrmModule = TypeOrmModule.forRoot({
     ProposalModule,
     CommentModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'client'),
+      rootPath: join(__dirname, '..', '..', 'static'),
     }),
   ],
   controllers: [AppController],

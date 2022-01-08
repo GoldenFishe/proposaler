@@ -12,6 +12,7 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ userModel }) => {
+
   const { id } = useParams();
   useEffect(() => {
     if (userModel.profile?.id !== Number(id)) {
@@ -22,8 +23,8 @@ const Profile: FC<Props> = ({ userModel }) => {
   return (
     <div className={styles.container}>
       {userModel.profile?.id === Number(id) ?
-        <EditProfile {...userModel.profile} onSaveChanges={saveChanges}/> :
-        <ViewProfile />}
+        <EditProfile {...userModel.profile} onSaveChanges={saveChanges} /> :
+        <ViewProfile {...userModel.user} />}
     </div>
   );
 };

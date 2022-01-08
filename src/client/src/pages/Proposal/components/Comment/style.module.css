@@ -6,3 +6,9 @@
 .comment:not(:last-child) {
     margin-bottom: 10px;
 }
+
+.files {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+}

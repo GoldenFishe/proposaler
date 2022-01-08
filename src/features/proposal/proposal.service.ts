@@ -46,7 +46,7 @@ export class ProposalService {
     const proposal = this.proposalRepository.create({ ...createDto, authorId });
     const { id } = await this.proposalRepository.save(proposal);
     const saveFilePromises = files.map((file) => {
-      return this.saveFile(file.path, id);
+      return this.saveFile(file.filename, id);
     });
     await Promise.all(saveFilePromises);
     return this.getById(id, authorId);

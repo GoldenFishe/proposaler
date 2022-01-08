@@ -21,7 +21,7 @@ const SignIn: FC<Props> = ({ userModel }) => {
   async function signIn() {
     const user = await AuthRequests.signIn(login, password);
     if (user) {
-      userModel.profile = { username: user.username, id: user.id, avatar: user.avatar };
+      userModel.setProfile(user);
       navigate("/proposals");
     }
   }

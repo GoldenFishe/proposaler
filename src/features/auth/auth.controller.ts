@@ -4,6 +4,7 @@ import {
   Controller,
   Post,
   Req,
+  SerializeOptions,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -17,12 +18,14 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
+  @SerializeOptions({ groups: ['self'] })
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('sign-in')
   signIn(@Req() req) {
-    return this.authService.signIn(req.user);
+    return this.authService.signIn(req.user.id);
   }
 
+  @SerializeOptions({ groups: ['self'] })
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('sign-up')
   signUp(@Body() signUpDto: SignUpDto) {
