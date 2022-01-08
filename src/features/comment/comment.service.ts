@@ -101,16 +101,12 @@ export class CommentService {
     const isDisliked = Boolean(
       comment.dislikes.find((dislike) => dislike.authorId === userId),
     );
-    return {
-      id: comment.id,
-      author: comment.author,
-      createDatetime: comment.createDatetime,
-      files: comment.files,
-      comment: comment.comment,
-      likesAmount: comment.likes.length,
-      dislikesAmount: comment.dislikes.length,
-      isLiked,
-      isDisliked,
-    };
+    comment['likesAmount'] = comment.likes.length;
+    comment['dislikesAmount'] = comment.dislikes.length;
+    comment['isLiked'] = isLiked;
+    comment['isDisliked'] = isDisliked;
+    delete comment['likes'];
+    delete comment['dislikes'];
+    return comment;
   }
 }

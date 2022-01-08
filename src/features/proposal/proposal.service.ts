@@ -94,17 +94,12 @@ export class ProposalService {
     const isDisliked = Boolean(
       proposal.dislikes.find((dislike) => dislike.authorId === userId),
     );
-    return {
-      id: proposal.id,
-      author: proposal.author,
-      createDatetime: proposal.createDatetime,
-      description: proposal.description,
-      files: proposal.files,
-      title: proposal.title,
-      likesAmount: proposal.likes.length,
-      dislikesAmount: proposal.dislikes.length,
-      isLiked,
-      isDisliked,
-    };
+    proposal['likesAmount'] = proposal.likes.length;
+    proposal['dislikesAmount'] = proposal.dislikes.length;
+    proposal['isLiked'] = isLiked;
+    proposal['isDisliked'] = isDisliked;
+    delete proposal['likes'];
+    delete proposal['dislikes'];
+    return proposal;
   }
 }
