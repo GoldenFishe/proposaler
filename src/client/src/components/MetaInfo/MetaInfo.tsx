@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 
 import Avatar from "../Avatar/Avatar";
 import { UserType } from "../../types/UserType";
@@ -7,6 +8,7 @@ import { CommentType } from "../../types/CommentType";
 import styles from "./style.module.css";
 
 interface Props {
+  userId: UserType["id"];
   username: UserType["username"];
   avatar: UserType["avatar"];
   createDatetime: ProposalType["createDatetime"] | CommentType["createDatetime"];
@@ -20,7 +22,7 @@ type DateTimeFormatOptions = {
   minute: "numeric";
 }
 
-const MetaInfo: FC<Props> = ({ username, createDatetime, avatar }) => {
+const MetaInfo: FC<Props> = ({ userId, username, createDatetime, avatar }) => {
   const options: DateTimeFormatOptions = {
     year: "numeric",
     month: "numeric",
@@ -31,9 +33,15 @@ const MetaInfo: FC<Props> = ({ username, createDatetime, avatar }) => {
   const datetime = Intl.DateTimeFormat(undefined, options).format(new Date(createDatetime));
   return (
     <div className={styles.metaInfo}>
-      <Avatar src={avatar} size="medium"/>
-      <span className={styles.username}>{username}</span>
-      <span className={styles.datetime}>{datetime}</span>
+      <Avatar src={avatar}
+              size="medium"/>
+      <Link to={`/profile/${userId}`}
+            className={styles.username}>
+        {username}
+      </Link>
+      <span className={styles.datetime}>
+        {datetime}
+      </span>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 
@@ -7,8 +7,8 @@ import Comment from "./components/Comment/Comment";
 import { ProposalModel } from "../../models/ProposalModel";
 import CreateComment from "./components/CreateComment/CreateComment";
 import { ProposalType } from "../../types/ProposalType";
-import styles from "./style.module.css";
 import { CommentType } from "../../types/CommentType";
+import styles from "./style.module.css";
 
 interface Props {
   proposalModel: ProposalModel;
@@ -16,6 +16,7 @@ interface Props {
 
 const Proposal: FC<Props> = ({ proposalModel }) => {
   const { id } = useParams();
+  const [selectedCommentId, selectCommentIdToReply] = useState<CommentType["id"]>();
   useEffect(() => {
     if (id) {
       proposalModel.getProposal(Number(id));
@@ -47,7 +48,10 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
     };
   }
 
-  function onCreateComment(newComment: FormData) {
+  function onCreateComment(newComment: FormData, replyTo?: CommentType["id"]) {
+    if (replyTo !== undefined) {
+      newComment.set("replyTo", String(replyTo));
+    }
     newComment.set("proposalId", String(id));
     proposalModel.createComment(newComment);
   }
@@ -58,10 +62,16 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
                                  onLike={likeProposal(proposalModel.id)}
                                  onDislike={dislikeProposal(proposalModel.id)} />}
       {proposalModel.comments.length > 0 && proposalModel.comments.map(comment => {
-        return <Comment key={comment.id}
-                        {...comment}
-                        onLike={likeComment(comment.id)}
-                        onDislike={dislikeComment(comment.id)} />;
+        return (
+          <Fragment key={comment.id}>
+            <Comment {...comment}
+                     selectCommentIdToReply={selectCommentIdToReply}
+                     onLike={likeComment(comment.id)}
+                     onDislike={dislikeComment(comment.id)} />
+            {comment.id === selectedCommentId &&
+              <CreateComment onCreate={onCreateComment} replyTo={selectedCommentId} />}
+          </Fragment>
+        );
       })}
       <CreateComment onCreate={onCreateComment} />
     </div>

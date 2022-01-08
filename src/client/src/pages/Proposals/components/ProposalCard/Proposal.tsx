@@ -35,7 +35,10 @@ const ProposalCard: FC<Props> = ({
   return (
     <li className={styles.proposalCard}>
       <Link to={`${id}`} className={styles.proposalCardLink}>
-        <MetaInfo username={author.username} avatar={author.avatar} createDatetime={createDatetime} />
+        <MetaInfo userId={author.id}
+                  username={author.username}
+                  avatar={author.avatar}
+                  createDatetime={createDatetime} />
         <div>
           <h3>{title}</h3>
           <p>{description}</p>

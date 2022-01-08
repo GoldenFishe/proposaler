@@ -1,4 +1,4 @@
-import { IsNumberString, IsString } from 'class-validator';
+import { IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class CreateDto {
   @IsString()
@@ -6,4 +6,8 @@ export class CreateDto {
 
   @IsNumberString()
   proposalId: number;
+
+  @IsOptional()
+  @IsNumberString()
+  replyTo: number;
 }

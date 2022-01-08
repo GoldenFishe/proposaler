@@ -25,7 +25,10 @@ const Card: FC<Props> = ({
                          }) => {
   return (
     <div className={styles.card}>
-      <MetaInfo username={author.username} avatar={author.avatar} createDatetime={createDatetime} />
+      <MetaInfo username={author.username}
+                userId={author.id}
+                avatar={author.avatar}
+                createDatetime={createDatetime} />
       <h6>{title}</h6>
       <p>{description}</p>
       <div className={styles.files}>

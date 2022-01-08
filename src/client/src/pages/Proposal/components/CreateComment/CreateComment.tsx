@@ -4,21 +4,23 @@ import Form from "../../../../components/Form/Form";
 import Textarea from "../../../../components/Textarea/Textarea";
 import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
+import { CommentType } from "../../../../types/CommentType";
 
 interface Props {
-  onCreate: (newComment: FormData) => void;
+  replyTo?: CommentType["id"];
+  onCreate: (newComment: FormData, replyTo?: CommentType["id"]) => void;
 }
 
-const CreateComment: FC<Props> = ({ onCreate }) => {
+const CreateComment: FC<Props> = ({ onCreate, replyTo }) => {
   const create = (e: FormEvent) => {
     const newComment = new FormData((e.target) as HTMLFormElement);
-    onCreate(newComment);
+    onCreate(newComment, replyTo);
   };
   return (
     <div>
       <Form onSubmit={create}>
         <Textarea label="Comment" name="comment" />
-        <Input label="Files" type="file" name="files" multiple/>
+        <Input label="Files" type="file" name="files" multiple />
         <Button type="submit" primary>Create Comment</Button>
       </Form>
     </div>
