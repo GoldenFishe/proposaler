@@ -31,7 +31,7 @@ export namespace AuthRequests {
     password: string,
   ) {
     const user = await Http.Instance.post<SignUpBody, SignResponse>(
-      'auth/sign-up',
+      '/auth/sign-up',
       { login, username, password },
     );
     if (user) authTokenManager.setToken(user.accessToken);
