@@ -1,9 +1,9 @@
 .form {
     display: flex;
     flex-flow: column;
-    width: 380px;
+    width: 300px;
     margin: 20px auto;
-    gap: 20px;
+    gap: 1em;
     text-align: left;
 }
 

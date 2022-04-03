@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import { UserModel } from "../../../../models/UserModel";
@@ -14,7 +14,12 @@ const activeClassName = ({ isActive }: { isActive: boolean }) => {
 };
 
 const Topbar: FC<Props> = ({ userModel }) => {
+  const { pathname } = useLocation();
   const isAuthorized = userModel.profile !== undefined;
+
+  if (pathname === "/sign-in" || pathname === "/sign-up") {
+    return null;
+  }
   return (
     <header className={styles.topbar}>
       <nav className={styles.navigation}>

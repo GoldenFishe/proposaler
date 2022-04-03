@@ -4,11 +4,25 @@
 }
 
 .input {
-    margin-top: 10px;
-    padding: 10px 20px;
+    margin-top: 0.5em;
+    padding: 5px 15px;
     border-radius: 10px;
     border: 1px solid var(--secondary-text-color);
     outline: none;
+    transition: var(--transition);
 }
 
-.input[type="file"] {}
+.input:hover, input:focus {
+    border: 1px solid var(--primary-color);
+}
+
+.input:focus:invalid {
+    border: 1px solid var(--primary-color);
+}
+
+.input:invalid {
+    border: 1px solid red;
+}
+
+.input[type="file"] {
+}

@@ -1,9 +1,10 @@
 import React, { FC, MouseEvent } from "react";
 
 import dislike from "../../assets/icons/dislike.png";
-import styles from "./style.module.css";
+import dislikeActive from "../../assets/icons/dislike_active.png";
 import { ProposalType } from "../../types/ProposalType";
 import { CommentType } from "../../types/CommentType";
+import styles from "./style.module.css";
 
 interface Props {
   amount: ProposalType["dislikesAmount"] | CommentType["dislikesAmount"];
@@ -12,11 +13,11 @@ interface Props {
 }
 
 const Dislike: FC<Props> = ({ amount, disliked, onClick }) => {
-  const style = { color: disliked ? "red" : "unset" };
+  const src = disliked ? dislikeActive : dislike;
   return (
     <div onClick={onClick} className={styles.dislike}>
-      <img src={dislike} alt="Dislike" className={styles.icon} />
-      <span style={style}>{amount}</span>
+      <img src={src} alt="Dislike" className={styles.icon} />
+      <span>{amount}</span>
     </div>
   );
 };

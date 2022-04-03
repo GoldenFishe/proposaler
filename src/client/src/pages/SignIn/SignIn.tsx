@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { AuthRequests } from "../../api/auth";
 import { UserModel } from "../../models/UserModel";
@@ -28,20 +28,28 @@ const SignIn: FC<Props> = ({ userModel }) => {
 
   return (
     <div className={styles.container}>
-      <Title size={5}>Sign In</Title>
+      <Title size={5}>Sign in to Proposaler</Title>
       <Form onSubmit={signIn}>
         <Input label="Login"
+               autoFocus
                value={login}
+               minLength={4}
+               maxLength={20}
+               required
                onChange={setLogin} />
         <Input type="password"
                label="Password"
                value={password}
+               minLength={4}
+               maxLength={20}
+               required
                onChange={setPassword} />
         <Button type="submit"
                 primary>
           Sign In
         </Button>
       </Form>
+      <p>New to Proposaler? <Link to="/sign-up">Create an account</Link>.</p>
     </div>
   );
 };

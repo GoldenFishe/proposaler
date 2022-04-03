@@ -1,13 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-}
-
 :root {
     --content-width: 640px;
     --primary-color: #2DA8EB;
@@ -16,6 +6,21 @@ body {
     --primary-text-color: #FFFFFF;
     --secondary-text-color: #A5B1B8;
     --transition: all 0.25s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+}
+
+a, p, label, span, button, input {
+    line-height: 20px;
 }
 
 li {
@@ -31,6 +36,7 @@ input, textarea, button {
 a {
     color: inherit;
 }
+
 img {
     max-height: 100%;
     object-fit: cover;

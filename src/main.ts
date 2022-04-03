@@ -4,8 +4,11 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 
 import { AppModule } from './features/app/app.module';
+import { createStaticFolders } from './presetup';
 
 async function bootstrap() {
+  createStaticFolders();
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.setGlobalPrefix('api');
   app.useStaticAssets(join(__dirname, '..', 'static'), { prefix: '/static/' });
