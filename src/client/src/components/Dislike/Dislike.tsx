@@ -1,7 +1,6 @@
 import React, { FC, MouseEvent } from "react";
+import {ThumbsDown} from "@carbon/icons-react";
 
-import dislike from "../../assets/icons/dislike.png";
-import dislikeActive from "../../assets/icons/dislike_active.png";
 import { ProposalType } from "../../types/ProposalType";
 import { CommentType } from "../../types/CommentType";
 import styles from "./style.module.css";
@@ -13,10 +12,10 @@ interface Props {
 }
 
 const Dislike: FC<Props> = ({ amount, disliked, onClick }) => {
-  const src = disliked ? dislikeActive : dislike;
+  const className = disliked ? styles.dislikeActive : undefined;
   return (
     <div onClick={onClick} className={styles.dislike}>
-      <img src={src} alt="Dislike" className={styles.icon} />
+      <ThumbsDown className={className}/>
       <span>{amount}</span>
     </div>
   );

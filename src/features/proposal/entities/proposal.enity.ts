@@ -5,10 +5,7 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   CreateDateColumn,
-  ManyToMany,
-  JoinTable,
-  OneToMany,
-  OneToOne,
+  OneToMany
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
@@ -16,6 +13,7 @@ import { User } from '../../user/entities/user.entity';
 import { ProposalLike } from './proposalLike.entity';
 import { ProposalDislike } from './proposalDislike.entity';
 import { ProposalFile } from './proposalFile.entity';
+import { Tags } from './tags.entity';
 
 @Entity()
 export class Proposal {
@@ -58,4 +56,10 @@ export class Proposal {
     eager: true,
   })
   files: ProposalFile[];
+
+  @OneToMany(() => Tags, (tags) => tags.proposal, {
+    nullable: false,
+    eager: true,
+  })
+  tags: Tags[];
 }

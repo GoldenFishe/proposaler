@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { ProposalType } from "../../../../types/ProposalType";
 import ActionButtons from "../../../../components/ActionButtons/ActionButtons";
 import MetaInfo from "../../../../components/MetaInfo/MetaInfo";
-import styles from "./styles.module.css";
+import styles from "./styles.module.scss";
 
 interface Props extends ProposalType {
   onLike: () => void;

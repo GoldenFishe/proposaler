@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { observer } from "mobx-react";
+import { Content } from "@carbon/react";
 
 import Notifications from "./components/Notifications/Notifications";
 import Topbar from "./components/Topbar/Topbar";
@@ -28,26 +29,28 @@ const App: FC<Props> = ({ userModel }) => {
   }, [userModel]);
   return (
     <div>
-      <Notifications notificationsModel={notificationsModel} />
       <BrowserRouter>
         <Topbar userModel={userModel} />
-        <Routes>
-          <Route path="/proposals">
-            <Route index
-                   element={<Proposals proposalsModel={proposalsModel} />} />
-            <Route path=":id"
-                   element={<Proposal proposalModel={proposalModel} />} />
-            <Route path="create"
-                   element={<CreateProposal proposalsModel={proposalsModel} />} />
-          </Route>
-          <Route path="/profile/:id"
-                 element={<Profile userModel={userModel} />} />
-          <Route path="/sign-in"
-                 element={<SignIn userModel={userModel} />} />
-          <Route path="/sign-up"
-                 element={<SignUp userModel={userModel} />} />
-          <Route path="*" element={<Navigate to="/proposals"/>}/>
-        </Routes>
+        <Content>
+          <Notifications notificationsModel={notificationsModel} />
+          <Routes>
+            <Route path="/proposals">
+              <Route index
+                     element={<Proposals proposalsModel={proposalsModel} />} />
+              <Route path=":id"
+                     element={<Proposal proposalModel={proposalModel} />} />
+              <Route path="create"
+                     element={<CreateProposal proposalsModel={proposalsModel} />} />
+            </Route>
+            <Route path="/profile/:id"
+                   element={<Profile userModel={userModel} />} />
+            <Route path="/sign-in"
+                   element={<SignIn userModel={userModel} />} />
+            <Route path="/sign-up"
+                   element={<SignUp userModel={userModel} />} />
+            <Route path="*" element={<Navigate to="/proposals" />} />
+          </Routes>
+        </Content>
       </BrowserRouter>
     </div>
   );

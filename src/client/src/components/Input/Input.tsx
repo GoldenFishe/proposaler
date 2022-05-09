@@ -1,21 +1,15 @@
-import React, { ChangeEvent, FC, MutableRefObject, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, FC } from "react";
+import { TextInput, PasswordInput } from "@carbon/react";
 
-import styles from "./style.module.css";
-import { maxLength } from "class-validator";
+import FileUploader from "./FileUploader";
 
-interface Props {
-  type?: "text" | "password" | "file";
+export interface Props {
+  type?: "file" | "text" | "password";
   value?: string;
   label: string;
+  id: string;
   name?: string;
-  defaultValue?: string;
   multiple?: boolean;
-  autoFocus?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  invalid?: boolean;
-  invalidMessage?: string;
-  required?: boolean;
   onChange?: (value: string) => void;
 }
 
@@ -23,47 +17,40 @@ const Input: FC<Props> = ({
                             type,
                             value,
                             label,
+                            id,
                             name,
-                            defaultValue,
                             multiple,
-                            autoFocus,
-                            minLength,
-                            maxLength,
-                            invalid,
-                            invalidMessage,
-                            required,
                             onChange
                           }) => {
-  const inputElement = useRef() as MutableRefObject<HTMLInputElement>;
   const change = (e: ChangeEvent) => {
-    if (onChange && type !== "file") {
+    if (onChange) {
       onChange((e.target as HTMLInputElement).value);
     }
   };
-  useEffect(() => {
-    if (invalid && invalidMessage) {
-      inputElement.current.setCustomValidity(invalidMessage);
-    } else {
-      inputElement.current.setCustomValidity("");
-    }
-  }, [invalid, invalidMessage]);
-  return (
-    <label className={styles.wrapper}>
-      {label}
-      <input type={type}
-             value={value}
-             name={name}
-             onChange={change}
-             defaultValue={defaultValue}
-             autoFocus={autoFocus}
-             multiple={multiple}
-             minLength={minLength}
-             maxLength={maxLength}
-             required={required}
-             ref={inputElement}
-             className={styles.input} />
-    </label>
-  );
+
+  if (type === "file") {
+    return <FileUploader label={label}
+                         id={id}
+                         name={name}
+                         value={value}
+                         multiple={multiple}
+                         onChange={onChange} />;
+  }
+
+  if (type === "password") {
+    return <PasswordInput labelText={label}
+                          id={id}
+                          type={type}
+                          name={name}
+                          value={value}
+                          onChange={change} />;
+  }
+  return <TextInput labelText={label}
+                    id={id}
+                    type={type}
+                    name={name}
+                    value={value}
+                    onChange={change} />;
 };
 
 Input.defaultProps = {

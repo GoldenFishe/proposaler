@@ -15,6 +15,7 @@ const Notifications: FC<Props> = ({ notificationsModel }) => {
       {notificationsModel.notifications.map(notification => <Notification key={notification.id}
                                                                           id={notification.id}
                                                                           type={notification.type}
+                                                                          title={notification.title}
                                                                           message={notification.message} />)}
     </div>
   );

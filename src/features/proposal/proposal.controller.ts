@@ -30,9 +30,15 @@ export class ProposalController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   getAll(@Req() req) {
-    console.log(req.user);
     // TODO: userId
     return this.proposalService.getAll(1);
+  }
+
+  // @UseGuards(JwtAuthGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('tags')
+  tags() {
+    return this.proposalService.getTags();
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

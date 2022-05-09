@@ -9,6 +9,7 @@ import { DislikeDto } from './dto/dislike.dto';
 import { ProposalLike } from './entities/proposalLike.entity';
 import { ProposalDislike } from './entities/proposalDislike.entity';
 import { ProposalFile } from './entities/proposalFile.entity';
+import { Tags } from './entities/tags.entity';
 
 @Injectable()
 export class ProposalService {
@@ -21,6 +22,8 @@ export class ProposalService {
     private dislikeRepository: Repository<ProposalDislike>,
     @InjectRepository(ProposalFile)
     private fileRepository: Repository<ProposalFile>,
+    @InjectRepository(Tags)
+    private tagsRepository: Repository<Tags>,
   ) {}
 
   async getAll(userId: number | null) {
@@ -80,6 +83,10 @@ export class ProposalService {
       authorId,
     });
     return this.getById(dislikeDto.proposalId, authorId);
+  }
+
+  getTags() {
+    return this.tagsRepository.find();
   }
 
   private async saveFile(filename: string, proposalId: number) {

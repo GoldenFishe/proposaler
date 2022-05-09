@@ -1,0 +1,7 @@
+@use '@carbon/react';
+@use "@carbon/themes/scss/themes";
+@use "@carbon/themes/scss/theme";
+
+:root {
+  @include theme.theme(themes.$g100);
+}

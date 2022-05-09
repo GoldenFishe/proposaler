@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import "./index.css";
+import "./index.scss";
 import App from "./pages/App/App";
 import reportWebVitals from "./reportWebVitals";
 import { userModel } from "./models/UserModel";

@@ -1,5 +1,5 @@
 import { Http } from './http';
-import { ProposalType } from '../types/ProposalType';
+import { ProposalType, TagType } from "../types/ProposalType";
 
 type ProposalAction = {
   proposalId: number;
@@ -34,5 +34,9 @@ export namespace ProposalRequests {
         proposalId,
       },
     );
+  }
+
+  export function getTags() {
+    return Http.Instance.get<TagType[]>('/proposal/tags', true);
   }
 }

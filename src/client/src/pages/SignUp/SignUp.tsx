@@ -32,41 +32,31 @@ const SignUp: FC<Props> = ({ userModel }) => {
     <div className={styles.container}>
       <Title size={5}>Sign up to Proposaler</Title>
       <Form onSubmit={signUp}>
-        <Input label="Login"
+        <Input type="text"
+               label="Login"
                value={login}
-               autoFocus
-               minLength={4}
-               maxLength={20}
-               required
+               id="login"
                onChange={setLogin} />
-        <Input label="Username"
+        <Input type="text"
+               label="Username"
                value={username}
-               minLength={4}
-               maxLength={20}
-               required
+               id="username"
                onChange={setUsername} />
-        <Input type="password"
-               label="Password"
+        <Input label="Password"
+               type="password"
                value={password}
-               minLength={4}
-               maxLength={20}
-               required
+               id="password"
                onChange={setPassword} />
-        <Input type="password"
-               label="Confirm password"
+        <Input label="Confirm password"
+               type="password"
                value={passwordConfirmation}
-               minLength={4}
-               maxLength={20}
-               required
-               invalid={password !== passwordConfirmation}
-               invalidMessage="Please ensure that your password and your confirm password are the same"
+               id="password"
                onChange={setPasswordConfirmation} />
-        <Button type="submit"
-                primary>
+        <Button type="submit">
           Sign Up
         </Button>
       </Form>
-      <p>Already have an account? <Link to="/sign-in">Sign in</Link>.</p>
+      <p>Already have an account? <Link to="/sign-in" className="cds--link">Sign in</Link>.</p>
     </div>
   );
 };

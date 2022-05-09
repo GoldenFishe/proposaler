@@ -5,7 +5,7 @@ import { UserType } from '../types/UserType';
 import { FileType } from '../types/FileType';
 import { CommentsRequests } from '../api/comments';
 import { CommentType } from '../types/CommentType';
-import { ProposalType } from '../types/ProposalType';
+import { ProposalType, TagType } from "../types/ProposalType";
 
 export class ProposalModel implements ProposalType {
   author: UserType;
@@ -17,6 +17,7 @@ export class ProposalModel implements ProposalType {
   isDisliked: boolean;
   isLiked: boolean;
   likesAmount: number;
+  tags: TagType[];
   title: string;
   comments: CommentType[];
 

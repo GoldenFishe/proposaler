@@ -1,11 +1,8 @@
 import React, { FC, MouseEvent } from "react";
-
-import styles from "./style.module.css";
+import { Button as KitButton } from "@carbon/react";
 
 interface Props {
   type: "submit" | "reset" | "button";
-  primary?: boolean;
-  secondary?: boolean;
   disabled?: boolean;
   onClick?: (e: MouseEvent) => void;
 }
@@ -13,22 +10,14 @@ interface Props {
 const Button: FC<Props> = ({
                              type,
                              onClick,
-                             primary,
-                             secondary,
                              disabled,
                              children
                            }) => {
-  let typeClassName = "";
-  if (primary) {
-    typeClassName = styles.primary;
-  } else if (secondary) {
-    typeClassName = styles.secondary;
-  }
   return (
-    <button type={type}
-            className={`${styles.button} ${typeClassName}`}
-            disabled={disabled}
-            onClick={onClick}>{children}</button>
+    <KitButton type={type}
+               disabled={disabled}
+               onClick={onClick}>{children}
+    </KitButton>
   );
 };
 

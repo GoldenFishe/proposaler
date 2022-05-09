@@ -30,26 +30,21 @@ const SignIn: FC<Props> = ({ userModel }) => {
     <div className={styles.container}>
       <Title size={5}>Sign in to Proposaler</Title>
       <Form onSubmit={signIn}>
-        <Input label="Login"
-               autoFocus
+        <Input type="text"
+               label="Login"
                value={login}
-               minLength={4}
-               maxLength={20}
-               required
+               id="login"
                onChange={setLogin} />
-        <Input type="password"
-               label="Password"
+        <Input label="Password"
+               type="password"
                value={password}
-               minLength={4}
-               maxLength={20}
-               required
+               id="password"
                onChange={setPassword} />
-        <Button type="submit"
-                primary>
+        <Button type="submit">
           Sign In
         </Button>
       </Form>
-      <p>New to Proposaler? <Link to="/sign-up">Create an account</Link>.</p>
+      <p>New to Proposaler? <Link to="/sign-up" className="cds--link">Create an account</Link>.</p>
     </div>
   );
 };

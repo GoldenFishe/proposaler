@@ -61,6 +61,7 @@ export class Http {
       }
       notificationsModel.add({
         type: 'error',
+        title: 'Network Error',
         message: data.message,
       });
     }

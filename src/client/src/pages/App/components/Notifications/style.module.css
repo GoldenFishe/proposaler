@@ -1,6 +1,5 @@
 .notifications {
     position: fixed;
-    top: 20px;
+    top: calc(3rem + var(--cds-spacing-03));
     right: 20px;
-    width: 350px;
 }

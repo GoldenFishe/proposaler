@@ -1,0 +1,11 @@
+@use "@carbon/themes/scss/tokens";
+@use "@carbon/layout";
+
+.card {
+    border: 1px solid var(--secondary-color);
+    margin-bottom: layout.$spacing-04;
+    width: 100%;
+    padding: layout.$spacing-06;
+    transition: var(--transition);
+    background: tokens.$layer-01;
+}

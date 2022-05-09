@@ -5,8 +5,6 @@
 -- Dumped from database version 14.1
 -- Dumped by pg_dump version 14.1
 
--- Started on 2022-04-02 23:03:02
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -23,7 +21,6 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 226 (class 1259 OID 16464)
 -- Name: comment; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -40,7 +37,6 @@ CREATE TABLE public.comment (
 ALTER TABLE public.comment OWNER TO admin;
 
 --
--- TOC entry 222 (class 1259 OID 16448)
 -- Name: comment_dislike; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -54,7 +50,6 @@ CREATE TABLE public.comment_dislike (
 ALTER TABLE public.comment_dislike OWNER TO admin;
 
 --
--- TOC entry 221 (class 1259 OID 16447)
 -- Name: comment_dislike_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -70,8 +65,6 @@ CREATE SEQUENCE public.comment_dislike_id_seq
 ALTER TABLE public.comment_dislike_id_seq OWNER TO admin;
 
 --
--- TOC entry 3412 (class 0 OID 0)
--- Dependencies: 221
 -- Name: comment_dislike_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -79,7 +72,6 @@ ALTER SEQUENCE public.comment_dislike_id_seq OWNED BY public.comment_dislike.id;
 
 
 --
--- TOC entry 224 (class 1259 OID 16455)
 -- Name: comment_file; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -93,7 +85,6 @@ CREATE TABLE public.comment_file (
 ALTER TABLE public.comment_file OWNER TO admin;
 
 --
--- TOC entry 223 (class 1259 OID 16454)
 -- Name: comment_file_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -109,8 +100,6 @@ CREATE SEQUENCE public.comment_file_id_seq
 ALTER TABLE public.comment_file_id_seq OWNER TO admin;
 
 --
--- TOC entry 3413 (class 0 OID 0)
--- Dependencies: 223
 -- Name: comment_file_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -118,7 +107,6 @@ ALTER SEQUENCE public.comment_file_id_seq OWNED BY public.comment_file.id;
 
 
 --
--- TOC entry 225 (class 1259 OID 16463)
 -- Name: comment_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -134,8 +122,6 @@ CREATE SEQUENCE public.comment_id_seq
 ALTER TABLE public.comment_id_seq OWNER TO admin;
 
 --
--- TOC entry 3414 (class 0 OID 0)
--- Dependencies: 225
 -- Name: comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -143,7 +129,6 @@ ALTER SEQUENCE public.comment_id_seq OWNED BY public.comment.id;
 
 
 --
--- TOC entry 220 (class 1259 OID 16441)
 -- Name: comment_like; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -157,7 +142,6 @@ CREATE TABLE public.comment_like (
 ALTER TABLE public.comment_like OWNER TO admin;
 
 --
--- TOC entry 219 (class 1259 OID 16440)
 -- Name: comment_like_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -173,8 +157,6 @@ CREATE SEQUENCE public.comment_like_id_seq
 ALTER TABLE public.comment_like_id_seq OWNER TO admin;
 
 --
--- TOC entry 3415 (class 0 OID 0)
--- Dependencies: 219
 -- Name: comment_like_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -182,7 +164,6 @@ ALTER SEQUENCE public.comment_like_id_seq OWNED BY public.comment_like.id;
 
 
 --
--- TOC entry 218 (class 1259 OID 16431)
 -- Name: proposal; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -198,7 +179,6 @@ CREATE TABLE public.proposal (
 ALTER TABLE public.proposal OWNER TO admin;
 
 --
--- TOC entry 214 (class 1259 OID 16415)
 -- Name: proposal_dislike; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -212,7 +192,6 @@ CREATE TABLE public.proposal_dislike (
 ALTER TABLE public.proposal_dislike OWNER TO admin;
 
 --
--- TOC entry 213 (class 1259 OID 16414)
 -- Name: proposal_dislike_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -228,8 +207,6 @@ CREATE SEQUENCE public.proposal_dislike_id_seq
 ALTER TABLE public.proposal_dislike_id_seq OWNER TO admin;
 
 --
--- TOC entry 3416 (class 0 OID 0)
--- Dependencies: 213
 -- Name: proposal_dislike_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -237,7 +214,6 @@ ALTER SEQUENCE public.proposal_dislike_id_seq OWNED BY public.proposal_dislike.i
 
 
 --
--- TOC entry 216 (class 1259 OID 16422)
 -- Name: proposal_file; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -251,7 +227,6 @@ CREATE TABLE public.proposal_file (
 ALTER TABLE public.proposal_file OWNER TO admin;
 
 --
--- TOC entry 215 (class 1259 OID 16421)
 -- Name: proposal_file_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -267,8 +242,6 @@ CREATE SEQUENCE public.proposal_file_id_seq
 ALTER TABLE public.proposal_file_id_seq OWNER TO admin;
 
 --
--- TOC entry 3417 (class 0 OID 0)
--- Dependencies: 215
 -- Name: proposal_file_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -276,7 +249,6 @@ ALTER SEQUENCE public.proposal_file_id_seq OWNED BY public.proposal_file.id;
 
 
 --
--- TOC entry 217 (class 1259 OID 16430)
 -- Name: proposal_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -292,8 +264,6 @@ CREATE SEQUENCE public.proposal_id_seq
 ALTER TABLE public.proposal_id_seq OWNER TO admin;
 
 --
--- TOC entry 3418 (class 0 OID 0)
--- Dependencies: 217
 -- Name: proposal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -301,7 +271,6 @@ ALTER SEQUENCE public.proposal_id_seq OWNED BY public.proposal.id;
 
 
 --
--- TOC entry 212 (class 1259 OID 16408)
 -- Name: proposal_like; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -315,7 +284,6 @@ CREATE TABLE public.proposal_like (
 ALTER TABLE public.proposal_like OWNER TO admin;
 
 --
--- TOC entry 211 (class 1259 OID 16407)
 -- Name: proposal_like_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -331,8 +299,6 @@ CREATE SEQUENCE public.proposal_like_id_seq
 ALTER TABLE public.proposal_like_id_seq OWNER TO admin;
 
 --
--- TOC entry 3419 (class 0 OID 0)
--- Dependencies: 211
 -- Name: proposal_like_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -340,7 +306,41 @@ ALTER SEQUENCE public.proposal_like_id_seq OWNED BY public.proposal_like.id;
 
 
 --
--- TOC entry 210 (class 1259 OID 16397)
+-- Name: tags; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.tags (
+    id integer NOT NULL,
+    "proposalId" integer NOT NULL,
+    label character varying NOT NULL
+);
+
+
+ALTER TABLE public.tags OWNER TO admin;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.tags_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tags_id_seq OWNER TO admin;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
+
+
+--
 -- Name: user; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -356,7 +356,6 @@ CREATE TABLE public."user" (
 ALTER TABLE public."user" OWNER TO admin;
 
 --
--- TOC entry 209 (class 1259 OID 16396)
 -- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -372,8 +371,6 @@ CREATE SEQUENCE public.user_id_seq
 ALTER TABLE public.user_id_seq OWNER TO admin;
 
 --
--- TOC entry 3420 (class 0 OID 0)
--- Dependencies: 209
 -- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -381,7 +378,6 @@ ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
 
 
 --
--- TOC entry 3213 (class 2604 OID 16467)
 -- Name: comment id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -389,7 +385,6 @@ ALTER TABLE ONLY public.comment ALTER COLUMN id SET DEFAULT nextval('public.comm
 
 
 --
--- TOC entry 3211 (class 2604 OID 16451)
 -- Name: comment_dislike id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -397,7 +392,6 @@ ALTER TABLE ONLY public.comment_dislike ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 3212 (class 2604 OID 16458)
 -- Name: comment_file id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -405,7 +399,6 @@ ALTER TABLE ONLY public.comment_file ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 3210 (class 2604 OID 16444)
 -- Name: comment_like id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -413,7 +406,6 @@ ALTER TABLE ONLY public.comment_like ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 3208 (class 2604 OID 16434)
 -- Name: proposal id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -421,7 +413,6 @@ ALTER TABLE ONLY public.proposal ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 
 --
--- TOC entry 3206 (class 2604 OID 16418)
 -- Name: proposal_dislike id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -429,7 +420,6 @@ ALTER TABLE ONLY public.proposal_dislike ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 3207 (class 2604 OID 16425)
 -- Name: proposal_file id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -437,7 +427,6 @@ ALTER TABLE ONLY public.proposal_file ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 3205 (class 2604 OID 16411)
 -- Name: proposal_like id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -445,7 +434,13 @@ ALTER TABLE ONLY public.proposal_like ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 3204 (class 2604 OID 16400)
+-- Name: tags id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id_seq'::regclass);
+
+
+--
 -- Name: user id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -453,8 +448,6 @@ ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_
 
 
 --
--- TOC entry 3406 (class 0 OID 16464)
--- Dependencies: 226
 -- Data for Name: comment; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -475,8 +468,6 @@ COPY public.comment (id, comment, "createDatetime", "authorId", "proposalId", "r
 
 
 --
--- TOC entry 3402 (class 0 OID 16448)
--- Dependencies: 222
 -- Data for Name: comment_dislike; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -485,8 +476,6 @@ COPY public.comment_dislike (id, "commentId", "authorId") FROM stdin;
 
 
 --
--- TOC entry 3404 (class 0 OID 16455)
--- Dependencies: 224
 -- Data for Name: comment_file; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -504,8 +493,6 @@ COPY public.comment_file (id, filename, "commentId") FROM stdin;
 
 
 --
--- TOC entry 3400 (class 0 OID 16441)
--- Dependencies: 220
 -- Data for Name: comment_like; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -514,19 +501,16 @@ COPY public.comment_like (id, "commentId", "authorId") FROM stdin;
 
 
 --
--- TOC entry 3398 (class 0 OID 16431)
--- Dependencies: 218
 -- Data for Name: proposal; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 COPY public.proposal (id, title, description, "createDatetime", "authorId") FROM stdin;
 2	kkkk	ooooo	2022-01-06 20:31:59.221214	1
+3			2022-04-30 20:09:54.120992	2
 \.
 
 
 --
--- TOC entry 3394 (class 0 OID 16415)
--- Dependencies: 214
 -- Data for Name: proposal_dislike; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -535,8 +519,6 @@ COPY public.proposal_dislike (id, "proposalId", "authorId") FROM stdin;
 
 
 --
--- TOC entry 3396 (class 0 OID 16422)
--- Dependencies: 216
 -- Data for Name: proposal_file; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -546,33 +528,37 @@ COPY public.proposal_file (id, filename, "proposalId") FROM stdin;
 
 
 --
--- TOC entry 3392 (class 0 OID 16408)
--- Dependencies: 212
 -- Data for Name: proposal_like; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 COPY public.proposal_like (id, "proposalId", "authorId") FROM stdin;
+5	3	2
 \.
 
 
 --
--- TOC entry 3390 (class 0 OID 16397)
--- Dependencies: 210
+-- Data for Name: tags; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.tags (id, "proposalId", label) FROM stdin;
+0	2	test tag
+\.
+
+
+--
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 COPY public."user" (id, login, password, username, avatar) FROM stdin;
-2	test	test	test	\N
 1	admin	admin	adminUsername	avatar-1641632743624-328589228.jpg
 3	tttt	tttt	tttt	\N
 4	eqweq	qweqwe	eqweq	\N
 5	qweqweqwe	qweqweqwe	qeqweqwe	\N
+2	test	test	test	avatar-1651333446362-955806667.jpg
 \.
 
 
 --
--- TOC entry 3421 (class 0 OID 0)
--- Dependencies: 221
 -- Name: comment_dislike_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -580,8 +566,6 @@ SELECT pg_catalog.setval('public.comment_dislike_id_seq', 1, false);
 
 
 --
--- TOC entry 3422 (class 0 OID 0)
--- Dependencies: 223
 -- Name: comment_file_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -589,8 +573,6 @@ SELECT pg_catalog.setval('public.comment_file_id_seq', 10, true);
 
 
 --
--- TOC entry 3423 (class 0 OID 0)
--- Dependencies: 225
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -598,8 +580,6 @@ SELECT pg_catalog.setval('public.comment_id_seq', 16, true);
 
 
 --
--- TOC entry 3424 (class 0 OID 0)
--- Dependencies: 219
 -- Name: comment_like_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -607,17 +587,13 @@ SELECT pg_catalog.setval('public.comment_like_id_seq', 1, false);
 
 
 --
--- TOC entry 3425 (class 0 OID 0)
--- Dependencies: 213
 -- Name: proposal_dislike_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.proposal_dislike_id_seq', 1, false);
+SELECT pg_catalog.setval('public.proposal_dislike_id_seq', 1, true);
 
 
 --
--- TOC entry 3426 (class 0 OID 0)
--- Dependencies: 215
 -- Name: proposal_file_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -625,26 +601,27 @@ SELECT pg_catalog.setval('public.proposal_file_id_seq', 1, true);
 
 
 --
--- TOC entry 3427 (class 0 OID 0)
--- Dependencies: 217
 -- Name: proposal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.proposal_id_seq', 2, true);
+SELECT pg_catalog.setval('public.proposal_id_seq', 3, true);
 
 
 --
--- TOC entry 3428 (class 0 OID 0)
--- Dependencies: 211
 -- Name: proposal_like_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.proposal_like_id_seq', 1, false);
+SELECT pg_catalog.setval('public.proposal_like_id_seq', 5, true);
 
 
 --
--- TOC entry 3429 (class 0 OID 0)
--- Dependencies: 209
+-- Name: tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.tags_id_seq', 1, false);
+
+
+--
 -- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -652,7 +629,6 @@ SELECT pg_catalog.setval('public.user_id_seq', 5, true);
 
 
 --
--- TOC entry 3230 (class 2606 OID 16446)
 -- Name: comment_like PK_04f93e6f1ace5dbc1d8c562ccbf; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -661,7 +637,6 @@ ALTER TABLE ONLY public.comment_like
 
 
 --
--- TOC entry 3236 (class 2606 OID 16472)
 -- Name: comment PK_0b0e4bbc8415ec426f87f3a88e2; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -670,7 +645,6 @@ ALTER TABLE ONLY public.comment
 
 
 --
--- TOC entry 3234 (class 2606 OID 16462)
 -- Name: comment_file PK_82d253ec0eee2847f7aed08cbf4; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -679,7 +653,6 @@ ALTER TABLE ONLY public.comment_file
 
 
 --
--- TOC entry 3226 (class 2606 OID 16429)
 -- Name: proposal_file PK_b8074b9a65dffc14640182bccc7; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -688,7 +661,6 @@ ALTER TABLE ONLY public.proposal_file
 
 
 --
--- TOC entry 3232 (class 2606 OID 16453)
 -- Name: comment_dislike PK_c15642e15be48360a141a18e3c3; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -697,7 +669,6 @@ ALTER TABLE ONLY public.comment_dislike
 
 
 --
--- TOC entry 3222 (class 2606 OID 16413)
 -- Name: proposal_like PK_c6a2fae6f3b2acca12f40f6fb67; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -706,7 +677,6 @@ ALTER TABLE ONLY public.proposal_like
 
 
 --
--- TOC entry 3228 (class 2606 OID 16439)
 -- Name: proposal PK_ca872ecfe4fef5720d2d39e4275; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -715,7 +685,6 @@ ALTER TABLE ONLY public.proposal
 
 
 --
--- TOC entry 3216 (class 2606 OID 16404)
 -- Name: user PK_cace4a159ff9f2512dd42373760; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -724,7 +693,6 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3224 (class 2606 OID 16420)
 -- Name: proposal_dislike PK_e10cd66dc30022748e63bf942b5; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -733,7 +701,14 @@ ALTER TABLE ONLY public.proposal_dislike
 
 
 --
--- TOC entry 3218 (class 2606 OID 16539)
+-- Name: tags PK_e7dc17249a1148a1970748eda99; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.tags
+    ADD CONSTRAINT "PK_e7dc17249a1148a1970748eda99" PRIMARY KEY (id);
+
+
+--
 -- Name: user UQ_78a916df40e02a9deb1c4b75edb; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -742,7 +717,6 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3220 (class 2606 OID 16406)
 -- Name: user UQ_a62473490b3e4578fd683235c5e; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -751,7 +725,6 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3241 (class 2606 OID 16493)
 -- Name: proposal_file FK_1e9df891c89a21a9b91d948f00d; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -760,7 +733,6 @@ ALTER TABLE ONLY public.proposal_file
 
 
 --
--- TOC entry 3249 (class 2606 OID 16533)
 -- Name: comment FK_276779da446413a0d79598d4fbd; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -769,7 +741,6 @@ ALTER TABLE ONLY public.comment
 
 
 --
--- TOC entry 3237 (class 2606 OID 16473)
 -- Name: proposal_like FK_2a54070dc06f17b1f9346210b78; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -778,7 +749,14 @@ ALTER TABLE ONLY public.proposal_like
 
 
 --
--- TOC entry 3248 (class 2606 OID 16528)
+-- Name: tags FK_51d3c81a911db5edb8fc627c56d; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.tags
+    ADD CONSTRAINT "FK_51d3c81a911db5edb8fc627c56d" FOREIGN KEY ("proposalId") REFERENCES public.proposal(id);
+
+
+--
 -- Name: comment FK_5611945d9fb4f5a70618458e13c; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -787,7 +765,6 @@ ALTER TABLE ONLY public.comment
 
 
 --
--- TOC entry 3243 (class 2606 OID 16503)
 -- Name: comment_like FK_58d29bc5664f0590042935209d3; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -796,7 +773,6 @@ ALTER TABLE ONLY public.comment_like
 
 
 --
--- TOC entry 3242 (class 2606 OID 16498)
 -- Name: proposal FK_7fb3ca379aa24d018fa2f73ec6b; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -805,7 +781,6 @@ ALTER TABLE ONLY public.proposal
 
 
 --
--- TOC entry 3240 (class 2606 OID 16488)
 -- Name: proposal_dislike FK_830876c25662f440353c82c786c; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -814,7 +789,6 @@ ALTER TABLE ONLY public.proposal_dislike
 
 
 --
--- TOC entry 3239 (class 2606 OID 16483)
 -- Name: proposal_dislike FK_83fd4d905b472b97de4b528b277; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -823,7 +797,6 @@ ALTER TABLE ONLY public.proposal_dislike
 
 
 --
--- TOC entry 3244 (class 2606 OID 16508)
 -- Name: comment_like FK_a253dba95eab8659c027bbace44; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -832,7 +805,6 @@ ALTER TABLE ONLY public.comment_like
 
 
 --
--- TOC entry 3246 (class 2606 OID 16518)
 -- Name: comment_dislike FK_acea6660c770d6e0a55ce9f3965; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -841,7 +813,6 @@ ALTER TABLE ONLY public.comment_dislike
 
 
 --
--- TOC entry 3245 (class 2606 OID 16513)
 -- Name: comment_dislike FK_be5c0d90039fddc027876b7b359; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -850,7 +821,6 @@ ALTER TABLE ONLY public.comment_dislike
 
 
 --
--- TOC entry 3247 (class 2606 OID 16523)
 -- Name: comment_file FK_cc8be13ff4e856f0baa0917c556; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -859,15 +829,12 @@ ALTER TABLE ONLY public.comment_file
 
 
 --
--- TOC entry 3238 (class 2606 OID 16478)
 -- Name: proposal_like FK_e9afa0a740ac8e6c54201c60170; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.proposal_like
     ADD CONSTRAINT "FK_e9afa0a740ac8e6c54201c60170" FOREIGN KEY ("proposalId") REFERENCES public.proposal(id);
 
-
--- Completed on 2022-04-02 23:03:03
 
 --
 -- PostgreSQL database dump complete

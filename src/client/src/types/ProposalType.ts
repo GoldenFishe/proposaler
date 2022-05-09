@@ -1,5 +1,5 @@
-import { UserType } from './UserType';
-import { FileType } from './FileType';
+import { UserType } from "./UserType";
+import { FileType } from "./FileType";
 
 export type ProposalType = {
   id: number;
@@ -10,6 +10,12 @@ export type ProposalType = {
   files: FileType[];
   dislikesAmount: number;
   likesAmount: number;
+  tags: TagType[];
   isLiked: boolean;
   isDisliked: boolean;
 };
+
+export type TagType = {
+  label: string;
+  proposalId: ProposalType["id"]
+}

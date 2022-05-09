@@ -1,0 +1,1 @@
+pg_dump -U admin -f init.sql proposaler

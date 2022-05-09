@@ -1,6 +1,5 @@
 import React, { ChangeEvent, FC } from "react";
-
-import styles from "./style.module.css";
+import {TextArea as CarbonTextarea} from "@carbon/react";
 
 interface Props {
   label: string;
@@ -21,15 +20,11 @@ const Textarea: FC<Props> = ({
     }
   };
   return (
-    <label className={styles.wrapper}>
-      {label}
-      <textarea value={value}
-                name={name}
-                rows={3}
-                className={styles.textarea}
-                onChange={change} />
-    </label>
-  );
+    <CarbonTextarea labelText={label}
+                    value={value}
+                    name={name}
+                    onChange={change}/>
+  )
 };
 
 export default Textarea;

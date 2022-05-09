@@ -1,10 +1,11 @@
 import React, { FC, MouseEvent } from "react";
 import { Link } from "react-router-dom";
+import { Tag } from "@carbon/react";
 
 import { ProposalType } from "../../../../types/ProposalType";
 import ActionButtons from "../../../../components/ActionButtons/ActionButtons";
 import MetaInfo from "../../../../components/MetaInfo/MetaInfo";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 
 interface Props extends ProposalType {
   onLike: (id: ProposalType["id"]) => void;
@@ -21,6 +22,7 @@ const ProposalCard: FC<Props> = ({
                                    dislikesAmount,
                                    isLiked,
                                    isDisliked,
+                                   tags,
                                    onLike,
                                    onDislike
                                  }) => {
@@ -39,18 +41,19 @@ const ProposalCard: FC<Props> = ({
                   username={author.username}
                   avatar={author.avatar}
                   createDatetime={createDatetime} />
-        <div>
-          <h3>{title}</h3>
+        <article>
+          <h6>{title}</h6>
           <p>{description}</p>
-          <div>
+          <footer>
+            {tags.map((tag, i) => <Tag key={i}>{tag.label}</Tag>)}
             <ActionButtons likesAmount={likesAmount}
                            dislikesAmount={dislikesAmount}
                            isLiked={isLiked}
                            isDisliked={isDisliked}
                            onLike={like}
                            onDislike={dislike} />
-          </div>
-        </div>
+          </footer>
+        </article>
       </Link>
     </li>
   );

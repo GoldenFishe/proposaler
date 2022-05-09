@@ -31,11 +31,11 @@ const EditProfile: FC<Props> = ({ username, login, avatar, onSaveChanges }) => {
       <Title size={5}>Edit Profile</Title>
       <Avatar src={avatar} size="big"/>
       <Form onSubmit={saveChanges}>
-        <Input label="Avatar" type="file" name="avatar" />
-        <Input label="Login" name="login" defaultValue={login} />
-        <Input label="Username" name="username" defaultValue={username} />
-        <Input label="Password" type="password" name="password" />
-        <Button type="submit" primary>Save Changes</Button>
+        {/*<Input label="Avatar" type="file" name="avatar" id="avatar"/>*/}
+        <Input label="Login" id="login"/>
+        <Input label="Username" id="username"/>
+        <Input label="Password" id="password"/>
+        <Button type="submit">Save Changes</Button>
       </Form>
     </div>
   );

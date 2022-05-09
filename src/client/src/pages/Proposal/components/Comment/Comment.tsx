@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { CommentType } from "../../../../types/CommentType";
 import ActionButtons from "../../../../components/ActionButtons/ActionButtons";
 import MetaInfo from "../../../../components/MetaInfo/MetaInfo";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 
 interface Props extends CommentType {
   selectCommentIdToReply: (id: number) => void;

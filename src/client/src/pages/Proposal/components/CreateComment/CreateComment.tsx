@@ -20,8 +20,8 @@ const CreateComment: FC<Props> = ({ onCreate, replyTo }) => {
     <div>
       <Form onSubmit={create}>
         <Textarea label="Comment" name="comment" />
-        <Input label="Files" type="file" name="files" multiple />
-        <Button type="submit" primary>Create Comment</Button>
+        {/*<Input label="Files" type="file" name="files" multiple id="files"/>*/}
+        <Button type="submit">Create Comment</Button>
       </Form>
     </div>
   );
