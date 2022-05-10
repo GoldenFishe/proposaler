@@ -1,19 +1,25 @@
 import React, { ChangeEvent, FC, useState } from "react";
-import { FileUploaderDropContainer, FileUploaderItem } from "@carbon/react";
+import {
+  FileUploaderDropContainer,
+  FileUploaderItem,
+  FormLabel,
+  FormItem
+} from "@carbon/react";
 
 import { Props as InputProps } from "./Input";
+import styles from "./styles.module.scss";
 
 interface Props extends InputProps {
 
 }
-
 
 const FileUploader: FC<Props> = ({
                                    value,
                                    label,
                                    id,
                                    name,
-                                   multiple
+                                   multiple,
+                                   placeholder
                                  }) => {
   const [files, setFiles] = useState<File[]>([]);
 
@@ -22,7 +28,8 @@ const FileUploader: FC<Props> = ({
   };
 
   return (
-    <>
+    <FormItem>
+      <FormLabel className={styles.label}>{label}</FormLabel>
       <FileUploaderDropContainer
         accept={[
           "image/jpeg",
@@ -33,13 +40,15 @@ const FileUploader: FC<Props> = ({
         value={value}
         multiple={multiple}
         onAddFiles={handleAddFile}
-        labelText={label} />
-      {Array.isArray(files) && files.map((file, i) => {
-        return (<FileUploaderItem name={file.name}
-                                  status="complete"
-                                  key={i} />);
-      })}
-    </>
+        labelText={placeholder} />
+      <div className={styles.fileUploader}>
+        {Array.isArray(files) && files.map((file, i) => {
+          return (<FileUploaderItem name={file.name}
+                                    status="complete"
+                                    key={i} />);
+        })}
+      </div>
+    </FormItem>
   );
 };
 

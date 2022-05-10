@@ -1,3 +1,14 @@
 .createProposal {
   text-align: center;
 }
+
+.inlineInput {
+  display: flex;
+  flex-flow: row;
+  align-items: flex-end;
+}
+
+.tags {
+  display: flex;
+  flex-flow: row wrap;
+}

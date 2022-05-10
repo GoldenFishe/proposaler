@@ -10,6 +10,8 @@ export interface Props {
   id: string;
   name?: string;
   multiple?: boolean;
+  inline?: boolean;
+  placeholder?: string;
   onChange?: (value: string) => void;
 }
 
@@ -20,6 +22,8 @@ const Input: FC<Props> = ({
                             id,
                             name,
                             multiple,
+                            inline,
+  placeholder,
                             onChange
                           }) => {
   const change = (e: ChangeEvent) => {
@@ -33,6 +37,7 @@ const Input: FC<Props> = ({
                          id={id}
                          name={name}
                          value={value}
+                         placeholder={placeholder}
                          multiple={multiple}
                          onChange={onChange} />;
   }
@@ -43,6 +48,8 @@ const Input: FC<Props> = ({
                           type={type}
                           name={name}
                           value={value}
+                          placeholder={placeholder}
+                          inline={inline}
                           onChange={change} />;
   }
   return <TextInput labelText={label}
@@ -50,6 +57,8 @@ const Input: FC<Props> = ({
                     type={type}
                     name={name}
                     value={value}
+                    placeholder={placeholder}
+                    inline={inline}
                     onChange={change} />;
 };
 

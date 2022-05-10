@@ -1,4 +1,5 @@
 import React, { FC, FormEvent } from "react";
+import {Form as CarbonForm} from "@carbon/react";
 
 import styles from "./style.module.css";
 
@@ -12,9 +13,9 @@ const Form: FC<Props> = ({ onSubmit, children }) => {
     onSubmit(e);
   };
   return (
-    <form onSubmit={submit} className={styles.form}>
+    <CarbonForm onSubmit={submit} className={styles.form}>
       {children}
-    </form>
+    </CarbonForm>
   );
 };
 

@@ -14,4 +14,5 @@ declare module "@carbon/icons-react" {
   export const Notification: ComponentType<Props>;
   export const Apps: ComponentType<Props>;
   export const UserAvatar: ComponentType<Props>;
+  export const Add: ComponentType<Props>;
 }
