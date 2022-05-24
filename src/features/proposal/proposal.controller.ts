@@ -6,13 +6,15 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Req,
   Request,
   UploadedFiles,
   UseGuards,
-  UseInterceptors,
-} from '@nestjs/common';
+  UseInterceptors
+} from "@nestjs/common";
 
+import { Tags } from './dto/tags';
 import { ProposalService } from './proposal.service';
 import { GetByIdParams } from './dto/getByIdParams';
 import { CreateDto } from './dto/create.dto';
@@ -37,8 +39,8 @@ export class ProposalController {
   // @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('tags')
-  tags() {
-    return this.proposalService.getTags();
+  tags(@Query() params: Tags) {
+    return this.proposalService.getTags(params.tag);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

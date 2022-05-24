@@ -4,13 +4,13 @@ import { Proposal } from './proposal.enity';
 
 @Entity()
 export class Tags {
-  @Exclude()
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   label: string;
 
+  @Exclude()
   @Column()
   proposalId: number;
 

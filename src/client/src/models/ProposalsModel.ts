@@ -5,7 +5,6 @@ import { ProposalRequests } from '../api/proposals';
 
 export class ProposalsModel {
   proposals: ProposalType[];
-  tags: TagType[];
 
   constructor() {
     makeAutoObservable(this);
@@ -46,19 +45,8 @@ export class ProposalsModel {
     }
   }
 
-  async getTags() {
-    const tags = await ProposalRequests.getTags();
-    if (tags) {
-      this.setTags(tags);
-    }
-  }
-
   private setProposals(proposals: ProposalType[]) {
     this.proposals = proposals;
-  }
-
-  private setTags(tags: TagType[]) {
-    this.tags = tags;
   }
 }
 

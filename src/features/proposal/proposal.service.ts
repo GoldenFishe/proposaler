@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Like, Repository } from "typeorm";
 
 import { Proposal } from "./entities/proposal.enity";
 import { CreateDto } from "./dto/create.dto";
@@ -45,7 +45,7 @@ export class ProposalService {
   async create(
     { title, description, tags }: CreateDto,
     files: Express.Multer.File[],
-    authorId: number,
+    authorId: number
   ) {
     const proposal = this.proposalRepository.create({
       title,
@@ -93,8 +93,8 @@ export class ProposalService {
     return this.getById(dislikeDto.proposalId, authorId);
   }
 
-  getTags() {
-    return this.tagsRepository.find();
+  getTags(tag: string) {
+    return this.tagsRepository.find({ where: { label: Like(`%${tag}%`) } });
   }
 
   private async saveFile(filename: string, proposalId: number) {

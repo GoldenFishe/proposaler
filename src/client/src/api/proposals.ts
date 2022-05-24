@@ -36,7 +36,7 @@ export namespace ProposalRequests {
     );
   }
 
-  export function getTags() {
-    return Http.Instance.get<TagType[]>('/proposal/tags', true);
+  export function getTags(tag: string) {
+    return Http.Instance.get<TagType[]>(`/proposal/tags?tag=${tag}`, true);
   }
 }

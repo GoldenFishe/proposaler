@@ -17,5 +17,5 @@ export type ProposalType = {
 
 export type TagType = {
   label: string;
-  proposalId: ProposalType["id"]
+  id: number;
 }

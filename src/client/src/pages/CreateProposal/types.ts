@@ -1,4 +1,4 @@
 export type NewTagType = {
-  id: string;
+  id: number;
   label: string;
 }

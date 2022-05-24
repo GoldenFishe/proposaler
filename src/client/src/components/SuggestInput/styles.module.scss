@@ -1,0 +1,15 @@
+.wrapper {
+  width: 100%;
+}
+
+.options {
+  position: relative;
+}
+
+.collapsed {
+  max-height: 0;
+}
+
+.expanded {
+  max-height: 13.5rem;
+}
