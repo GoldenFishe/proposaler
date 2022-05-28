@@ -2,3 +2,9 @@
     width: var(--content-width);
     margin: 20px auto;
 }
+
+.comments {
+    width: calc(100% + 10px + 10px);
+    position: relative;
+    left: -10px;
+}

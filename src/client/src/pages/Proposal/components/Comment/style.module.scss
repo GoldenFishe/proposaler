@@ -1,15 +1,20 @@
 @use "@carbon/themes/scss/tokens";
 @use "@carbon/layout";
 
+.comments {
+    padding: 0 10px;
+}
+
+.comments:not(:last-child) {
+    margin-bottom: layout.$spacing-04;
+}
+
 .comment {
     border: 1px solid var(--secondary-color);
     width: 100%;
     padding: layout.$spacing-06;
     transition: var(--transition);
     background: tokens.$layer-01;
-}
-
-.comment:not(:last-child) {
     margin-bottom: layout.$spacing-04;
 }
 

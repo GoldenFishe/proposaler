@@ -33,6 +33,7 @@ const Card: FC<Props> = ({
       <p>{description}</p>
       <div className={styles.files}>
         {files.map(file => <img src={`/static/proposals/${file.filename}`}
+                                key={file.id}
                                 width={150}
                                 height={150} />)}
       </div>
