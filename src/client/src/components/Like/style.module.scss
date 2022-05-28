@@ -1,13 +1,13 @@
 @use "@carbon/layout";
 
 .like {
-    cursor: pointer;
-    display: flex;
-    flex-flow: row;
-    align-items: flex-end;
-    gap: layout.$spacing-03;
+  cursor: pointer;
+  display: flex;
+  flex-flow: row;
+  gap: layout.$spacing-03;
+  transition: var(--transition);
 }
 
-.liked  {
-    fill: blue;
+.liked {
+  fill: currentColor !important;
 }

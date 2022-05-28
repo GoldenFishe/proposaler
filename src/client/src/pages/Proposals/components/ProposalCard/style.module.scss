@@ -3,18 +3,13 @@
 
 .proposalCard {
   width: 100%;
-  padding: layout.$spacing-06;
-  transition: var(--transition);
+  padding: layout.$spacing-05;
   background: tokens.$layer-01;
   cursor: pointer;
 }
 
 .proposalCard:not(:last-child) {
   margin-bottom: layout.$spacing-04;
-}
-
-.proposalCard:hover {
-  background: tokens.$layer-hover-01;
 }
 
 .proposalCardLink {

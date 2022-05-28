@@ -7,6 +7,7 @@ import ActionButtons from "../../../../components/ActionButtons/ActionButtons";
 import MetaInfo from "../../../../components/MetaInfo/MetaInfo";
 import FileViewer from "../../../../components/FileViewer/FileViewer";
 import styles from "./style.module.scss";
+import Button from "../../../../components/Button/Button";
 
 interface Props extends TreeItem<CommentType> {
 
@@ -49,7 +50,11 @@ const Comment: FC<Props> = ({
                        isDisliked={isDisliked}
                        onLike={() => like(id)}
                        onDislike={() => dislike(id)}>
-          {<span onClick={() => selectCommentIdToReply(id)}>Reply</span>}
+          <Button kind="ghost"
+                   size="sm"
+                   onClick={() => selectCommentIdToReply(id)}>
+            Reply
+          </Button>
         </ActionButtons>
       </div>
       {descendants.map(descendant => <Comment {...descendant} key={descendant.id} />)}

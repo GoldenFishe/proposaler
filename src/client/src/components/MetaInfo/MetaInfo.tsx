@@ -30,11 +30,11 @@ const MetaInfo: FC<Props> = ({ userId, username, createDatetime, avatar }) => {
     hour: "numeric",
     minute: "numeric"
   };
-  const datetime = Intl.DateTimeFormat(undefined, options).format(new Date(createDatetime));
+  const datetime = Intl.DateTimeFormat(window.navigator.language, options).format(new Date(createDatetime));
   return (
     <div className={styles.metaInfo}>
       <Avatar src={avatar}
-              size="medium"/>
+              size="medium" />
       <Link to={`/profile/${userId}`}
             className={styles.username}>
         {username}
