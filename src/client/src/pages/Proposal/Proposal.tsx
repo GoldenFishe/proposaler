@@ -1,13 +1,13 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, ReactNode, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import { CommentsContext } from "./context";
 import Card from "./components/Card/Card";
 import Comment from "./components/Comment/Comment";
+import CreateComment from "./components/CreateComment/CreateComment";
 import { toTree } from "../../utils/utils";
 import { ProposalModel } from "../../models/ProposalModel";
-import CreateComment from "./components/CreateComment/CreateComment";
 import { CommentType } from "../../types/CommentType";
 import styles from "./style.module.css";
 
@@ -17,16 +17,15 @@ interface Props {
 
 const Proposal: FC<Props> = ({ proposalModel }) => {
   const { id } = useParams();
-  const [selectedCommentIdToReply, selectCommentIdToReply] = useState<CommentType["id"] | null>(null);
+  const [selectedCommentIdToReply, setSelectedCommentIdToReply] = useState<CommentType["id"] | null>(null);
+  const [visibleCreateCommentForm, setVisibleCreateCommentForm] = useState(false);
 
   const comments = toTree(proposalModel.comments, { parent: "id", child: "replyTo" });
 
-  useEffect(() => {
-    if (id) {
-      proposalModel.getProposal(Number(id));
-      proposalModel.getComments(Number(id));
-    }
-  }, [id, proposalModel]);
+  function selectCommentIdToReply(id: CommentType["id"] | null) {
+    setSelectedCommentIdToReply(id);
+    setVisibleCreateCommentForm(id !== null);
+  }
 
   function like(id: CommentType["id"]) {
     proposalModel.likeComment(id);
@@ -36,13 +35,27 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
     proposalModel.dislikeComment(id);
   }
 
-  function createComment(newComment: FormData, replyTo?: CommentType["id"]) {
-    if (replyTo !== undefined) {
-      newComment.set("replyTo", String(replyTo));
+  function createComment(newComment: FormData) {
+    if (selectedCommentIdToReply !== undefined) {
+      newComment.set("replyTo", String(selectedCommentIdToReply));
     }
     newComment.set("proposalId", String(id));
     proposalModel.createComment(newComment);
+    selectCommentIdToReply(null);
+    setVisibleCreateCommentForm(false);
   }
+
+  function cancelCreateComment() {
+    selectCommentIdToReply(null);
+    setVisibleCreateCommentForm(false);
+  }
+
+  useEffect(() => {
+    if (id) {
+      proposalModel.getProposal(Number(id));
+      proposalModel.getComments(Number(id));
+    }
+  }, [id, proposalModel]);
 
   return (
     <div className={styles.wrapper}>
@@ -51,11 +64,13 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
                                  onDislike={() => proposalModel.dislike(proposalModel.id)} />}
       <div className={styles.comments}>
         <CommentsContext.Provider
-          value={{ like, dislike, selectedCommentIdToReply, selectCommentIdToReply, createComment }}>
+          value={{ like, dislike, selectCommentIdToReply }}>
           {comments.map(comment => <Comment {...comment} key={comment.id} />)}
         </CommentsContext.Provider>
       </div>
-      <CreateComment />
+      <CreateComment visible={visibleCreateCommentForm}
+                     onCreate={createComment}
+                     onCancel={cancelCreateComment} />
     </div>
   );
 };

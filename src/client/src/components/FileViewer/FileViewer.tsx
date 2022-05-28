@@ -1,4 +1,4 @@
-import React, { FC, Children, useState, ReactElement } from "react";
+import React, { FC, Children, useState, ReactElement, useEffect } from "react";
 import { ModalHeader, ModalBody, ComposedModal, Button } from "@carbon/react";
 import { PreviousOutline, NextOutline, ZoomFit } from "@carbon/icons-react";
 
@@ -10,34 +10,37 @@ interface Props {
 
 const FileViewer: FC<Props> = ({ filetype, children }) => {
   const [opened, setOpened] = useState(false);
-  const [currentElementIndex, setCurrentElementIndex] = useState(0);
+  const [currentElementIndex, setCurrentElementIndex] = useState<number | null>(null);
 
   const childrenArray = Children.toArray(children);
   const childrenCount = Children.count(children);
 
   const nextIndex = () => {
     setCurrentElementIndex(prevState => {
-      const nextIndex = prevState + 1;
+      const nextIndex = prevState as number + 1;
       return childrenCount - 1 >= nextIndex ? nextIndex : 0;
     });
   };
 
   const prevIndex = () => {
     setCurrentElementIndex(prevState => {
-      const prevIndex = prevState - 1;
+      const prevIndex = prevState as number - 1;
       return prevIndex < 0 ? childrenCount - 1 : prevIndex;
     });
   };
 
-  const openModal = (index: number) => {
-    setOpened(true);
-    setCurrentElementIndex(index);
-  };
+  const openModal = (index: number) => setCurrentElementIndex(index);
 
   const closeModal = () => {
     setOpened(false);
-    setCurrentElementIndex(0);
+    setTimeout(() => setCurrentElementIndex(null), 500);
   };
+
+  useEffect(() => {
+    if (currentElementIndex !== null) {
+      setOpened(true);
+    }
+  }, [currentElementIndex]);
 
   return (
     <>
@@ -51,7 +54,7 @@ const FileViewer: FC<Props> = ({ filetype, children }) => {
       })}
       <ComposedModal open={opened} size="lg" onClose={closeModal}>
         <ModalHeader closeModal={closeModal}
-                     title={`${currentElementIndex + 1} from ${childrenCount}`} />
+                     title={`${currentElementIndex as number + 1} from ${childrenCount}`} />
         <ModalBody>
           <div className={styles.wrapper}>
             {childrenCount > 1 && (
@@ -62,7 +65,7 @@ const FileViewer: FC<Props> = ({ filetype, children }) => {
                       tooltipPosition="right"
                       hasIconOnly />
             )}
-            {filetype === "image" && (
+            {(filetype === "image" && currentElementIndex !== null) && (
               <img src={(childrenArray[currentElementIndex] as ReactElement).props.src}
                    alt={(childrenArray[currentElementIndex] as ReactElement).props.alt}
                    className={styles.image} />

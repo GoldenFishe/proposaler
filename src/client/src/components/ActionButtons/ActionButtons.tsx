@@ -4,7 +4,7 @@ import Like from "../Like/Like";
 import Dislike from "../Dislike/Dislike";
 import { ProposalType } from "../../types/ProposalType";
 import { CommentType } from "../../types/CommentType";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 
 interface Props {
   likesAmount: ProposalType["likesAmount"] | CommentType["likesAmount"];
@@ -20,6 +20,7 @@ const ActionButtons: FC<Props> = ({
                                     dislikesAmount,
                                     isLiked,
                                     isDisliked,
+                                    children,
                                     onLike,
                                     onDislike
                                   }) => {
@@ -31,6 +32,7 @@ const ActionButtons: FC<Props> = ({
       <Dislike amount={dislikesAmount}
                disliked={isDisliked}
                onClick={onDislike} />
+      {children}
     </div>
   );
 };

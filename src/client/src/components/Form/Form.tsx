@@ -1,23 +1,25 @@
-import React, { FC, FormEvent } from "react";
-import {Form as CarbonForm, Stack} from "@carbon/react";
+import React, { FormEvent, forwardRef, ReactNode } from "react";
+import { Stack } from "@carbon/react";
 
 interface Props {
   className?: string;
-  onSubmit: (e: FormEvent) => void;
+  children: ReactNode;
+  onSubmit?: (e: FormEvent) => void;
 }
 
-const Form: FC<Props> = ({ className, onSubmit, children }) => {
+const Form = forwardRef<HTMLFormElement, Props>(({ className, onSubmit, children }, ref) => {
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    onSubmit(e);
+    if (onSubmit) onSubmit(e);
   };
+
   return (
-    <CarbonForm onSubmit={submit} className={className}>
+    <form onSubmit={submit} className={className} ref={ref}>
       <Stack gap={7}>
         {children}
       </Stack>
-    </CarbonForm>
+    </form>
   );
-};
+});
 
 export default Form;

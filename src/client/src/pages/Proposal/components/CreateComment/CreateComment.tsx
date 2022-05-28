@@ -1,24 +1,43 @@
-import React, { FormEvent, useContext } from "react";
+import React, { FC, FormEvent, RefObject, useRef } from "react";
+import { Modal } from "@carbon/react";
 
-import { CommentsContext } from "../../context";
 import Form from "../../../../components/Form/Form";
 import Textarea from "../../../../components/Textarea/Textarea";
-import Button from "../../../../components/Button/Button";
 import FileUploader from "../../../../components/Input/FileUploader";
+import form from "../../../../components/Form/Form";
 
-const CreateComment = () => {
-  const { createComment, selectedCommentIdToReply, selectCommentIdToReply } = useContext(CommentsContext);
-  const create = (e: FormEvent) => {
-    const newComment = new FormData((e.target) as HTMLFormElement);
-    createComment(newComment, selectedCommentIdToReply!);
-    selectCommentIdToReply(null);
+interface Props {
+  visible: boolean;
+  onCreate: (newComment: FormData) => void;
+  onCancel: () => void;
+}
+
+const CreateComment: FC<Props> = ({ visible, onCreate, onCancel }) => {
+  const formRef = useRef() as RefObject<HTMLFormElement>;
+
+  const create = () => {
+    const newComment = new FormData((formRef.current) as HTMLFormElement);
+    onCreate(newComment);
+    formRef.current?.reset();
   };
+
+  const cancel = () => {
+    formRef.current?.reset();
+    onCancel();
+  };
+
   return (
-    <Form onSubmit={create}>
-      <Textarea label="Comment" name="comment" />
-      <FileUploader label="Files" id="files" name="files" />
-      <Button type="submit">Create Comment</Button>
-    </Form>
+    <Modal open={visible}
+           size="sm"
+           modalHeading="Comment"
+           onRequestClose={cancel}
+           onRequestSubmit={create}
+           primaryButtonText="Create Comment">
+      <Form ref={formRef}>
+        <Textarea label="Comment" name="comment" />
+        <FileUploader label="Files" id="files" name="files" multiple/>
+      </Form>
+    </Modal>
   );
 };
 

@@ -2,24 +2,28 @@
 @use "@carbon/layout";
 
 .comments {
-    padding: 0 10px;
+    padding-left: layout.$spacing-06;
 }
 
 .comments:not(:last-child) {
-    margin-bottom: layout.$spacing-04;
+    margin-bottom: layout.$spacing-05;
 }
 
 .comment {
     border: 1px solid var(--secondary-color);
     width: 100%;
-    padding: layout.$spacing-06;
+    padding: layout.$spacing-07;
     transition: var(--transition);
     background: tokens.$layer-01;
-    margin-bottom: layout.$spacing-04;
+    margin-bottom: layout.$spacing-05;
+}
+
+.commentText {
+    margin: layout.$spacing-06 0;
 }
 
 .files {
     display: flex;
     flex-flow: row wrap;
-    gap: 10px;
+    grid-gap: layout.$spacing-04;
 }

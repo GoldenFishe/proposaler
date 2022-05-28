@@ -1,9 +1,11 @@
+@use "@carbon/layout";
+
 .dislike {
     cursor: pointer;
     display: flex;
     flex-flow: row;
     align-items: flex-end;
-    gap: 10px;
+    gap: layout.$spacing-03;
 }
 
 .dislikeActive {

@@ -1,0 +1,16 @@
+@use "@carbon/layout";
+
+.metaInfo {
+  display: flex;
+  flex-flow: row;
+  grid-gap: layout.$spacing-05;
+  margin-bottom: layout.$spacing-06;
+}
+
+.username {
+
+}
+
+.datetime {
+
+}

@@ -5,7 +5,7 @@ import Avatar from "../Avatar/Avatar";
 import { UserType } from "../../types/UserType";
 import { ProposalType } from "../../types/ProposalType";
 import { CommentType } from "../../types/CommentType";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 
 interface Props {
   userId: UserType["id"];

@@ -1,0 +1,9 @@
+@use "@carbon/layout";
+
+.actionButtons {
+    display: flex;
+    flex-flow: row;
+    align-items: flex-end;
+    grid-gap: layout.$spacing-05;
+    margin-top: layout.$spacing-06;
+}
