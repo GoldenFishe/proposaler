@@ -1,0 +1,28 @@
+@use "@carbon/layout";
+@use "@carbon/themes/scss/tokens";
+@use '@carbon/type';
+@use "sass:map";
+
+.container {
+    width: 400px;
+    margin: 150px auto 0 auto;
+    padding: layout.$spacing-05 layout.$spacing-05 0 layout.$spacing-05;
+    background: tokens.$layer-02;
+}
+
+.subtitle {
+    margin-top: layout.$spacing-02;
+    font-size: map.get(type.$label-01, "font-size");
+}
+
+.form {
+    margin-top: layout.$spacing-07;
+}
+
+.submitButton {
+    position: relative;
+    justify-self: right;
+    right: -16px;
+    width: calc(50% + 16px);
+    margin-top: layout.$spacing-05;
+}

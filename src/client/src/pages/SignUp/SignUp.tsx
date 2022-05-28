@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {ButtonSet} from "@carbon/react";
 
 import { AuthRequests } from "../../api/auth";
 import { UserModel } from "../../models/UserModel";
@@ -7,7 +8,7 @@ import Title from "../../components/Title/Title";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 
 interface Props {
   userModel: UserModel;
@@ -30,8 +31,9 @@ const SignUp: FC<Props> = ({ userModel }) => {
 
   return (
     <div className={styles.container}>
-      <Title size={5}>Sign up to Proposaler</Title>
-      <Form onSubmit={signUp}>
+      <Title size={4}>Sign Up To Enigma</Title>
+      <p className={styles.subtitle}>Already have an account? <Link to="/sign-in" className="cds--link">Sign In</Link>.</p>
+      <Form onSubmit={signUp} className={styles.form}>
         <Input type="text"
                label="Login"
                value={login}
@@ -52,11 +54,10 @@ const SignUp: FC<Props> = ({ userModel }) => {
                value={passwordConfirmation}
                id="password"
                onChange={setPasswordConfirmation} />
-        <Button type="submit">
+        <Button type="submit" size="xl" className={styles.submitButton}>
           Sign Up
         </Button>
       </Form>
-      <p>Already have an account? <Link to="/sign-in" className="cds--link">Sign in</Link>.</p>
     </div>
   );
 };

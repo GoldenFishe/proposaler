@@ -1,6 +1,4 @@
-import React, { FC } from "react";
-
-import styles from "./styles.module.css";
+import React, { FC, createElement } from "react";
 
 interface Props {
   size: 1 | 2 | 3 | 4 | 5 | 6;
@@ -11,11 +9,7 @@ const Title: FC<Props> = ({
                             size,
                             children
                           }) => {
-  return (
-    <h1>
-      {children}
-    </h1>
-  );
+  return createElement(`h${size}`, { children });
 };
 
 export default Title;

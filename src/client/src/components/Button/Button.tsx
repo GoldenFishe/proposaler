@@ -8,6 +8,8 @@ interface Props {
   iconDescription?: string;
   renderIcon?: ReactNode;
   size?: "sm" | "md" | "lg" | "xl" | "2xl";
+  kind?: "primary" | "secondary" | "tertiary" | "danger" | "ghost";
+  className?: string;
   onClick?: (e: MouseEvent) => void;
 }
 
@@ -19,6 +21,8 @@ const Button: FC<Props> = ({
                              iconDescription,
                              renderIcon,
                              size,
+                             kind,
+                             className,
                              children
                            }) => {
   return (
@@ -28,6 +32,8 @@ const Button: FC<Props> = ({
                iconDescription={iconDescription}
                renderIcon={renderIcon}
                size={size}
+               kind={kind}
+               className={className}
                onClick={onClick}>
       {children}
     </KitButton>

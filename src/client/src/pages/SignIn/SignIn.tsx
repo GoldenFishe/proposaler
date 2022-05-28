@@ -7,7 +7,7 @@ import Form from "../../components/Form/Form";
 import Title from "../../components/Title/Title";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 
 interface Props {
   userModel: UserModel;
@@ -28,8 +28,9 @@ const SignIn: FC<Props> = ({ userModel }) => {
 
   return (
     <div className={styles.container}>
-      <Title size={5}>Sign in to Proposaler</Title>
-      <Form onSubmit={signIn}>
+      <Title size={4}>Sign In To Enigma</Title>
+      <p className={styles.subtitle}>New to Enigma? <Link to="/sign-up" className="cds--link">Create an account</Link>.</p>
+      <Form onSubmit={signIn} className={styles.form}>
         <Input type="text"
                label="Login"
                value={login}
@@ -40,11 +41,10 @@ const SignIn: FC<Props> = ({ userModel }) => {
                value={password}
                id="password"
                onChange={setPassword} />
-        <Button type="submit">
+        <Button type="submit" size="xl" className={styles.submitButton}>
           Sign In
         </Button>
       </Form>
-      <p>New to Proposaler? <Link to="/sign-up" className="cds--link">Create an account</Link>.</p>
     </div>
   );
 };
