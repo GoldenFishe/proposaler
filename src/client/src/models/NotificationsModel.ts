@@ -3,7 +3,13 @@ import { nanoid } from 'nanoid';
 
 export type Notification = {
   id: string;
-  type: 'error' | 'info' | 'info-square' | 'success' | 'warning' | 'warning-alt';
+  type:
+    | 'error'
+    | 'info'
+    | 'info-square'
+    | 'success'
+    | 'warning'
+    | 'warning-alt';
   title: string;
   message: string;
 };

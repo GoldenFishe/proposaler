@@ -1,7 +1,7 @@
-declare module "@carbon/react";
+declare module '@carbon/react';
 
-declare module "@carbon/icons-react" {
-  import { ComponentType } from "react";
+declare module '@carbon/icons-react' {
+  import { ComponentType } from 'react';
 
   type Props = {
     className?: string;

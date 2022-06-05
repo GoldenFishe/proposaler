@@ -349,7 +349,8 @@ CREATE TABLE public."user" (
     login character varying NOT NULL,
     password character varying NOT NULL,
     username character varying NOT NULL,
-    avatar character varying
+    avatar character varying,
+    github_token character varying
 );
 
 
@@ -452,18 +453,8 @@ ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_
 --
 
 COPY public.comment (id, comment, "createDatetime", "authorId", "proposalId", "replyTo") FROM stdin;
-5	qweqwe	2022-01-06 21:08:07.317138	1	2	\N
-6	eqweq	2022-01-06 21:10:14.438143	1	2	\N
-7	tttttttttttttttttt	2022-01-06 21:12:03.005124	1	2	\N
-8	test	2022-01-07 16:44:04.000577	2	2	\N
-9	eeqwe qweq we qwe qwe qwe qwe	2022-01-08 13:39:52.524016	1	2	\N
-10	cat cat cat	2022-01-08 13:44:34.372477	1	2	\N
-11	eqweqwe	2022-01-08 19:08:56.485433	1	2	\N
-12	123	2022-01-08 19:10:22.62072	1	2	1
-13	3333333	2022-01-08 19:10:59.869926	1	2	5
-14	nnnnnnnnnnnnnnnn	2022-01-08 19:39:14.163588	1	2	10
-15	123	2022-01-08 19:43:35.629098	1	2	\N
-16	123123	2022-01-08 19:43:52.293282	1	2	5
+1	Praesent ultricies tellus sit amet lorem varius blandit. Mauris posuere mi lorem, ut venenatis sapien suscipit a. Vestibulum volutpat justo tellus, vitae bibendum elit faucibus tincidunt. Donec a mauris massa. Curabitur fringilla ante vitae neque vehicula, id dictum mi sollicitudin	2022-05-28 11:16:12.147	1	1	\N
+2	Donec gravida dapibus suscipit. Aliquam erat volutpat. Suspendisse volutpat, lorem nec porttitor congue, turpis urna convallis tellus, at vestibulum orci ex sed ex. Aenean tincidunt tincidunt purus, et consequat justo. Sed posuere odio quis gravida pretium.	2022-05-29 14:16:28	2	1	\N
 \.
 
 
@@ -472,6 +463,7 @@ COPY public.comment (id, comment, "createDatetime", "authorId", "proposalId", "r
 --
 
 COPY public.comment_dislike (id, "commentId", "authorId") FROM stdin;
+1	2	2
 \.
 
 
@@ -480,15 +472,6 @@ COPY public.comment_dislike (id, "commentId", "authorId") FROM stdin;
 --
 
 COPY public.comment_file (id, filename, "commentId") FROM stdin;
-2	files-1641492614400-451455647.jpg	6
-3	files-1641492722979-151340756.jpg	7
-4	files-1641638392445-212724686.jpg	9
-5	files-1641638392448-769711453.jpg	9
-6	files-1641638674294-652151696.jpg	10
-7	files-1641638674295-607770965.jpg	10
-8	files-1641638674296-883544902.jpg	10
-9	files-1641638674296-675786801.jpg	10
-10	files-1641638674297-224847849.jpg	10
 \.
 
 
@@ -497,6 +480,7 @@ COPY public.comment_file (id, filename, "commentId") FROM stdin;
 --
 
 COPY public.comment_like (id, "commentId", "authorId") FROM stdin;
+1	1	1
 \.
 
 
@@ -505,8 +489,8 @@ COPY public.comment_like (id, "commentId", "authorId") FROM stdin;
 --
 
 COPY public.proposal (id, title, description, "createDatetime", "authorId") FROM stdin;
-2	kkkk	ooooo	2022-01-06 20:31:59.221214	1
-3			2022-04-30 20:09:54.120992	2
+1	First Proposal	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim lacinia odio, sed accumsan justo dictum sed. Aenean ipsum turpis, porttitor et erat vel, euismod egestas turpis. Morbi pellentesque, justo ullamcorper accumsan porta, nisl elit gravida nisi, ac laoreet nisl justo eget ipsum. Proin vel eros lobortis, elementum sapien quis, pretium libero. 	2022-01-06 20:31:59.221214	1
+2	Second Proposal	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim lacinia odio, sed accumsan justo dictum sed. Aenean ipsum turpis, porttitor et erat vel, euismod egestas turpis. Morbi pellentesque, justo ullamcorper accumsan porta, nisl elit gravida nisi, ac laoreet nisl justo eget ipsum. Proin vel eros lobortis, elementum sapien quis, pretium libero. 	2022-04-30 20:09:54.120992	2
 \.
 
 
@@ -515,6 +499,8 @@ COPY public.proposal (id, title, description, "createDatetime", "authorId") FROM
 --
 
 COPY public.proposal_dislike (id, "proposalId", "authorId") FROM stdin;
+1	2	1
+2	2	2
 \.
 
 
@@ -523,7 +509,6 @@ COPY public.proposal_dislike (id, "proposalId", "authorId") FROM stdin;
 --
 
 COPY public.proposal_file (id, filename, "proposalId") FROM stdin;
-1	files-1641490319125-883161378.jpg	2
 \.
 
 
@@ -532,7 +517,8 @@ COPY public.proposal_file (id, filename, "proposalId") FROM stdin;
 --
 
 COPY public.proposal_like (id, "proposalId", "authorId") FROM stdin;
-5	3	2
+1	1	1
+2	1	2
 \.
 
 
@@ -541,7 +527,8 @@ COPY public.proposal_like (id, "proposalId", "authorId") FROM stdin;
 --
 
 COPY public.tags (id, "proposalId", label) FROM stdin;
-0	2	test tag
+1	1	Frontend
+2	2	Backend
 \.
 
 
@@ -549,12 +536,9 @@ COPY public.tags (id, "proposalId", label) FROM stdin;
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public."user" (id, login, password, username, avatar) FROM stdin;
-1	admin	admin	adminUsername	avatar-1641632743624-328589228.jpg
-3	tttt	tttt	tttt	\N
-4	eqweq	qweqwe	eqweq	\N
-5	qweqweqwe	qweqweqwe	qeqweqwe	\N
-2	test	test	test	avatar-1651333446362-955806667.jpg
+COPY public."user" (id, login, password, username, avatar, github_token) FROM stdin;
+1	admin	admin	admin	\N	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
+2	test	test	test	\N	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
 \.
 
 

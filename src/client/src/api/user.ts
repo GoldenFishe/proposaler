@@ -13,4 +13,8 @@ export namespace UserRequests {
   export function updateProfile(changes: FormData) {
     return Http.Instance.patch<FormData, UserType>('/user/profile', changes);
   }
+
+  export function findByUsername(username: string) {
+    return Http.Instance.get<UserType[]>(`/user?username=${username}`);
+  }
 }

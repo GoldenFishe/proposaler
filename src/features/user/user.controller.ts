@@ -6,11 +6,13 @@ import {
   Get,
   Param,
   Patch,
+  Query,
   Req,
+  Request,
   SerializeOptions,
   UploadedFiles,
   UseGuards,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common';
 
 import { UserService } from './user.service';
@@ -50,5 +52,12 @@ export class UserController {
     @UploadedFiles() files: Express.Multer.File[],
   ) {
     return this.userService.update(req.user.id, body, files[0]);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get()
+  findUser(@Request() req, @Query('username') username: string) {
+    return this.userService.find(username, req.user.id);
   }
 }

@@ -19,4 +19,12 @@ export class User {
 
   @Column({ nullable: true })
   avatar: string;
+
+  @Exclude()
+  @Column({ nullable: true })
+  githubToken: string;
+
+  @Exclude()
+  @Column({ nullable: true })
+  githubLogin: string;
 }

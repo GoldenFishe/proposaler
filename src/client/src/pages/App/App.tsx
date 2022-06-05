@@ -16,6 +16,7 @@ import { proposalModel } from "../../models/ProposalModel";
 import { UserModel } from "../../models/UserModel";
 import { notificationsModel } from "../../models/NotificationsModel";
 import { authTokenManager } from "../../utils/authTokenManager";
+import Projects from "../Projects/Projects";
 
 interface Props {
   userModel: UserModel;
@@ -44,6 +45,8 @@ const App: FC<Props> = ({ userModel }) => {
             </Route>
             <Route path="/profile/:id"
                    element={<Profile userModel={userModel} />} />
+            <Route path="/projects"
+                   element={<Projects />} />
             <Route path="/sign-in"
                    element={<SignIn userModel={userModel} />} />
             <Route path="/sign-up"

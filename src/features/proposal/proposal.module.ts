@@ -17,7 +17,7 @@ import { JwtStrategy } from '../auth/strategy/jwt.strategy';
       ProposalLike,
       ProposalDislike,
       ProposalFile,
-      Tags
+      Tags,
     ]),
   ],
   controllers: [ProposalController],

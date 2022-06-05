@@ -1,5 +1,5 @@
-import { FileType } from "./FileType";
-import { UserType } from "./UserType";
+import { FileType } from './FileType';
+import { UserType } from './UserType';
 
 export type CommentType = {
   author: UserType;
@@ -11,5 +11,5 @@ export type CommentType = {
   isLiked: boolean;
   files: FileType[];
   id: number;
-  replyTo: CommentType["id"] | null
+  replyTo: CommentType['id'] | null;
 };

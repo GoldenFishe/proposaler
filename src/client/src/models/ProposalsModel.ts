@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-import { ProposalType, TagType } from "../types/ProposalType";
+import { ProposalType, TagType } from '../types/ProposalType';
 import { ProposalRequests } from '../api/proposals';
 
 export class ProposalsModel {

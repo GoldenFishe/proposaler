@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   CreateDateColumn,
-  OneToMany
+  OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 

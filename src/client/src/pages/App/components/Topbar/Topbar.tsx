@@ -48,6 +48,11 @@ const Topbar: FC<Props> = ({ userModel }) => {
                             element={Link}>
               Create Proposal
             </HeaderMenuItem>
+            <HeaderMenuItem isCurrentPage={pathname === "/projects"}
+                            to="/projects"
+                            element={Link}>
+              Projects
+            </HeaderMenuItem>
           </>
         )}
         {!isAuthorized && (

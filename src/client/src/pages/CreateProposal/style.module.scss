@@ -1,11 +1,15 @@
 .createProposal {
-  text-align: center;
+  width: 400px;
+  margin: 0 auto;
 }
 
 .inlineInput {
   display: flex;
   flex-flow: row;
-  align-items: flex-end;
+}
+
+.addTagButton {
+  margin-top: calc(16px + 8px);
 }
 
 .tags {

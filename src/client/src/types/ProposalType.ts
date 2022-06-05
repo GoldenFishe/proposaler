@@ -1,5 +1,5 @@
-import { UserType } from "./UserType";
-import { FileType } from "./FileType";
+import { UserType } from './UserType';
+import { FileType } from './FileType';
 
 export type ProposalType = {
   id: number;
@@ -18,4 +18,4 @@ export type ProposalType = {
 export type TagType = {
   label: string;
   id: number;
-}
+};

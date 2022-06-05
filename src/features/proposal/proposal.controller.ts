@@ -11,8 +11,8 @@ import {
   Request,
   UploadedFiles,
   UseGuards,
-  UseInterceptors
-} from "@nestjs/common";
+  UseInterceptors,
+} from '@nestjs/common';
 
 import { Tags } from './dto/tags';
 import { ProposalService } from './proposal.service';

@@ -1,3 +1,5 @@
+@use "@carbon/layout";
+
 .wrapper {
   width: 100%;
 }
@@ -12,4 +14,12 @@
 
 .expanded {
   max-height: 13.5rem;
+}
+
+.selectedOptions {
+  display: flex;
+  flex-flow: row wrap;
+  gap: layout.$spacing-02;
+  margin-top: layout.$spacing-03;
+  min-height: 32px;
 }

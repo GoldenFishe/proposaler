@@ -1,10 +1,9 @@
-import React, { FC, FormEvent, RefObject, useRef } from "react";
+import React, { FC, RefObject, useRef } from "react";
 import { Modal } from "@carbon/react";
 
 import Form from "../../../../components/Form/Form";
 import Textarea from "../../../../components/Textarea/Textarea";
 import FileUploader from "../../../../components/Input/FileUploader";
-import form from "../../../../components/Form/Form";
 
 interface Props {
   visible: boolean;

@@ -1,5 +1,5 @@
 import { Http } from './http';
-import { ProposalType, TagType } from "../types/ProposalType";
+import { ProposalType, TagType } from '../types/ProposalType';
 
 type ProposalAction = {
   proposalId: number;

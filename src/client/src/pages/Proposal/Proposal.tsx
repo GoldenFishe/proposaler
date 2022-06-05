@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 
@@ -10,6 +10,10 @@ import { toTree } from "../../utils/utils";
 import { ProposalModel } from "../../models/ProposalModel";
 import { CommentType } from "../../types/CommentType";
 import styles from "./style.module.css";
+import Button from "../../components/Button/Button";
+import CreateProject from "./components/CreateProject/CreateProject";
+import { projectsModel } from "../../models/ProjectsModel";
+import { NewProject } from "./types";
 
 interface Props {
   proposalModel: ProposalModel;
@@ -19,6 +23,7 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
   const { id } = useParams();
   const [selectedCommentIdToReply, setSelectedCommentIdToReply] = useState<CommentType["id"] | null>(null);
   const [visibleCreateCommentForm, setVisibleCreateCommentForm] = useState(false);
+  const [visibleCreateProjectForm, setVisibleCreateProjectForm] = useState(false);
 
   const comments = toTree(proposalModel.comments, { parent: "id", child: "replyTo" });
 
@@ -50,6 +55,15 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
     setVisibleCreateCommentForm(false);
   }
 
+  function createProject(project: Omit<NewProject, "proposalId">) {
+    projectsModel.createProject({ ...project, proposalId: Number(id) });
+    setVisibleCreateProjectForm(false);
+  }
+
+  function cancelCreateProject() {
+    setVisibleCreateProjectForm(false);
+  }
+
   useEffect(() => {
     if (id) {
       proposalModel.getProposal(Number(id));
@@ -68,6 +82,17 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
           {comments.map(comment => <Comment {...comment} key={comment.id} />)}
         </CommentsContext.Provider>
       </div>
+      <div>
+        <Button onClick={() => setVisibleCreateCommentForm(true)}>
+          Add Comment
+        </Button>
+        <Button onClick={() => setVisibleCreateProjectForm(true)}>
+          Create Project
+        </Button>
+      </div>
+      <CreateProject visible={visibleCreateProjectForm}
+                     onCreate={createProject}
+                     onCancel={cancelCreateProject} />
       <CreateComment visible={visibleCreateCommentForm}
                      onCreate={createComment}
                      onCancel={cancelCreateComment} />

@@ -1,15 +1,15 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Like, Repository } from "typeorm";
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Like, Repository } from 'typeorm';
 
-import { Proposal } from "./entities/proposal.enity";
-import { CreateDto } from "./dto/create.dto";
-import { LikeDto } from "./dto/like.dto";
-import { DislikeDto } from "./dto/dislike.dto";
-import { ProposalLike } from "./entities/proposalLike.entity";
-import { ProposalDislike } from "./entities/proposalDislike.entity";
-import { ProposalFile } from "./entities/proposalFile.entity";
-import { Tags } from "./entities/tags.entity";
+import { Proposal } from './entities/proposal.enity';
+import { CreateDto } from './dto/create.dto';
+import { LikeDto } from './dto/like.dto';
+import { DislikeDto } from './dto/dislike.dto';
+import { ProposalLike } from './entities/proposalLike.entity';
+import { ProposalDislike } from './entities/proposalDislike.entity';
+import { ProposalFile } from './entities/proposalFile.entity';
+import { Tags } from './entities/tags.entity';
 
 @Injectable()
 export class ProposalService {
@@ -23,13 +23,12 @@ export class ProposalService {
     @InjectRepository(ProposalFile)
     private fileRepository: Repository<ProposalFile>,
     @InjectRepository(Tags)
-    private tagsRepository: Repository<Tags>
-  ) {
-  }
+    private tagsRepository: Repository<Tags>,
+  ) {}
 
   async getAll(userId: number | null) {
     const proposals = await this.proposalRepository.find({
-      order: { createDatetime: "DESC" }
+      order: { createDatetime: 'DESC' },
     });
     return proposals.map((proposal) => this.formatProposal(proposal, userId));
   }
@@ -37,7 +36,7 @@ export class ProposalService {
   async getById(id: number, userId: number) {
     const proposal = await this.proposalRepository.findOne({ id });
     if (!proposal) {
-      throw new HttpException("ProposalType not found", HttpStatus.NOT_FOUND);
+      throw new HttpException('ProposalType not found', HttpStatus.NOT_FOUND);
     }
     return this.formatProposal(proposal, userId);
   }
@@ -45,12 +44,12 @@ export class ProposalService {
   async create(
     { title, description, tags }: CreateDto,
     files: Express.Multer.File[],
-    authorId: number
+    authorId: number,
   ) {
     const proposal = this.proposalRepository.create({
       title,
       description,
-      authorId
+      authorId,
     });
     const { id } = await this.proposalRepository.save(proposal);
     const preparedTags = tags.map((tag) => ({ label: tag, proposalId: id }));
@@ -73,7 +72,7 @@ export class ProposalService {
     }
     await this.dislikeRepository.delete({
       proposalId: likeDto.proposalId,
-      authorId
+      authorId,
     });
     return this.getById(likeDto.proposalId, authorId);
   }
@@ -88,7 +87,7 @@ export class ProposalService {
     }
     await this.likeRepository.delete({
       proposalId: dislike.proposalId,
-      authorId
+      authorId,
     });
     return this.getById(dislikeDto.proposalId, authorId);
   }
@@ -104,17 +103,17 @@ export class ProposalService {
 
   private formatProposal(proposal: Proposal, userId: number) {
     const isLiked = Boolean(
-      proposal.likes.find((like) => like.authorId === userId)
+      proposal.likes.find((like) => like.authorId === userId),
     );
     const isDisliked = Boolean(
-      proposal.dislikes.find((dislike) => dislike.authorId === userId)
+      proposal.dislikes.find((dislike) => dislike.authorId === userId),
     );
-    proposal["likesAmount"] = proposal.likes.length;
-    proposal["dislikesAmount"] = proposal.dislikes.length;
-    proposal["isLiked"] = isLiked;
-    proposal["isDisliked"] = isDisliked;
-    delete proposal["likes"];
-    delete proposal["dislikes"];
+    proposal['likesAmount'] = proposal.likes.length;
+    proposal['dislikesAmount'] = proposal.dislikes.length;
+    proposal['isLiked'] = isLiked;
+    proposal['isDisliked'] = isDisliked;
+    delete proposal['likes'];
+    delete proposal['dislikes'];
     return proposal;
   }
 }

@@ -5,3 +5,11 @@
 :root {
   @include theme.theme(themes.$g100);
 }
+
+.cds--modal-content {
+  overflow: initial;
+}
+
+.cds--tag:first-child {
+  margin-left: 0;
+}

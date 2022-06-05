@@ -1,7 +1,6 @@
-import React, { FC, FormEvent, useState } from "react";
+import React, { FC, FormEvent, useEffect, useState } from "react";
 import { Add } from "@carbon/icons-react";
 
-import { NewTagType } from "./types";
 import { ProposalsModel } from "../../models/ProposalsModel";
 import { TagType } from "../../types/ProposalType";
 import { ProposalRequests } from "../../api/proposals";
@@ -9,8 +8,7 @@ import Input from "../../components/Input/Input";
 import Textarea from "../../components/Textarea/Textarea";
 import Button from "../../components/Button/Button";
 import Form from "../../components/Form/Form";
-import SuggestInput, { Props as SuggestProps } from "../../components/SuggestInput/SuggestInput";
-import Tag from "../../components/Tag/Tag";
+import SuggestInput, { Option, Props as SuggestProps } from "../../components/SuggestInput/SuggestInput";
 import styles from "./style.module.scss";
 
 interface Props {
@@ -18,7 +16,7 @@ interface Props {
 }
 
 const CreateProposal: FC<Props> = ({ proposalsModel }) => {
-  const [tags, setTags] = useState<NewTagType[]>([]);
+  const [tags, setTags] = useState<Array<Option<TagType>>>([]);
   const [tag, setTag] = useState<string>("");
   const [similarTags, setSimilarTags] = useState<TagType[]>([]);
 
@@ -30,27 +28,32 @@ const CreateProposal: FC<Props> = ({ proposalsModel }) => {
 
   const addTag = (id: number) => {
     if (tag) {
-      setTags(prevTags => ([...prevTags, { id, label: tag }]));
+      setTags(prevTags => ([...prevTags, { label: tag, value: { id, label: tag } }]));
       setTag("");
     }
   };
 
-  const removeTag = (id: NewTagType["id"]) => {
+  const removeTag: SuggestProps<TagType>["onUnselect"] = (tag) => {
     setTags(tags => {
-      return tags.filter(tag => tag.id !== id);
+      return tags.filter(t => t.value.id !== tag.value.id);
     });
   };
 
   const selectTag: SuggestProps<TagType>["onSelect"] = (option) => {
-    setTags(prevTags => ([...prevTags, option.value]));
+    setTags(prevTags => ([...prevTags, option]));
     setTag("");
     setSimilarTags([]);
   };
 
-  const inputTag = (tag: string) => {
-    setTag(tag);
-    ProposalRequests.getTags(tag).then(tags => tags && setSimilarTags(tags));
-  };
+  useEffect(() => {
+    if (tag) {
+      ProposalRequests.getTags(tag).then(tags => tags && setSimilarTags(tags));
+    } else {
+      setSimilarTags([]);
+    }
+  }, [tag]);
+
+  const options = similarTags.map(tag => ({ label: tag.label, value: tag }));
 
   return (
     <div className={styles.createProposal}>
@@ -65,28 +68,19 @@ const CreateProposal: FC<Props> = ({ proposalsModel }) => {
           <SuggestInput type="text"
                         label="Tag"
                         id="tag"
-                        options={similarTags.map(tag => ({ label: tag.label, value: tag }))}
-                        onChange={inputTag}
+                        options={options}
+                        onChange={setTag}
+                        selectedOptions={tags}
+                        onUnselect={removeTag}
                         onSelect={selectTag}
                         value={tag} />
           <Button hasIconOnly
                   iconDescription="Add Tag"
+                  className={styles.addTagButton}
                   size="md"
                   onClick={() => addTag(Math.random())}
                   renderIcon={Add} />
         </div>
-        {tags.length > 0 && (
-          <div className={styles.tags}>
-            {tags.map(tag => {
-              return (
-                <Tag key={tag.id}
-                     onClose={() => removeTag(tag.id)}>
-                  {tag.label}
-                </Tag>
-              );
-            })}
-          </div>
-        )}
         <Input type="file"
                label="Attachments"
                id="attachments"
