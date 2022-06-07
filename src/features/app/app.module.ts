@@ -10,6 +10,7 @@ import { UserModule } from '../user/user.module';
 import { ProposalModule } from '../proposal/proposal.module';
 import { CommentModule } from '../comment/comment.module';
 import { ProjectModule } from '../project/project.module';
+import { MessageModule } from '../message/message.module';
 
 const typeOrmModule = TypeOrmModule.forRoot({
   type: 'postgres',
@@ -32,6 +33,7 @@ const typeOrmModule = TypeOrmModule.forRoot({
     ProposalModule,
     CommentModule,
     ProjectModule,
+    MessageModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', 'static'),
     }),

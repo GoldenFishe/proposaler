@@ -12,7 +12,7 @@ import {
   SerializeOptions,
   UploadedFiles,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 
 import { UserService } from './user.service';

@@ -1,4 +1,13 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Exclude } from 'class-transformer';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { User } from '../../user/entities/user.entity';
 import { Proposal } from '../../proposal/entities/proposal.enity';
@@ -9,11 +18,19 @@ export class Project {
   id: number;
 
   @Column()
+  name: string;
+
+  @Column()
+  description: string;
+
+  @Column()
   githubRepositoryId: number;
 
+  @Exclude()
   @Column()
   ownerId: number;
 
+  @Exclude()
   @Column()
   proposalId: number;
 
@@ -21,7 +38,11 @@ export class Project {
   @JoinColumn({ name: 'ownerId' })
   owner: User;
 
-  @ManyToOne(() => User, { nullable: false, eager: true })
+  @ManyToOne(() => Proposal, { nullable: false, eager: true })
   @JoinColumn({ name: 'proposalId' })
   proposal: Proposal;
+
+  @ManyToMany(() => User, { nullable: false, eager: true })
+  @JoinTable()
+  collaborators: User[];
 }

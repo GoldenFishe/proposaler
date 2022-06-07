@@ -61,10 +61,10 @@ const CreateProject: FC<Props> = ({ visible, onCreate, onCancel }) => {
   return (
     <Modal open={visible}
            size="sm"
-           modalHeading="Comment"
+           modalHeading="Project"
            onRequestClose={cancel}
            onRequestSubmit={create}
-           primaryButtonText="Create Comment">
+           primaryButtonText="Create Project">
       <Form ref={formRef}>
         <Input label="Project Name" id="project name" name="name" />
         <Textarea label="Description" name="description" />

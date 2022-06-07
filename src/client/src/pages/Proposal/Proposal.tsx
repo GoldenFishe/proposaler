@@ -12,14 +12,16 @@ import { CommentType } from "../../types/CommentType";
 import styles from "./style.module.css";
 import Button from "../../components/Button/Button";
 import CreateProject from "./components/CreateProject/CreateProject";
-import { projectsModel } from "../../models/ProjectsModel";
+import { ProjectsModel } from "../../models/ProjectsModel";
 import { NewProject } from "./types";
+import { MessagesRequests } from "../../api/messages";
 
 interface Props {
   proposalModel: ProposalModel;
+  projectsModel: ProjectsModel;
 }
 
-const Proposal: FC<Props> = ({ proposalModel }) => {
+const Proposal: FC<Props> = ({ proposalModel, projectsModel }) => {
   const { id } = useParams();
   const [selectedCommentIdToReply, setSelectedCommentIdToReply] = useState<CommentType["id"] | null>(null);
   const [visibleCreateCommentForm, setVisibleCreateCommentForm] = useState(false);
@@ -68,8 +70,9 @@ const Proposal: FC<Props> = ({ proposalModel }) => {
     if (id) {
       proposalModel.getProposal(Number(id));
       proposalModel.getComments(Number(id));
+      projectsModel.getByProposalId(Number(id));
     }
-  }, [id, proposalModel]);
+  }, [id, projectsModel, proposalModel]);
 
   return (
     <div className={styles.wrapper}>

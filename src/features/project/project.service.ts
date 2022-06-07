@@ -6,6 +6,7 @@ import { Octokit } from 'octokit';
 import { CreateDto } from './dto/create.dto';
 import { Project } from './entities/project.entity';
 import { UserService } from '../user/user.service';
+import { Proposal } from '../proposal/entities/proposal.enity';
 
 @Injectable()
 export class ProjectService {
@@ -16,39 +17,39 @@ export class ProjectService {
   ) {}
 
   async create(createDto: CreateDto, authorId: number) {
-    const user = await this.userService.getById(authorId);
-    if (user) {
-      const octokit = new Octokit({ auth: user.githubToken });
+    const owner = await this.userService.getById(authorId);
+    if (owner) {
+      const collaboratorsPromises = createDto.collaborators.map((id) => {
+        return this.userService.getById(id);
+      });
+      const collaborators = await Promise.all(collaboratorsPromises);
+      const octokit = new Octokit({ auth: owner.githubToken });
       const createRepo = await octokit.rest.repos.createForAuthenticatedUser({
         ...createDto,
       });
+      const invitesPromises = collaborators.map((collaborator) => {
+        octokit.rest.repos.addCollaborator({
+          owner: owner.githubLogin,
+          repo: createDto.name,
+          username: collaborator.githubLogin,
+        });
+      });
+      await Promise.all(invitesPromises);
       const projectEntity = this.projectRepository.create({
+        name: createDto.name,
+        description: createDto.description,
         githubRepositoryId: createRepo.data.id,
         ownerId: authorId,
         proposalId: Number(createDto.proposalId),
+        collaborators,
       });
-      await this.projectRepository.save(projectEntity);
-      const invites = createDto.collaborators.map(async (collaboratorId) => {
-        return this.invite(authorId, createDto.name, collaboratorId);
-      });
-      return Promise.all(invites);
+      return this.projectRepository.save(projectEntity);
     } else {
       throw new Error("Doesn't have token");
     }
   }
 
-  private async invite(authorId: number, repo: string, collaboratorId: number) {
-    const owner = await this.userService.getById(authorId);
-    const collaborator = await this.userService.getById(collaboratorId);
-    if (owner.githubToken) {
-      const octokit = new Octokit({ auth: owner.githubToken });
-      await octokit.rest.repos.addCollaborator({
-        owner: owner.githubLogin,
-        repo,
-        username: collaborator.username,
-      });
-    } else {
-      throw new Error("Doesn't have token");
-    }
+  async getByProposalId(proposalId: Proposal['id']) {
+    return this.projectRepository.find({ proposalId });
   }
 }

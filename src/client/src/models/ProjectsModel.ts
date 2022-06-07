@@ -1,11 +1,15 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable } from 'mobx';
 
-import { ProjectsRequests } from "../api/projects";
-import { NewProject } from "../pages/Proposal/types";
+import { ProjectsRequests } from '../api/projects';
+import { NewProject } from '../pages/Proposal/types';
+import { ProposalType } from '../types/ProposalType';
+import { ProjectType } from '../types/ProjectType';
 
 export class ProjectsModel {
+  projects: ProjectType[];
 
   constructor() {
+    this.projects = [];
     makeAutoObservable(this);
   }
 
@@ -15,6 +19,12 @@ export class ProjectsModel {
     // if (comments) {
     //   this.setComments(comments);
     // }
+  }
+
+  getByProposalId(proposalId: ProposalType['id']) {
+    ProjectsRequests.getByProposalId(proposalId).then((projects) => {
+      if (projects) this.projects = projects;
+    });
   }
 }
 
