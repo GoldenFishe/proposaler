@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { useLocation } from "react-router-dom";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
+import { Search, Notification, Apps, UserAvatar } from "@carbon/icons-react";
 import {
   Header,
   HeaderMenuItem,
@@ -10,7 +11,6 @@ import {
   HeaderGlobalBar,
   HeaderGlobalAction
 } from "@carbon/react";
-import { Search, Notification, Apps, UserAvatar } from "@carbon/icons-react";
 
 import { UserModel } from "../../../../models/UserModel";
 
@@ -52,6 +52,11 @@ const Topbar: FC<Props> = ({ userModel }) => {
                             to="/projects"
                             element={Link}>
               Projects
+            </HeaderMenuItem>
+            <HeaderMenuItem isCurrentPage={pathname === "/messages"}
+                            to="/messages"
+                            element={Link}>
+              Messages
             </HeaderMenuItem>
           </>
         )}

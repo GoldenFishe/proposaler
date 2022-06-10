@@ -16,8 +16,13 @@ export class MessageService {
   ) {}
 
   async getByUser(id: User['id']) {
-    const recipient = await this.userService.getById(id);
-    return this.messageRepository.find({ recipient });
+    const user = await this.userService.getById(id);
+    return this.messageRepository.find({
+      order: {
+        createDatetime: 'DESC',
+      },
+      where: [{ recipient: user }, { sender: user }],
+    });
   }
 
   async create(message: MessageDto, id: User['id']) {
@@ -31,6 +36,7 @@ export class MessageService {
       sender: sender,
     });
 
-    return this.messageRepository.save(messageEntity);
+    await this.messageRepository.save(messageEntity);
+    return this.getByUser(id);
   }
 }

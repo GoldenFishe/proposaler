@@ -1,4 +1,4 @@
-import { UserType } from "./UserType";
+import { UserType } from './UserType';
 
 export type MessageType = {
   id: number;
@@ -6,4 +6,4 @@ export type MessageType = {
   recipient: UserType;
   sender: UserType;
   text: string;
-}
+};

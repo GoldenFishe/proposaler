@@ -10,14 +10,16 @@ import Proposal from "../Proposal/Proposal";
 import CreateProposal from "../CreateProposal/CreateProposal";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
+import Projects from "../Projects/Projects";
 import Profile from "../Profile/Profile";
 import { proposalsModel } from "../../models/ProposalsModel";
 import { proposalModel } from "../../models/ProposalModel";
 import { UserModel } from "../../models/UserModel";
 import { notificationsModel } from "../../models/NotificationsModel";
 import { authTokenManager } from "../../utils/authTokenManager";
-import Projects from "../Projects/Projects";
 import { projectsModel } from "../../models/ProjectsModel";
+import { messagesModel } from "../../models/MessagesModel";
+import Messages from "../Messages/Messages";
 
 interface Props {
   userModel: UserModel;
@@ -49,6 +51,8 @@ const App: FC<Props> = ({ userModel }) => {
                    element={<Profile userModel={userModel} />} />
             <Route path="/projects"
                    element={<Projects />} />
+            <Route path="/messages"
+                   element={<Messages messagesModel={messagesModel}/>} />
             <Route path="/sign-in"
                    element={<SignIn userModel={userModel} />} />
             <Route path="/sign-up"
