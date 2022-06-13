@@ -15,7 +15,7 @@ const Form = forwardRef<HTMLFormElement, Props>(({ className, onSubmit, children
 
   return (
     <form onSubmit={submit} className={className} ref={ref}>
-      <Stack gap={7}>
+      <Stack gap={6}>
         {children}
       </Stack>
     </form>

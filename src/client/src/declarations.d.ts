@@ -1,7 +1,7 @@
-declare module '@carbon/react';
+declare module "@carbon/react";
 
-declare module '@carbon/icons-react' {
-  import { ComponentType } from 'react';
+declare module "@carbon/icons-react" {
+  import { ComponentType } from "react";
 
   type Props = {
     className?: string;
@@ -19,4 +19,8 @@ declare module '@carbon/icons-react' {
   export const PreviousOutline: ComponentType<Props>;
   export const NextOutline: ComponentType<Props>;
   export const ZoomFit: ComponentType<Props>;
+}
+
+declare interface ObjectConstructor {
+  keys<T>(object: T): Array<keyof T>;
 }

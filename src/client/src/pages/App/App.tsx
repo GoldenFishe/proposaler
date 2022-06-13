@@ -52,7 +52,8 @@ const App: FC<Props> = ({ userModel }) => {
             <Route path="/projects"
                    element={<Projects />} />
             <Route path="/messages"
-                   element={<Messages messagesModel={messagesModel}/>} />
+                   element={<Messages messagesModel={messagesModel}
+                                      userModel={userModel}/>} />
             <Route path="/sign-in"
                    element={<SignIn userModel={userModel} />} />
             <Route path="/sign-up"

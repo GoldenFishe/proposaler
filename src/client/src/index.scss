@@ -2,8 +2,22 @@
 @use "@carbon/themes/scss/themes";
 @use "@carbon/themes/scss/theme";
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   @include theme.theme(themes.$g100);
+  --content-height: calc(100vh - 3rem - 2rem - 2rem);
+  --content-width: 668px;
+  --transition: all 0.25s ease;
+}
+
+img {
+  max-width: 100%;
+  object-fit: cover;
 }
 
 .cds--modal-content {

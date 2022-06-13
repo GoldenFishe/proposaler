@@ -1,3 +1,4 @@
-import { MessageType } from '../../types/MessageType';
+import { MessageType } from "../../types/MessageType";
+import { UserType } from "../../types/UserType";
 
-export type MessageGroupBySenderId = Record<number, MessageType[]>;
+export type DialogType = Record<UserType["id"], MessageType[]>;

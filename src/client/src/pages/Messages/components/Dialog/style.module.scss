@@ -1,0 +1,48 @@
+@use "@carbon/themes";
+@use "@carbon/layout";
+
+.container {
+  background: themes.$layer-01;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+}
+
+.messages {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  height: calc(100% - 248px);
+  overflow: auto;
+}
+
+.message {
+  display: flex;
+  flex-flow: row;
+  gap: layout.$spacing-04;
+  max-width: 85%;
+  padding: layout.$spacing-05;
+  transition: var(--transition);
+}
+
+.own {
+  flex-flow: row-reverse;
+  margin-left: auto;
+}
+
+.text {
+
+}
+
+.form {
+  border-top: 1px solid themes.$border-subtle-01;
+  padding: layout.$spacing-06;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.emptyState {
+  margin: auto;
+}

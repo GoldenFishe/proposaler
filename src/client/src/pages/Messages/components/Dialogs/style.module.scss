@@ -1,0 +1,30 @@
+@use "@carbon/themes";
+@use "@carbon/layout";
+
+.container {
+  border-right: 1px solid themes.$border-subtle-01;
+  background: themes.$layer-01;
+  overflow: auto;
+}
+
+.dialog {
+  display: flex;
+  flex-flow: row;
+  gap: layout.$spacing-04;
+  padding: layout.$spacing-05;
+  background: themes.$layer-02;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.dialog:hover {
+  background: themes.$layer-hover-02;
+}
+
+.selected {
+  background: themes.$layer-selected-02;
+}
+
+.selected:hover {
+  background: themes.$layer-selected-hover-02;
+}

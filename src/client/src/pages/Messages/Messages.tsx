@@ -1,44 +1,67 @@
 import React, { FC, useEffect, useState } from "react";
+import { observer } from "mobx-react";
 
-import ChatPreview from "./components/ChatPreview/ChatPreview";
-import Chat from "./components/Chat/Chat";
+import Dialogs from "./components/Dialogs/Dialogs";
+import Dialog from "./components/Dialog/Dialog";
 import { MessagesModel } from "../../models/MessagesModel";
-import { MessageGroupBySenderId } from "./types";
+import { DialogType } from "./types";
 import { MessageType } from "../../types/MessageType";
+import { UserModel } from "../../models/UserModel";
+import { UserType } from "../../types/UserType";
+import styles from "./style.module.scss";
 
 interface Props {
+  userModel: UserModel;
   messagesModel: MessagesModel;
 }
 
-const Messages: FC<Props> = ({ messagesModel }) => {
-  const [messagesBySender, setMessagesBySender] = useState<MessageGroupBySenderId>({});
-  const [selectedChat, setSelectedChat] = useState<MessageType[] | null>(null);
+const Messages: FC<Props> = ({ userModel, messagesModel }) => {
+  const [dialogs, setDialogs] = useState<DialogType>({});
+  const [selectedCompanion, setSelectedCompanion] = useState<UserType["id"] | -1>(-1);
 
   useEffect(() => {
-    messagesModel.getMessages().then(messages => {
-      if (messages) {
-        const messageGroup = messages.reduce<MessageGroupBySenderId>((acc, message) => {
-          acc[message.sender.id] = [...acc[message.sender.id] || [], message];
-          return acc;
-        }, {});
-        setMessagesBySender(messageGroup);
-      }
-    });
-  }, [messagesModel]);
+    if (userModel.profile) {
+      messagesModel.getMessages();
+    }
+  }, [messagesModel, userModel.profile]);
 
+  useEffect(() => {
+    const dialogs = buildDialog(messagesModel.messages);
+    setDialogs(dialogs);
+
+    function buildDialog(messages: MessageType[]) {
+      let currentMessage: MessageType | null = null;
+      const dialog: DialogType = {};
+      while (messages.length) {
+        [currentMessage] = messages;
+        const companion = currentMessage.recipient.id === userModel.profile!.id ?
+          currentMessage.sender :
+          currentMessage.recipient;
+        messages
+          .filter(m => m.sender.id === companion.id || m.recipient.id === companion.id)
+          .forEach(i => {
+            const dialogItemIndex = messages.findIndex(m => m.id === i.id);
+            const [dialogItem] = messages.splice(dialogItemIndex, 1);
+            dialog[companion.id] = [...dialog[companion.id] || [], dialogItem];
+          });
+      }
+      return dialog;
+    }
+  }, [messagesModel.messages, userModel.profile]);
+
+  const sendMessage = (recipient: UserType["id"], text: string) => {
+    messagesModel.sendMessage({ recipient, text });
+  };
   return (
-    <div>
-      {selectedChat === null ?
-        Object.values(messagesBySender).map(messageGroup => {
-          const [firstMessage] = messageGroup;
-          return <ChatPreview {...firstMessage}
-                              onSelect={() => setSelectedChat(messageGroup)}
-                              key={firstMessage.id} />;
-        }) : (
-          <Chat messages={selectedChat} />
-        )}
+    <div className={styles.container}>
+      <Dialogs dialogs={dialogs}
+               selectedCompanion={selectedCompanion}
+               onSelect={setSelectedCompanion} />
+      <Dialog messages={dialogs[selectedCompanion]}
+              companion={selectedCompanion}
+              onSendMessage={sendMessage} />
     </div>
   );
 };
 
-export default Messages;
+export default observer(Messages);
